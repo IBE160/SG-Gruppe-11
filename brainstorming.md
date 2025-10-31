@@ -55,7 +55,7 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
   - **In-App Log:** Keep a detailed log of all sync changes in a notification center for user review.
   - **Push Notifications:** Reserve for critical, time-sensitive changes only (e.g., a deadline moving sooner).
 
-- **Authentication:**
+- **Canvas Authorization:**
   - What is the user flow for connecting a Canvas account? Is it a one-time setup?
   - How do we securely store the user's API token?
 
@@ -122,7 +122,32 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 
 ---
 
-### 5. Wildcard Ideas (Post-MVP or for inspiration)
+### 5. User Authentication and Security
+
+*This section covers how users sign up, log in, and how we keep their accounts secure.*
+
+**1. The User's Experience (The "What")**
+
+*   **Registration & Login:**
+    *   **Standard Email/Password:** A standard registration form with `Email`, `Password`, and `Confirm Password`.
+    *   **"Sign in with Google" (Highly Recommended for MVP):** A one-click option to sign up or log in. This is a huge UX win and simplifies the Google Calendar permission flow later.
+*   **Password Reset:**
+    *   A must-have for email/password accounts. A standard "Forgot Password" flow that sends a secure reset link to the user's email.
+
+**2. The Backend Implementation (The "How")**
+
+*   **Password Storage:**
+    *   Passwords will **never** be stored in plain text. They will be salted and hashed using a strong algorithm like **bcrypt**.
+*   **Session Management (JWT):**
+    *   We will use **JSON Web Tokens (JWT)** to manage user sessions in a stateless way.
+    *   **Flow:** A user logs in -> the server provides a signed JWT -> the browser attaches the JWT to all future requests -> the server verifies the JWT to identify the user.
+*   **API Security:**
+    *   All API endpoints handling user data will be protected and require a valid JWT.
+    *   **HTTPS** will be enforced across the entire application to encrypt all communication.
+
+---
+
+### 6. Wildcard Ideas (Post-MVP or for inspiration)
 
 *A place for ideas that are outside the current MVP scope but could be interesting.*
 
