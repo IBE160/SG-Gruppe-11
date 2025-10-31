@@ -56,8 +56,20 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
   - **Push Notifications:** Reserve for critical, time-sensitive changes only (e.g., a deadline moving sooner).
 
 - **Canvas Authorization:**
-  - What is the user flow for connecting a Canvas account? Is it a one-time setup?
-  - How do we securely store the user's API token?
+
+  **1. User Flow for Connecting a Canvas Account (OAuth 2.0):**
+  - **Initiate:** User clicks "Connect to Canvas" in Things+.
+  - **Redirect:** User is redirected to Canvas's authorization page.
+  - **Authorize:** User logs in (if needed) and grants Things+ specific permissions (e.g., "View assignments").
+  - **Callback:** Canvas redirects user back to Things+ with an `authorization_code`.
+  - **Token Exchange (Backend):** Things+ backend exchanges the `authorization_code` for an `access_token` and a `refresh_token`.
+  - **One-Time Setup:** The `refresh_token` allows Things+ to get new `access_token`s automatically without user re-authorization, unless the `refresh_token` itself expires or is revoked.
+
+  **2. Securely Storing the User's API Token:**
+  - **Encryption at Rest:** `access_token` and `refresh_token` must be **encrypted** in our database using a strong algorithm (e.g., AES-256). The encryption key must be stored separately and securely.
+  - **Encryption in Transit:** All communication between Things+ backend and Canvas API must be over **HTTPS**.
+  - **Backend-Only Access:** Tokens are never sent to the frontend; all Canvas API calls are made from the Things+ backend.
+  - **Token Refresh Logic:** Backend automatically uses the `refresh_token` to obtain new `access_token`s. If refresh fails, the user is prompted to re-authorize.
 
 ---
 
@@ -65,19 +77,34 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 
 *The goal is to provide a unified view of academic and personal commitments, and to help users allocate time.*
 
-- **Initial Provider:** We've decided on Google Calendar for the MVP. What are the core interactions?
-  - [ ] **Read-only:** Just display existing Google Calendar events in the Things+ timeline to show busy slots.
-  - [ ] **Read/Write:** Allow Things+ to create new events in Google Calendar for allocated study time.
+- **Initial Provider & Core Interactions:**
+  - **Provider:** Google Calendar is the target for the MVP due to its robust API.
+  - **Read-Only (MVP Must-Have):** The app will ask for permission to *view* calendar events. This is essential to identify when a user is busy and find free time for studying.
+  - **Read/Write (Post-MVP):** The ability to *create and modify* events in the user's calendar (e.g., booking study blocks) is a powerful future extension but adds significant complexity. The MVP will focus on a flawless read-only experience first.
 
-- **Event Representation:**
-  - How should a "Task" from Things+ appear in Google Calendar?
-  - Should it be an all-day event on its due date?
-  - Or should the app suggest a specific time block (e.g., a 2-hour "Work on IBE160 Essay" block)?
+- **Handling Multiple Calendars & Special Events:**
+  - **Calendar Selection:** After authorization, the app will show the user a list of their Google Calendars (e.g., "Personal", "Work") and let them check which ones should be considered for busy time.
+  - **Event Status:** The app will only consider events as "busy" if the user's status is "Accepted" or "Busy". Events marked as "Maybe", "Declined", or "Free" will be ignored.
+  - **All-Day Events:** By default, all-day events will block out the entire day for scheduling, but this should be a user-configurable setting.
+
+- **Sync Strategy:**
+  - **Sync on Load:** A fresh sync will be triggered every time the user opens the app.
+  - **Periodic Polling:** A background sync every 30-60 minutes.
+  - **Manual Sync:** A "Sync Now" button will always be available.
+
+- **Permissions & User Trust:**
+  - **Clear Justification:** Before requesting permission, the app will clearly explain *why* it needs access (e.g., "To find free time in your schedule, Things+ needs to see when you're busy.").
+  - **Minimal Scope:** For the MVP, the app will only request `calendar.readonly` permission to build user trust, making it clear that it cannot modify or delete any events.
 
 - **Finding Free Time (The "Timeline" Algorithm):**
-  - How do we define "available time"? Is it just any empty slot in the calendar?
-  - Should the user be able to define their typical "study hours" (e.g., Mon-Fri 6pm-9pm)?
-  - For the MVP, could the algorithm simply be: "Find the next available 2-hour slot before the due date"?
+  - This is the core intelligence of the app. The MVP algorithm will work as follows:
+  - **1. User Defines Study Hours:** During onboarding, the user specifies their general availability for studying (e.g., "Weekdays 6 PM - 10 PM").
+  - **2. User Estimates Task Duration:** Each task will have an "Estimated Time" field.
+  - **3. The Algorithm Runs:** For a given task, the app will:
+    - Look at the user's defined Study Hours between now and the task's due date.
+    - Cross-reference this with events from their Google Calendar to find true "free time".
+    - Find enough free time blocks to match the task's estimated duration.
+    - **Suggest these time slots to the user within the Things+ UI.**
 
 ---
 
@@ -85,21 +112,56 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 
 *This is the central user interface of the app.*
 
-- **Task Properties:** What information does a user need to see for each task at a glance?
-  - [ ] Title
-  - [ ] Due Date
-  - [ ] Source (Canvas icon vs. manual icon)
-  - [ ] Priority Level (color-coded?)
-  - [ ] Tags
+- **Task Properties: What information does a user need to see at a glance?**
 
-- **The Timeline View:** What is the most effective way to display this information?
-  - **Option A: A simple, sorted list?** (like a traditional to-do list, sorted by date)
-  - **Option B: A weekly calendar view?** (showing tasks plotted on the days they are due)
-  - **Option C: A "Kanban" style board?** (columns for "To Do", "In Progress", "Done")
+  **1. Main List View Properties (The "At-a-Glance" View):**
+  - **Title:** Max 2 lines, then truncate with an ellipsis (...).
+  - **Due Date:** Use relative language (e.g., "Due Tomorrow at 5 PM"). Overdue dates should be clearly marked (e.g., red text).
+  - **Completion Checkbox:** On check, the task should animate with a strikethrough and move to a collapsible "Completed" section.
+  - **Source Indicator:** A simple icon (e.g., Canvas logo vs. generic icon) for immediate context.
+  - **Priority Indicator:** A subtle, colored vertical bar on the left edge of the task item.
+  - **Tags:** Displayed as small "pills" or "badges". Show the first 2-3, then a "+1" indicator for overflow.
 
-- **Manual Tasks:**
-  - What's the quickest way for a user to add a non-Canvas task? A floating "+" button?
-  - Can we simplify adding recurring tasks (e.g., "Laundry every Sunday")?
+  **2. Detail View Properties (The "Source of Truth" View):**
+  - This view should appear as a slide-in side panel on click.
+  - **Read-Only Fields (for Canvas-synced tasks):**
+    - `Title`, `Due Date`, `Description` (full text).
+    - A clickable link/button to the assignment on Canvas.
+  - **User-Editable Fields:**
+    - **Priority:** A simple dropdown selector ("Low", "Medium", "High").
+    - **Estimated Time:** A user-input field for scheduling (e.g., "2 hours").
+    - **Tags:** An interface to add/remove tags.
+    - **Progress Notes:** A multi-line text area for the user's personal notes.
+
+- **The Timeline View: What is the most effective way to display this information?**
+
+  **MVP Recommendation: Hybrid Approach**
+
+  **1. Primary View: The "Agenda" List**
+  - **Layout:** A single, scrollable vertical list, grouped into logical sections: "Overdue", "Today", "Tomorrow", "This Week", and "Later".
+  - **Functionality:** Each item uses the detailed "Task Properties". Quick filter buttons at the top should allow users to filter by tags or source.
+
+  **2. Secondary View: The "Weekly Planner"**
+  - **Layout:** A 7-day weekly calendar grid.
+  - **Content Display:**
+    - **Google Calendar Events:** Displayed as solid, colored blocks marking "busy" time.
+    - **Things+ Tasks:** Displayed as small "cards" or "pills" under the heading for the day they are due.
+  - **Interaction (MVP):** This view is read-only. Clicking a task opens its detail view. There will be no drag-and-drop scheduling in the MVP.
+
+  **Future Extension:**
+  - **Kanban Board:** For workflow management (e.g., "To Do", "In Progress", "Done").
+
+- **Manual Tasks: How do users add non-Canvas tasks?**
+
+  **1. The Entry Point:**
+  - A prominent, always-accessible "+ New Task" button (e.g., a floating action button on mobile, a header button on desktop).
+
+  **2. The Form (A Two-Step Approach):**
+  - **Quick Add (for speed):** Clicking the button opens a simple, single-line input for the `Title`. The user hits Enter, and the task is created instantly with no due date. This is for quickly capturing thoughts.
+  - **Full Add (for details):** From the Quick Add bar, an "Add Details" button should be available to open a full form where the user can set the `Due Date`, `Description`, `Estimated Time`, `Tags`, and `Priority`.
+
+  **3. Recurring Tasks (Future Extension):**
+  - The ability to set tasks that repeat on a schedule (e.g., "Submit weekly report every Friday") is a powerful feature but adds significant complexity. This should be deferred past the MVP.
 
 ---
 
@@ -107,18 +169,28 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 
 *The goal is to make the app intuitive and trustworthy from the first launch.*
 
-- **First-Time User Experience:**
-  - What's the onboarding process?
-  - Step 1: Create a Things+ account.
-  - Step 2: Connect to Canvas.
-  - Step 3: Connect to Google Calendar.
-  - Is this too much to ask upfront? Should we let them use the app with manual tasks first?
+### 4. User Experience & Onboarding
 
-- **Dashboard:**
-  - What is the very first thing a user should see when they open the app each day?
-  - "What's due today"?
-  - The full timeline view?
-  - A summary of new items from Canvas?
+*The goal is to make the app intuitive and trustworthy from the first launch.*
+
+**1. First-Time User Experience (Progressive Onboarding):**
+
+- **The Problem:** A long, forced setup process (Account -> Canvas -> Calendar) creates high friction and causes user drop-off.
+- **The Solution: Progressive Onboarding**
+  - **Step 1: Account Creation.** The only mandatory step. "Sign in with Google" makes this a single click.
+  - **Step 2: Instant App Access.** Immediately drop the user into the app with a welcome message and maybe a sample task. The app is fully functional for manual tasks at this point.
+  - **Step 3: Contextual Prompts.** Use clear, non-blocking banners within the UI to encourage connections, e.g., "Connect to Canvas to automatically import your assignments."
+- **Optional Tour:** A brief, 3-step, dismissible tour on first launch to point out the timeline, the add task button, and the connection settings.
+
+**2. The Dashboard / Home Screen:**
+
+- **The Goal:** Answer the user's question: "What should I focus on *now*?"
+- **The Solution: A "Today" Focused View**
+  - The main "Agenda" list should have a visually distinct **"Today"** section at the very top.
+  - This section acts as a mini-dashboard, showing:
+    - All tasks due today.
+    - All of today's remaining calendar events.
+    - A small, dismissible "What's New" summary (e.g., "Since your last visit, 2 new assignments were added from Canvas.").
 
 ---
 
