@@ -12,17 +12,48 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 *The goal is to seamlessly pull academic tasks into Things+.*
 
 - **Data Points:** What are the absolute essential data points we need from Canvas?
-  - [ ] Assignment Name
-  - [ ] Due Date & Time
-  - [ ] Course Name (for tagging/categorization)
-  - [ ] Link back to the assignment on Canvas?
-  - [ ] Assignment description/details?
-  - [ ] Points/Grade value? (for prioritization)
+
+  **Must-Have for MVP:**
+  - `assignment_id`: Unique identifier from Canvas. Essential for tracking.
+  - `assignment_name`: Becomes the task title in the app.
+  - `due_at`: The deadline. The single most critical piece of data for scheduling.
+  - `course_name`: Used for automatic tagging and filtering (e.g., `#CS101`).
+  - `html_url`: A direct link back to the assignment page in Canvas for easy access.
+
+  **Highly Desirable (Aim for in MVP):**
+  - `description`: The assignment details. Useful for context, can be shown in a detail view.
+  - `points_possible`: The grade value. Can be used to automatically set task priority (e.g., >50 points = High Priority).
+  - `published`: A boolean to ensure we only import assignments that are visible to students.
+
+  **Nice to Have (Future Extensions):**
+  - `submission_status`: (e.g., 'submitted', 'unsubmitted', 'graded'). Could be used to automatically mark tasks as complete.
+  - `assignment_type`: (e.g., 'assignment', 'quiz', 'discussion'). Could be used for icons or filtering.
+  - `course_code`: A stable identifier for the course.
 
 - **Synchronization:**
-  - How often should we sync? Real-time (push notifications from Canvas, if possible) or periodic polling (e.g., every 15 minutes)?
-  - What happens when a due date is changed in Canvas? How do we reflect that change?
-  - How do we handle items that are already completed in Canvas? Do we import them?
+
+  **Frequency & Method:**
+  - **Periodic Polling (MVP Approach):** The server automatically fetches updates from Canvas every 30-60 minutes. This is reliable and achievable.
+  - **Manual Sync Button (MVP Must-Have):** A "Sync Now" button in the UI for on-demand updates. This gives the user control.
+  - **Real-time Push (Future Extension)::** Using Canvas Webhooks for instant updates. This is the ideal UX but more complex to implement.
+
+  **Handling Data Changes:**
+  - **Source of Truth:** Canvas is the single source of truth for synced fields (`title`, `due_date`, etc.). These fields will be read-only in the Things+ UI.
+  - **Update Logic:** On sync, the app uses `assignment_id` to find existing tasks. If details have changed in Canvas, the task is updated in Things+ and the user is notified.
+  - **New Items:** New assignments from Canvas are added to Things+ and the user is notified.
+
+  **Handling Special Cases:**
+  - **Completed Items:** On first sync, only import active/unsubmitted assignments. On later syncs, if `submission_status` is available, automatically mark completed tasks in Things+.
+  - **Deleted Items:** If an assignment is removed from Canvas, don't delete it in Things+. Instead, move it to an "Archived/Cancelled" list and inform the user.
+
+  **Error Handling & Reliability:**
+  - **API Failures:** If the Canvas API is down, show a non-intrusive status message in the app and retry later.
+  - **Authentication Failures:** If a user's token is invalid, detect the `401 Unauthorized` error and prompt the user to reconnect their account.
+
+  **Notification Strategy:**
+  - **Batching:** Group changes from a single sync into one summary notification (e.g., "2 new assignments, 1 due date updated").
+  - **In-App Log:** Keep a detailed log of all sync changes in a notification center for user review.
+  - **Push Notifications:** Reserve for critical, time-sensitive changes only (e.g., a deadline moving sooner).
 
 - **Authentication:**
   - What is the user flow for connecting a Canvas account? Is it a one-time setup?
