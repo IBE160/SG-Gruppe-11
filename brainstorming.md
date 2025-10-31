@@ -169,10 +169,6 @@ To refine the "what" and "how" of the MVP features, focusing on user experience 
 
 *The goal is to make the app intuitive and trustworthy from the first launch.*
 
-### 4. User Experience & Onboarding
-
-*The goal is to make the app intuitive and trustworthy from the first launch.*
-
 **1. First-Time User Experience (Progressive Onboarding):**
 
 - **The Problem:** A long, forced setup process (Account -> Canvas -> Calendar) creates high friction and causes user drop-off.
