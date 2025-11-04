@@ -30,9 +30,9 @@ workflow_path: "greenfield-level-3.yaml"
 
 workflow_status:
   # Phase 1: Analysis
-  brainstorm-project: optional
-  research: optional
-  product-brief: recommended
+  brainstorm-project: C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\brainstorming.md
+  research: skipped
+  product-brief: C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\docs\product-brief-Things+-2025-11-02.md
 
   # Phase 2: Planning
   prd: C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\docs\prd.md
