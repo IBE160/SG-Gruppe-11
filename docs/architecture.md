@@ -1,12 +1,12 @@
-# Decision Architecture
+# 1 Decision Architecture
 
-## Executive Summary
+## 1.1 Executive Summary
 
 This document outlines the architecture for the `ibe160` project, a new software system for time management. It details the key architectural decisions, technology stack, and implementation patterns to guide the project's development.
 
-## Goals and Background Context
+## 1.2 Goals and Background Context
 
-### Goals
+### 1.2.1 Goals
 
 *   Successfully develop a working web application using AI tools.
 *   Acquire transferable knowledge and skills in AI-driven development.
@@ -16,11 +16,11 @@ This document outlines the architecture for the `ibe160` project, a new software
 *   Improve user effectiveness in managing academic tasks.
 *   Promote active utilization of the "Find Free Time" feature.
 
-### Background Context
+### 1.2.2 Background Context
 
 Students balancing full-time work and academic commitments face significant stress and inefficiencies due to fragmented information across multiple platforms (Canvas, personal calendars, work schedules). This leads to missed deadlines and feelings of being overwhelmed. Things+ addresses this by providing a smart, unified task and time management web application that aggregates commitments from academic platforms and personal calendars. Its key differentiator is the intelligent analysis of user schedules to identify and suggest free time for studying, empowering users with proactive control over their time and reducing stress.
 
-## Decision Summary
+## 1.3 Decision Summary
 
 | Category | Decision | Version | Affects Epics | Rationale |
 |---|---|---|---|---|
@@ -52,7 +52,7 @@ Students balancing full-time work and academic commitments face significant stre
 | Non-Functional | Operate exclusively within free tiers of all services | MVP | 1, 2, 3 | To adhere to the project's zero-budget constraint. |
 | Non-Functional | Secure authentication for user data | MVP | 1 | To protect user privacy and data. |
 
-## Project Structure
+## 1.4 Project Structure
 
 ```
 {{project_root}}/
@@ -97,7 +97,7 @@ Students balancing full-time work and academic commitments face significant stre
 └── tsconfig.json
 ```
 
-## Epic to Architecture Mapping
+## 1.5 Epic to Architecture Mapping
 
 | Epic | Goal | Key Functional Requirements | Architectural Components |
 |---|---|---|---|
@@ -105,42 +105,42 @@ Students balancing full-time work and academic commitments face significant stre
 | **Epic 2: Core Integrations & Unified View** | Integrate Canvas and Google Calendar to provide the unified view. | FR004, FR005, FR006 (Canvas Integration - full sync), FR007, FR008 (Google Calendar Integration), FR009 (Task Management - Canvas tasks), FR014, FR015, FR016 (Scheduling & Views - unified views) | Canvas Integration Module, Google Calendar Integration Module, Data Synchronization Service, Frontend UI (Agenda, Weekly Planner, Today Views) |
 | **Epic 3: Smart Scheduling & Productivity Tools** | Implement the "smart" features that differentiate the product. | FR012, FR013 (Task Management - priority, timer), FR017, FR018, FR019, FR020, FR021 (Scheduling & Views - smart scheduling) | Scheduling Algorithm Service, User Preference Management, Time Tracking Module, Frontend UI (Smart Scheduling features) |
 
-## Technology Stack Details
+## 1.6 Technology Stack Details
 
-### Core Technologies
+### 1.6.1 Core Technologies
 
-### Frontend
+### 1.6.2 Frontend
 *   **Framework:** Next.js (React + TypeScript)
 *   **Styling:** Tailwind CSS + shadcn/ui
 *   **State Management:** React Query (for async data), Zustand (for light global state)
 *   **Validation:** Zod, React Hook Form
 *   **Testing:** Jest/RTL, Playwright
 
-### Backend
+### 1.6.3 Backend
 *   **Runtime/Framework:** Node.js on Vercel (Serverless) using Next.js API Routes
 *   **Authentication:** Auth.js (NextAuth) for Google OAuth
 *   **Database Access:** Prisma ORM
 *   **Validation:** Zod (shared between frontend and backend)
 *   **HTTP Client:** `undici` or `axios`
 
-### Database
+### 1.6.4 Database
 *   **Type:** Relational (PostgreSQL)
 *   **Hosting:** Supabase Free or Neon Free
 
-### Integration Points
+### 1.6.5 Integration Points
 
-### Canvas Integration
+### 1.6.6 Canvas Integration
 *   **Authentication:** Users provide Canvas API credentials.
 *   **Synchronization:** Periodic polling of Canvas API for assignment details (ID, name, due date, course name, URL).
 *   **Manual Sync:** "Sync with Canvas" button for immediate synchronization.
 
-### Google Calendar Integration
+### 1.6.7 Google Calendar Integration
 *   **Authentication:** Users grant read-only access to their Google Calendar.
 *   **Selection:** Users can select specific Google Calendars to display.
 
-## Novel Pattern Designs
+## 1.7 Novel Pattern Designs
 
-### Finding Free Time (The "Timeline" Algorithm)
+### 1.7.1 Finding Free Time (The "Timeline" Algorithm)
 
 This algorithm is the core intelligence of the application, designed to intelligently identify and suggest free time slots for studying.
 
@@ -152,7 +152,7 @@ This algorithm is the core intelligence of the application, designed to intellig
     *   Identify sufficient free time blocks to match the task's estimated duration.
     *   **Suggest these optimal time slots directly within the Things+ user interface.**
 
-## Implementation Patterns
+## 1.8 Implementation Patterns
 
 These patterns ensure consistent implementation across all AI agents:
 
@@ -167,9 +167,9 @@ These patterns ensure consistent implementation across all AI agents:
 *   **Data-Driven UI:** Design the UI to react to data changes, providing real-time feedback and updates to the user (e.g., task completion, schedule changes).
 *   **Progressive Enhancement:** Prioritize core functionality and progressively enhance the user experience with advanced features and integrations.
 
-## Consistency Rules
+## 1.9 Consistency Rules
 
-### Naming Conventions
+### 1.9.1 Naming Conventions
 
 *   **Files and Folders:** `kebab-case` (e.g., `my-component.tsx`, `my-module/my-feature`).
 *   **React Components:** `PascalCase` (e.g., `MyComponent`, `UserProfile`).
@@ -180,7 +180,7 @@ These patterns ensure consistent implementation across all AI agents:
 *   **Database Tables:** `snake_case` (e.g., `users`, `user_tasks`).
 *   **Database Columns:** `snake_case` (e.g., `user_id`, `created_at`).
 
-### Code Organization
+### 1.9.2 Code Organization
 
 *   **Feature-Sliced Design:** Organize code by feature rather than by type (e.g., `src/features/auth`, `src/features/tasks`). This promotes modularity and reduces coupling.
 *   **Atomic Design Principles:** For UI components, organize them into atoms, molecules, organisms, templates, and pages. This helps in building a scalable and maintainable UI.
@@ -191,7 +191,7 @@ These patterns ensure consistent implementation across all AI agents:
 *   **`prisma/` for Database Schema:** Keep the Prisma schema and migrations within the `prisma/` directory.
 *   **Configuration Files:** Centralize configuration files (e.g., `tailwind.config.js`, `next.config.js`, `tsconfig.json`) at the project root.
 
-### Error Handling
+### 1.9.3 Error Handling
 
 *   **Centralized Error Logging:** Implement a centralized logging mechanism (e.g., using a dedicated logging library or a cloud-based logging service if within free tier limits) to capture and store application errors.
 *   **User-Friendly Error Messages:** Provide clear, concise, and actionable error messages to the user, avoiding technical jargon.
@@ -202,7 +202,7 @@ These patterns ensure consistent implementation across all AI agents:
 *   **Type-Safe Error Handling:** Leverage TypeScript to define custom error types and ensure type safety in error handling logic.
 *   **Monitoring and Alerting:** Set up monitoring and alerting for critical errors in production to enable prompt detection and resolution.
 
-### Logging Strategy
+### 1.9.4 Logging Strategy
 
 *   **Structured Logging:** Implement structured logging (e.g., JSON format) to make logs easily parsable and queryable by logging tools.
 *   **Contextual Logging:** Include relevant context in log messages (e.g., user ID, request ID, module name, function name) to aid in debugging and troubleshooting.
@@ -212,11 +212,11 @@ These patterns ensure consistent implementation across all AI agents:
 *   **Security Considerations:** Ensure that sensitive information (e.g., passwords, API keys) is never logged.
 *   **Development vs. Production Logging:** Configure different logging behaviors for development and production environments (e.g., more verbose logging in development, less verbose but more critical logging in production).
 
-## Data Architecture
+## 1.10 Data Architecture
 
-### Core Data Models
+### 1.10.1 Core Data Models
 
-#### User
+#### 1.10.1.1 User
 *   `id`: Primary Key, UUID
 *   `googleId`: String, Unique (for Google OAuth)
 *   `email`: String, Unique
@@ -229,7 +229,7 @@ These patterns ensure consistent implementation across all AI agents:
 *   `createdAt`: DateTime
 *   `updatedAt`: DateTime
 
-#### Task
+#### 1.10.1.2 Task
 *   `id`: Primary Key, UUID
 *   `userId`: Foreign Key to User.id
 *   `type`: Enum (`CANVAS_ASSIGNMENT`, `PERSONAL`)
@@ -246,7 +246,7 @@ These patterns ensure consistent implementation across all AI agents:
 *   `createdAt`: DateTime
 *   `updatedAt`: DateTime
 
-#### CalendarEvent
+#### 1.10.1.3 CalendarEvent
 *   `id`: Primary Key, UUID
 *   `userId`: Foreign Key to User.id
 *   `googleEventId`: String, Unique (from Google Calendar)
@@ -259,29 +259,29 @@ These patterns ensure consistent implementation across all AI agents:
 *   `createdAt`: DateTime
 *   `updatedAt`: DateTime
 
-### Relationships
+### 1.10.2 Relationships
 
 *   **User to Task:** One-to-Many (A User can have many Tasks)
 *   **User to CalendarEvent:** One-to-Many (A User can have many CalendarEvents)
 
-## API Contracts
+## 1.11 API Contracts
 
-### High-Level API Endpoints
+### 1.11.1 High-Level API Endpoints
 
 The application will expose a RESTful API primarily through Next.js API Routes.
 
-#### Authentication
+#### 1.11.1.1 Authentication
 *   `POST /api/auth/login`: User login (handled by Auth.js).
 *   `GET /api/auth/session`: Get current user session.
 *   `GET /api/auth/csrf`: Get CSRF token.
 
-#### User Management
+#### 1.11.1.2 User Management
 *   `GET /api/user`: Get current user profile.
 *   `PUT /api/user`: Update user profile (e.g., preferred study times).
 *   `POST /api/user/canvas/connect`: Connect Canvas account.
 *   `POST /api/user/google-calendar/connect`: Connect Google Calendar account.
 
-#### Task Management
+#### 1.11.1.3 Task Management
 *   `GET /api/tasks`: Get all tasks for the current user.
 *   `GET /api/tasks/:id`: Get a specific task.
 *   `POST /api/tasks`: Create a new personal task.
@@ -289,36 +289,36 @@ The application will expose a RESTful API primarily through Next.js API Routes.
 *   `DELETE /api/tasks/:id`: Delete a personal task.
 *   `POST /api/tasks/canvas/sync`: Manually trigger Canvas sync.
 
-#### Calendar Events
+#### 1.11.1.4 Calendar Events
 *   `GET /api/calendar-events`: Get all calendar events for the current user.
 *   `PUT /api/calendar-events/select-calendars`: Select which Google Calendars to display.
 
-#### Scheduling
+#### 1.11.1.5 Scheduling
 *   `GET /api/schedule/free-time`: Get suggested free time slots for a given task.
 
-## Security Architecture
+## 1.12 Security Architecture
 
-### Authentication and Authorization
+### 1.12.1 Authentication and Authorization
 *   **Google OAuth:** Primary authentication method using "Sign in with Google" for simplified user experience and leveraging Google's robust security.
 *   **Auth.js (NextAuth):** Utilize Auth.js for managing authentication flows, session management, and secure handling of OAuth tokens.
 *   **Session Management:** JSON Web Tokens (JWT) will be used for stateless session management, with tokens securely transmitted and validated for each API request.
 
-### Data Security
+### 1.12.2 Data Security
 *   **Encryption at Rest:** Sensitive user data, including Canvas and Google Calendar access tokens, will be encrypted at rest in the database using strong encryption algorithms (e.g., AES-256). Encryption keys will be managed securely and separately.
 *   **Encryption in Transit:** All communication between the client, server, and external APIs will be enforced over HTTPS to ensure data confidentiality and integrity.
 *   **Backend-Only Access to Tokens:** Access tokens for external services (Canvas, Google Calendar) will be stored and used exclusively on the backend, never exposed to the frontend.
 
-### API Security
+### 1.12.3 API Security
 *   **JWT Protection:** All API endpoints handling user data will be protected and require a valid JWT for authorization.
 *   **Input Validation:** Implement robust input validation on all API endpoints to prevent common vulnerabilities such as injection attacks.
 *   **Rate Limiting:** Implement rate limiting on API endpoints to mitigate brute-force attacks and denial-of-service attempts.
 
-### General Security Practices
+### 1.12.4 General Security Practices
 *   **Principle of Least Privilege:** Grant only the necessary permissions to users and system components.
 *   **Regular Security Audits:** Conduct regular security audits and vulnerability assessments (if feasible within project constraints) to identify and address potential weaknesses.
 *   **Dependency Security:** Regularly update and monitor third-party dependencies for known security vulnerabilities.
 
-## Performance Considerations
+## 1.13 Performance Considerations
 
 *   **Serverless Architecture:** Leverage serverless functions (Next.js API Routes) for automatic scaling and cost-efficiency, ensuring performance under varying load.
 *   **Optimized Data Fetching:** Implement efficient data fetching strategies, such as server-side rendering (SSR) or static site generation (SSG) where appropriate, and use React Query for client-side caching and data synchronization.
@@ -330,7 +330,7 @@ The application will expose a RESTful API primarily through Next.js API Routes.
 *   **External API Rate Limiting and Caching:** Implement strategies to handle rate limits and cache responses from external APIs (Canvas, Google Calendar) to avoid unnecessary calls and improve responsiveness.
 *   **Monitoring and Profiling:** Continuously monitor application performance and use profiling tools to identify and address bottlenecks.
 
-## Deployment Architecture
+## 1.14 Deployment Architecture
 
 *   **Platform:** Vercel (leveraging its free tier) for hosting the Next.js application, including both frontend and Next.js API Routes (serverless functions).
 *   **Region:** EU region for Vercel deployment to comply with data residency requirements if applicable.
@@ -341,9 +341,9 @@ The application will expose a RESTful API primarily through Next.js API Routes.
 *   **Background Jobs:** Utilize Vercel Cron for scheduling background tasks, suchs as nightly Canvas synchronization.
 *   **Monitoring:** Leverage Vercel's built-in monitoring and logging capabilities for deployed applications.
 
-## Development Environment
+## 1.15 Development Environment
 
-### Prerequisites
+### 1.15.1 Prerequisites
 
 *   **Node.js:** Latest LTS version (e.g., v20.x)
 *   **npm/Yarn/pnpm:** A package manager (npm is typically bundled with Node.js)
@@ -356,7 +356,7 @@ The application will expose a RESTful API primarily through Next.js API Routes.
 *   **Google Account:** For Google OAuth development and testing
 *   **Canvas Account:** For Canvas API integration development and testing
 
-### Setup Commands
+### 1.15.2 Setup Commands
 
 ```bash
 # 1. Clone the repository
@@ -377,7 +377,8 @@ npx prisma migrate dev --name init
 npm run dev # or yarn dev or pnpm dev
 ```
 
-## Architecture Decision Records (ADRs)
+## 1.16 Architecture Decision Records (ADRs)
+
 
 *   **Project Level 3 (Complex Greenfield System):** Decision to maintain the project at Level 3 due to its inherent complexity, multiple integrations, and need for robust architectural planning, rather than simplifying to a lower level.
 *   **Serverless-First Architecture:** Adoption of a serverless approach using Next.js API Routes and Vercel to minimize operational overhead, optimize for cost-efficiency (free tiers), and enable automatic scaling.
