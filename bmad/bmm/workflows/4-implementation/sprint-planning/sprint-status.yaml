@@ -37,7 +37,7 @@ story_location: {project-root}/docs/stories
 
 development_status:
   epic-0: contexted
-  0-1-ci-cd-pipeline-setup: drafted
+  0-1-ci-cd-pipeline-setup: review
   0-2-deployment-infrastructure-provisioning: backlog
   0-3-api-documentation-generation: backlog
   epic-0-retrospective: optional
