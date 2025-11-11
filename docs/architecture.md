@@ -323,31 +323,39 @@ To ensure code quality and application stability, the following testing patterns
 
 The application will expose a RESTful API primarily through Next.js API Routes.
 
-#### 1.13.1.1 Authentication
-*   `POST /api/auth/login`: User login (handled by Auth.js).
-*   `GET /api/auth/session`: Get current user session.
-*   `GET /api/auth/csrf`: Get CSRF token.
+### 1.13.2 API Versioning
 
-#### 1.13.1.2 User Management
-*   `GET /api/user`: Get current user profile.
-*   `PUT /api/user`: Update user profile (e.g., preferred study times).
-*   `POST /api/user/canvas/connect`: Connect Canvas account.
-*   `POST /api/user/google-calendar/connect`: Connect Google Calendar account.
+The API will be versioned using a URI path prefix. All API routes will be prefixed with `/api/v1`. This allows for future versions of the API to be introduced without breaking existing clients.
 
-#### 1.13.1.3 Task Management
-*   `GET /api/tasks`: Get all tasks for the current user.
-*   `GET /api/tasks/:id`: Get a specific task.
-*   `POST /api/tasks`: Create a new personal task.
-*   `PUT /api/tasks/:id`: Update an existing task.
-*   `DELETE /api/tasks/:id`: Delete a personal task.
-*   `POST /api/tasks/canvas/sync`: Manually trigger Canvas sync.
+**Example:** `GET /api/v1/tasks`
 
-#### 1.13.1.4 Calendar Events
-*   `GET /api/calendar-events`: Get all calendar events for the current user.
-*   `PUT /api/calendar-events/select-calendars`: Select which Google Calendars to display.
+If a breaking change is required in the future, a new version will be introduced (e.g., `/api/v2`).
 
-#### 1.13.1.5 Scheduling
-*   `GET /api/schedule/free-time`: Get suggested free time slots for a given task.
+#### 1.13.2.1 Authentication
+*   `POST /api/v1/auth/login`: User login (handled by Auth.js).
+*   `GET /api/v1/auth/session`: Get current user session.
+*   `GET /api/v1/auth/csrf`: Get CSRF token.
+
+#### 1.13.2.2 User Management
+*   `GET /api/v1/user`: Get current user profile.
+*   `PUT /api/v1/user`: Update user profile (e.g., preferred study times).
+*   `POST /api/v1/user/canvas/connect`: Connect Canvas account.
+*   `POST /api/v1/user/google-calendar/connect`: Connect Google Calendar account.
+
+#### 1.13.2.3 Task Management
+*   `GET /api/v1/tasks`: Get all tasks for the current user.
+*   `GET /api/v1/tasks/:id`: Get a specific task.
+*   `POST /api/v1/tasks`: Create a new personal task.
+*   `PUT /api/v1/tasks/:id`: Update an existing task.
+*   `DELETE /api/v1/tasks/:id`: Delete a personal task.
+*   `POST /api/v1/tasks/canvas/sync`: Manually trigger Canvas sync.
+
+#### 1.13.2.4 Calendar Events
+*   `GET /api/v1/calendar-events`: Get all calendar events for the current user.
+*   `PUT /api/v1/calendar-events/select-calendars`: Select which Google Calendars to display.
+
+#### 1.13.2.5 Scheduling
+*   `GET /api/v1/schedule/free-time`: Get suggested free time slots for a given task.
 
 ## 1.14 Security Architecture
 
