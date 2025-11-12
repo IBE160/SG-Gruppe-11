@@ -5,9 +5,9 @@
 # generated: 2025-11-10
 # project: ibe160
 # project_type: software
-# selected_track: method
+# project_level: method
 # field_type: greenfield
-# workflow_path: bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml
+# workflow_path: method-greenfield.yaml
 
 # STATUS DEFINITIONS:
 # ==================
@@ -24,9 +24,9 @@
 generated: "2025-11-10"
 project: "ibe160"
 project_type: "software"
-selected_track: "method"
+project_level: "method"
 field_type: "greenfield"
-workflow_path: "bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml"
+workflow_path: "method-greenfield.yaml"
 
 workflow_status:
   # Phase 0: Discovery (Optional)

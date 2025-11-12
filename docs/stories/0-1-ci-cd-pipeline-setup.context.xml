@@ -1,0 +1,76 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/0-1" v="1.0">
+  <metadata>
+    <epicId>0</epicId>
+    <storyId>0.1</storyId>
+    <title>CI/CD Pipeline Setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-11</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/0-1-ci-cd-pipeline-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a CI/CD pipeline configured for the project</iWant>
+    <soThat>code changes are automatically tested and deployed, ensuring quality and a fast feedback loop</soThat>
+    <tasks>
+- [ ] Task 1 (AC: #1)
+  - [ ] Create a `.github/workflows` directory.
+  - [ ] Create a `main.yml` file in the workflows directory.
+- [ ] Task 2 (AC: #2)
+  - [ ] Configure the `on` trigger for `push` to the `main` branch.
+  - [ ] Configure the `on` trigger for `pull_request` to the `main` branch.
+- [ ] Task 3 (AC: #3)
+  - [ ] Add a job for `build` that runs on `ubuntu-latest`.
+  - [ ] Add a step to checkout the code.
+  - [ ] Add a step to setup Node.js.
+  - [ ] Add a step to install dependencies (`npm install`).
+  - [ ] Add a step to run tests (`npm test`).
+  - [ ] Add a step to build the application (`npm run build`).
+- [ ] Task 4 (AC: #4)
+  - [ ] Ensure that the pipeline status (success, failure) is visible in GitHub.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. A `.github/workflows/main.yml` file (or equivalent) is created.
+2. The pipeline triggers on push to `main` and pull requests.
+3. The pipeline includes steps for installing dependencies, running tests, and building the application.
+4. The pipeline provides clear status feedback (pass/fail).
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epic-0-context.md</path>
+        <title>Epic Technical Specification: Project Setup & DevOps</title>
+        <section>Detailed Design</section>
+        <snippet>A workflow will be created at `.github/workflows/main.yml` that triggers on push to `main` and pull requests.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>1 Decision Architecture</title>
+        <section>1.17.2 Setup Commands</section>
+        <snippet>npx create-next-app@16.0.1 my-app --typescript --tailwind --eslint</snippet>
+      </doc>
+    </docs>
+    <code></code>
+    <dependencies></dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>The pipeline should be simple and fast.</constraint>
+    <constraint>The testing step will be a placeholder for now.</constraint>
+  </constraints>
+  <interfaces></interfaces>
+  <tests>
+    <standards>The testing step should be configured to run the testing framework defined in the architecture.</standards>
+    <locations></locations>
+    <ideas>
+      <idea for="AC #1">Verify that the `.github/workflows/main.yml` file is created.</idea>
+      <idea for="AC #2">Create a pull request and push to main to verify the pipeline is triggered.</idea>
+      <idea for="AC #3">Check the pipeline logs to ensure all steps are executed.</idea>
+      <idea for="AC #4">Check the pull request status in GitHub.</idea>
+    </ideas>
+  </tests>
+</story-context>

@@ -20,10 +20,66 @@ Each epic includes:
 
 **Epic Sequencing Principles:**
 
-- Epic 1 establishes foundational infrastructure and initial functionality
+- Epic 0 establishes foundational infrastructure and initial functionality
 - Subsequent epics build progressively, each delivering significant end-to-end value
 - Stories within epics are vertically sliced and sequentially ordered
 - No forward dependencies - each story builds only on previous work
+
+---
+
+## Epic 0: Project Setup & DevOps
+
+**Goal:** Establish the foundational development and deployment environment, ensuring a smooth and efficient workflow for the entire project lifecycle.
+
+**Value Proposition:** This epic ensures that the project has a robust and automated setup for continuous integration, deployment, and clear API communication, minimizing future operational overhead and accelerating feature delivery.
+
+---
+
+**Story 0.1: CI/CD Pipeline Setup**
+
+As a developer,
+I want a CI/CD pipeline configured for the project,
+So that code changes are automatically tested and deployed, ensuring quality and a fast feedback loop.
+
+**Acceptance Criteria:**
+1. A `.github/workflows/main.yml` file (or equivalent) is created.
+2. The pipeline triggers on push to `main` and pull requests.
+3. The pipeline includes steps for installing dependencies, running tests, and building the application.
+4. The pipeline provides clear status feedback (pass/fail).
+
+**Prerequisites:** None
+
+---
+
+**Story 0.2: Deployment Infrastructure Provisioning**
+
+As a developer,
+I want the production deployment infrastructure provisioned and configured,
+So that the application can be deployed and accessed by users.
+
+**Acceptance Criteria:**
+1. Vercel project is linked to the GitHub repository.
+2. Environment variables are securely configured in Vercel.
+3. Supabase/Neon database instance is created and connected to the application.
+4. Initial database migrations are applied to the production database.
+
+**Prerequisites:** Story 0.1
+
+---
+
+**Story 0.3: API Documentation Generation**
+
+As a developer,
+I want to generate and publish up-to-date API documentation,
+So that the API can be easily understood and consumed by other developers or services.
+
+**Acceptance Criteria:**
+1. An API documentation tool (e.g., Swagger/OpenAPI, Postman collection) is integrated into the project.
+2. The documentation accurately reflects all defined API endpoints, request/response formats, and authentication requirements.
+3. The documentation is accessible (e.g., published to a static site or a dedicated platform).
+4. The documentation is automatically updated as part of the CI/CD pipeline or through a clear manual process.
+
+**Prerequisites:** Story 0.1
 
 ---
 
