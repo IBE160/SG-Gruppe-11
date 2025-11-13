@@ -1,0 +1,41 @@
+# Sprint Status
+# This tracks progress through BMM methodology phases
+# Phase 3/4 (Implementation) is tracked separately in sprint-status.yaml
+
+generated: "2025-11-13"
+project: "ibe160"
+project_key: "ibe160"
+tracking_system: "file-system"
+story_location: "C:/Users/ksand/OneDrive/Documents/GitHub-Sync/SG-Gruppe-11/docs/stories"
+
+development_status:
+  epic-0: backlog
+  0-1-ci-cd-pipeline-setup: ready-for-dev
+  0-2-deployment-infrastructure-provisioning: backlog
+  0-3-api-documentation-generation: backlog
+  epic-0-retrospective: optional
+
+  epic-1: backlog
+  1-1-user-authentication-with-google: backlog
+  1-2-basic-task-creation-management: backlog
+  1-3-simple-agenda-view: backlog
+  1-4-canvas-api-connection: backlog
+  1-5-sync-a-single-canvas-course: backlog
+  epic-1-retrospective: optional
+
+  epic-2: backlog
+  2-1-full-canvas-sync: backlog
+  2-2-google-calendar-connection: backlog
+  2-3-select-google-calendars: backlog
+  2-4-unified-agenda-view: backlog
+  2-5-weekly-planner-view: backlog
+  2-6-today-dashboard: backlog
+  epic-2-retrospective: optional
+
+  epic-3: backlog
+  3-1-task-prioritization: backlog
+  3-2-time-tracking: backlog
+  3-3-define-preferred-study-times: backlog
+  3-4-find-free-time-algorithm: backlog
+  3-5-proactive-scheduling-suggestions: backlog
+  epic-3-retrospective: optional
