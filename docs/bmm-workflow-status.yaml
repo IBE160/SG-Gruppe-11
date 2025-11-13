@@ -45,4 +45,4 @@ workflow_status:
   solutioning-gate-check: C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\docs\implementation-readiness-report-2025-11-05.md
 
   # Phase 3: Implementation
-  sprint-planning: required
+  sprint-planning: C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\.bmad-ephemeral\sprint-status.yaml
