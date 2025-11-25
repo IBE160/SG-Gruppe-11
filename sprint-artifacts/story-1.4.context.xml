@@ -1,0 +1,58 @@
+<context>
+  <story>
+    **Story 1.4: Canvas API Connection**
+
+    As a logged-in user,
+    I want to securely connect my Canvas account using an API key,
+    So that the application can prepare to sync my assignment data.
+
+    **Acceptance Criteria:**
+    1. A settings page exists where I can manage integrations.
+    2. The settings page has a form to input my Canvas URL and API Key.
+    3. The application securely stores these credentials for my user account.
+    4. The application provides feedback on whether the connection was successful or not.
+  </story>
+
+  <tech-spec>
+    **Story 1.5: Micro-integration with Canvas** (Note: Tech spec combines connection and sync)
+
+    *   **Frontend:**
+        *   A new settings page will be created at `/pages/settings.tsx`.
+        *   This page will have a form to submit a Canvas API key.
+        *   The form submission will trigger a `POST` request to `/api/canvas/connect`.
+    *   **Backend:**
+        *   An API route at `/api/canvas/connect` will receive the Canvas API key.
+        *   The key will be encrypted using a library like `crypto` before being saved to the database. The encryption key will be stored in an environment variable.
+    *   **Database:**
+        *   The `User` model in `prisma/schema.prisma` will be updated to include a `canvasApiKey` field (string, encrypted).
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      emailVerified DateTime?
+      image         String?
+      accounts      Account[]
+      sessions      Session[]
+      tasks         Task[]
+      calendarEvents CalendarEvent[]
+      canvasApiKey  String?
+      preferredStudyTimes Json?
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/canvas/connect.ts`
+    *   Settings Page: `pages/settings.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   Node.js Crypto: https://nodejs.org/api/crypto.html
+    *   Axios: https://axios-http.com/docs/intro
+  </documentation>
+</context>
