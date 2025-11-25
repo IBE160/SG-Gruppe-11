@@ -1,0 +1,64 @@
+<context>
+  <story>
+    **Story 1.5: Sync a Single Canvas Course**
+
+    As a logged-in user with a Canvas connection,
+    I want to sync assignments from a single Canvas course,
+    So that I can see my academic tasks alongside my personal tasks in the Agenda view.
+
+    **Acceptance Criteria:**
+    1. After connecting to Canvas, the user can select one of their courses to sync.
+    2. The application fetches assignments (name, due date, course name) from the selected course.
+    3. Fetched assignments are displayed in the "Agenda" view, alongside personal tasks.
+    4. Canvas assignments are clearly identifiable as such (e.g., with a specific icon or label).
+  </story>
+
+  <tech-spec>
+    *   **Frontend:**
+        *   The `/pages/settings.tsx` page will be updated to include a course selection UI after a successful API key connection.
+        *   This UI will first fetch the list of courses from a new API endpoint (`/api/canvas/courses`).
+        *   The user can then select a course and click a "Sync" button.
+        *   The "Sync" button will trigger a `POST` request to `/api/canvas/sync` with the selected course ID.
+        *   The `/pages/agenda.tsx` will be updated to visually distinguish Canvas tasks from personal tasks.
+    *   **Backend:**
+        *   A new API route at `/api/canvas/courses` will be created to fetch the list of courses from the Canvas API.
+        *   The existing `/api/canvas/sync` route will be implemented to:
+            1.  Receive a `courseId` in the request body.
+            2.  Fetch assignments for that course from the Canvas API.
+            3.  Create new `Task` records in the database with `type: 'CANVAS_ASSIGNMENT'`.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      // ...
+      canvasApiKey  String?
+      // ...
+    }
+
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      // ...
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Routes: `pages/api/canvas/sync.ts`, `pages/api/canvas/courses.ts`
+    *   Settings Page: `pages/settings.tsx`
+    *   Agenda Page: `pages/agenda.tsx`
+  </file-paths>
+
+  <documentation>
+    *   Canvas API Documentation (Courses): https://canvas.instructure.com/doc/api/courses.html
+    *   Canvas API Documentation (Assignments): https://canvas.instructure.com/doc/api/assignments.html
+  </documentation>
+</context>
