@@ -1,0 +1,110 @@
+<context>
+  <story>
+    **Story 1.1: User Authentication with Google**
+
+    As a new user,
+    I want to sign up and log in using my Google account,
+    So that I can quickly and securely access the application without needing to create a new password.
+
+    **Acceptance Criteria:**
+    1. A "Sign in with Google" button is present on the login page.
+    2. Clicking the button initiates the Google OAuth flow.
+    3. Upon successful authentication, a new user record is created in the database.
+    4. The user is redirected to the main application page and is in a logged-in state.
+    5. If the user already exists, they are simply logged in.
+  </story>
+
+  <tech-spec>
+    **Story 1.1: User Authentication with Google**
+
+    *   **Frontend:**
+        *   Create a login page at `/pages/login.tsx`.
+        *   This page will feature a "Sign in with Google" button.
+        *   The button's `onClick` handler will call the `signIn('google')` function from `next-auth/react`.
+        *   A loading state will be displayed while authentication is in progress.
+    *   **Backend:**
+        *   The NextAuth.js API route will be located at `/pages/api/auth/[...nextauth].ts`.
+        *   It will be configured with the Google provider.
+        *   `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` will be sourced from environment variables (`.env.local`).
+        *   The Prisma adapter (`@next-auth/prisma-adapter`) will be used to connect NextAuth.js to the database.
+    *   **Database:**
+        *   The `User`, `Account`, `Session`, and `VerificationToken` models in `prisma/schema.prisma` will be used by the Prisma adapter.
+        *   On first login, a new `User` record will be automatically created.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    // This is your Prisma schema file,
+    // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+    datasource db {
+      provider = "postgresql"
+      url      = env("DATABASE_URL")
+    }
+
+    generator client {
+      provider = "prisma-client-js"
+    }
+
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      emailVerified DateTime?
+      image         String?
+      accounts      Account[]
+      sessions      Session[]
+      tasks         Task[]
+      calendarEvents CalendarEvent[]
+      canvasApiKey  String?
+      preferredStudyTimes Json?
+    }
+
+    model Account {
+      id                 String  @id @default(cuid())
+      userId             String
+      type               String
+      provider           String
+      providerAccountId  String
+      refresh_token      String?
+      access_token       String?
+      expires_at         Int?
+      token_type         String?
+      scope              String?
+      id_token           String?
+      session_state      String?
+
+      user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+      @@unique([provider, providerAccountId])
+    }
+
+    model Session {
+      id           String   @id @default(cuid())
+      sessionToken String   @unique
+      userId       String
+      expires      DateTime
+      user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    }
+
+    model VerificationToken {
+      identifier String
+      token      String   @unique
+      expires    DateTime
+
+      @@unique([identifier, token])
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   NextAuth.js API Route: `pages/api/auth/[...nextauth].ts`
+    *   Login Page: `pages/login.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   NextAuth.js Google Provider: https://next-auth.js.org/providers/google
+    *   Prisma Adapter: https://next-auth.js.org/adapters/prisma
+  </documentation>
+</context>
