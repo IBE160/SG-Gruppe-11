@@ -1,0 +1,61 @@
+<context>
+  <story>
+    **Story 1.3: Simple Agenda View**
+
+    As a logged-in user,
+    I want to see my tasks in a simple, chronologically sorted list,
+    So that I can easily understand what I need to work on next.
+
+    **Acceptance Criteria:**
+    1. A dedicated "Agenda" view exists.
+    2. The view displays all personal tasks created by the user.
+    3. Tasks are sorted by their due date, with the soonest at the top.
+    4. Completed tasks are visually distinct from incomplete tasks.
+  </story>
+
+  <tech-spec>
+    **Frontend:**
+    *   A new page will be created at `/pages/agenda.tsx`.
+    *   This page will fetch tasks from the `/api/tasks` endpoint using `useQuery`.
+    *   The fetched tasks will be sorted by `dueDate`.
+    *   The component will render the sorted tasks in a list.
+    *   Completed tasks will have a different style (e.g., strikethrough text).
+    **Backend:**
+    *   The existing `/api/tasks` endpoint will be used.
+    *   The `GET` handler in `/api/tasks` will be modified to accept an optional `orderBy` query parameter.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      description String?
+      dueDate     DateTime?
+      courseName  String?
+      canvasHtmlUrl String?
+      isCompleted Boolean  @default(false)
+      priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+      estimatedTime Int?
+      timeSpent   Int      @default(0)
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/tasks/index.ts`
+    *   Agenda Page: `pages/agenda.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   Prisma Client: https://www.prisma.io/docs/concepts/components/prisma-client/sorting
+    *   React Query: https://tanstack.com/query/v4/docs/react/overview
+  </documentation>
+</context>
