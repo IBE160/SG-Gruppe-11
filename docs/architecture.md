@@ -107,7 +107,7 @@ Students balancing full-time work and academic commitments face significant stre
 
 ## 1.6 Technology Stack Details
 
-_All versions verified on 2025-11-05. The strategy is to use the latest stable or Long-Term Support (LTS) versions to ensure both stability and access to modern features. The chosen versions are believed to be fully compatible._
+_All versions verified on 2025-11-25. The strategy is to use the latest stable or Long-Term Support (LTS) versions to ensure both stability and access to modern features. The chosen versions are believed to be fully compatible._
 
 ### 1.6.1 Core Technologies
 
