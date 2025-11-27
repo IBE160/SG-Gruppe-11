@@ -64,17 +64,7 @@ export default function WeeklyPlannerPage() {
         date: task.dueDate,
         isCompleted: task.isCompleted,
         type: task.type === 'CANVAS_ASSIGNMENT' ? 'Canvas Assignment' : 'Personal Task',
-      });
-    });
-  }
-
-  if (calendarEvents) {
-    calendarEvents.forEach(event => {
-      combinedItems.push({
-        id: event.id,
-        title: event.title,
-        date: event.start,
-        type: 'Google Calendar Event',
+        priority: task.priority,
       });
     });
   }
@@ -84,6 +74,19 @@ export default function WeeklyPlannerPage() {
     day.setDate(currentWeekStart.getDate() + i);
     return day;
   });
+
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'HIGH':
+        return 'red';
+      case 'MEDIUM':
+        return 'orange';
+      case 'LOW':
+        return 'green';
+      default:
+        return 'black';
+    }
+  };
 
   return (
     <div>
@@ -110,7 +113,9 @@ export default function WeeklyPlannerPage() {
                 })
                 .map(item => (
                   <li key={item.id} style={{ textDecoration: item.isCompleted ? 'line-through' : 'none', fontSize: '0.8em' }}>
-                    <strong>[{item.type}]</strong> {item.title}
+                    <strong>[{item.type}]</strong>{' '}
+                    {item.priority && <span style={{ color: getPriorityColor(item.priority) }}>[{item.priority}]</span>}{' '}
+                    {item.title}
                     {item.date && ` - ${new Date(item.date).toLocaleTimeString()}`}
                   </li>
                 ))}
