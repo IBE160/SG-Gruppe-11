@@ -12,9 +12,9 @@ WORKFLOW_PATH: greenfield-level-3.yaml
 
 ## Current State
 
-CURRENT_PHASE: Sprint 3 - Implementation
-CURRENT_WORKFLOW: story-done (story-2.4)
-CURRENT_AGENT: dev
+CURRENT_PHASE: Sprint 4 - Implementation
+CURRENT_WORKFLOW: story-ready-for-dev (story-3.1)
+CURRENT_AGENT: sm
 PHASE_1_COMPLETE: true
 PHASE_2_COMPLETE: true
 PHASE_3_COMPLETE: true
@@ -23,9 +23,9 @@ PHASE_4_COMPLETE: true
 
 ## Next Action
 
-NEXT_ACTION: Test Review
-NEXT_COMMAND: test-review
-NEXT_AGENT: sm
+NEXT_ACTION: Develop Story
+NEXT_COMMAND: develop-story
+NEXT_AGENT: dev
 
 ---
 
