@@ -51,6 +51,7 @@ export default function AgendaPage() {
         date: task.dueDate,
         isCompleted: task.isCompleted,
         type: task.type === 'CANVAS_ASSIGNMENT' ? 'Canvas Assignment' : 'Personal Task',
+        priority: task.priority,
       });
     });
   }
@@ -72,13 +73,28 @@ export default function AgendaPage() {
     return dateA - dateB;
   });
 
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'HIGH':
+        return 'red';
+      case 'MEDIUM':
+        return 'orange';
+      case 'LOW':
+        return 'green';
+      default:
+        return 'black';
+    }
+  };
+
   return (
     <div>
       <h1>Agenda</h1>
       <ul>
         {combinedItems.map((item) => (
           <li key={item.id} style={{ textDecoration: item.isCompleted ? 'line-through' : 'none' }}>
-            <strong>[{item.type}]</strong> {item.title}
+            <strong>[{item.type}]</strong>{' '}
+            {item.priority && <span style={{ color: getPriorityColor(item.priority) }}>[{item.priority}]</span>}{' '}
+            {item.title}
             {item.date && ` - ${new Date(item.date).toLocaleDateString()} ${new Date(item.date).toLocaleTimeString()}`}
           </li>
         ))}
