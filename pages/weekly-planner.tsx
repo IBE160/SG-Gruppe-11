@@ -69,6 +69,17 @@ export default function WeeklyPlannerPage() {
     });
   }
 
+  if (calendarEvents) {
+    calendarEvents.forEach(event => {
+      combinedItems.push({
+        id: event.id,
+        title: event.title,
+        date: event.start,
+        type: 'Google Calendar Event',
+      });
+    });
+  }
+
   const daysOfWeek = Array.from({ length: 7 }).map((_, i) => {
     const day = new Date(currentWeekStart);
     day.setDate(currentWeekStart.getDate() + i);
@@ -89,37 +100,39 @@ export default function WeeklyPlannerPage() {
   };
 
   return (
-    <div>
-      <h1>Weekly Planner</h1>
-      <div>
-        <button onClick={() => setCurrentWeekStart(new Date(currentWeekStart.setDate(currentWeekStart.getDate() - 7)))}>Previous Week</button>
-        <span>{currentWeekStart.toLocaleDateString()} - {weekEnd.toLocaleDateString()}</span>
-        <button onClick={() => setCurrentWeekStart(new Date(currentWeekStart.setDate(currentWeekStart.getDate() + 7)))}>Next Week</button>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Weekly Planner</h1>
+      <div className="flex justify-between items-center mb-4">
+        <button onClick={() => setCurrentWeekStart(new Date(currentWeekStart.setDate(currentWeekStart.getDate() - 7)))} className="btn">Previous Week</button>
+        <span className="text-xl font-semibold">{currentWeekStart.toLocaleDateString()} - {weekEnd.toLocaleDateString()}</span>
+        <button onClick={() => setCurrentWeekStart(new Date(currentWeekStart.setDate(currentWeekStart.getDate() + 7)))} className="btn">Next Week</button>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '10px', marginTop: '20px' }}>
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-2">
         {daysOfWeek.map((day) => (
-          <div key={day.toISOString()} style={{ border: '1px solid #ccc', padding: '10px' }}>
-            <h3>{day.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</h3>
-            <ul>
-              {combinedItems
-                .filter(item => {
-                  const itemDate = new Date(item.date);
-                  return itemDate.toDateString() === day.toDateString();
-                })
-                .sort((a, b) => {
-                  const dateA = a.date ? new Date(a.date).getTime() : Infinity;
-                  const dateB = b.date ? new Date(b.date).getTime() : Infinity;
-                  return dateA - dateB;
-                })
-                .map(item => (
-                  <li key={item.id} style={{ textDecoration: item.isCompleted ? 'line-through' : 'none', fontSize: '0.8em' }}>
-                    <strong>[{item.type}]</strong>{' '}
-                    {item.priority && <span style={{ color: getPriorityColor(item.priority) }}>[{item.priority}]</span>}{' '}
-                    {item.title}
-                    {item.date && ` - ${new Date(item.date).toLocaleTimeString()}`}
-                  </li>
-                ))}
-            </ul>
+          <div key={day.toISOString()} className="card bg-base-100 shadow-xl">
+            <div className="card-body p-4">
+              <h3 className="card-title text-sm">{day.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</h3>
+              <ul className="space-y-1 mt-2">
+                {combinedItems
+                  .filter(item => {
+                    const itemDate = new Date(item.date);
+                    return itemDate.toDateString() === day.toDateString();
+                  })
+                  .sort((a, b) => {
+                    const dateA = a.date ? new Date(a.date).getTime() : Infinity;
+                    const dateB = b.date ? new Date(b.date).getTime() : Infinity;
+                    return dateA - dateB;
+                  })
+                  .map(item => (
+                    <li key={item.id} className="text-xs p-1 rounded" style={{ textDecoration: item.isCompleted ? 'line-through' : 'none' }}>
+                      <span className="badge badge-outline badge-sm mr-1">{item.type}</span>
+                      {item.priority && <span className="badge badge-outline badge-sm" style={{ borderColor: getPriorityColor(item.priority), color: getPriorityColor(item.priority) }}>{item.priority}</span>}{' '}
+                      {item.title}
+                      {item.date && <span className="text-gray-500 ml-1">- {new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>}
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>

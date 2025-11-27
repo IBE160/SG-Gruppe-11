@@ -216,108 +216,133 @@ export default function SettingsPage() {
   };
 
   return (
-    <div>
-      <h1>Settings</h1>
+    <div className="container mx-auto p-4 space-y-6">
+      <h1 className="text-3xl font-bold">Settings</h1>
 
-      <form onSubmit={handleApiKeySubmit}>
-        <h2>Canvas Integration</h2>
-        <div>
-          <label htmlFor="canvas-api-key">API Key</label>
-          <input
-            id="canvas-api-key"
-            type="password"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-          />
-        </div>
-        <button type="submit" disabled={apiKeyMutation.isLoading}>
-          {apiKeyMutation.isLoading ? 'Saving...' : 'Save API Key'}
-        </button>
-      </form>
-
-      {courses && courses.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Sync Canvas Course</h3>
-          <select onChange={(e) => setSelectedCourse(e.target.value)} value={selectedCourse}>
-            <option value="">Select a course</option>
-            {courses.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.name}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleSyncCourse} disabled={syncMutation.isLoading || !selectedCourse}>
-            {syncMutation.isLoading ? 'Syncing...' : 'Sync Selected Course'}
-          </button>
-          {isLoadingCourses && <div>Loading courses...</div>}
-          {isErrorCourses && <div>Error loading courses. Make sure your API key is valid.</div>}
-
-          <div style={{ marginTop: '10px' }}>
-            <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isLoading}>
-              {syncAllMutation.isLoading ? 'Syncing All...' : 'Sync All Canvas Courses'}
+      <div className="card bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Canvas Integration</h2>
+          <form onSubmit={handleApiKeySubmit} className="space-y-2">
+            <div className="form-control">
+              <label className="label" htmlFor="canvas-api-key">
+                <span className="label-text">API Key</span>
+              </label>
+              <input
+                id="canvas-api-key"
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                className="input input-bordered w-full"
+              />
+            </div>
+            <button type="submit" disabled={apiKeyMutation.isLoading} className="btn btn-primary">
+              {apiKeyMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save API Key'}
             </button>
-          </div>
-        </div>
-      )}
-      {courses && courses.length === 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>No Canvas courses found.</h3>
-          <p>Please ensure your Canvas API key is valid and you have active enrollments.</p>
-        </div>
-      )}
+          </form>
 
-      <div style={{ marginTop: '20px' }}>
-        <h2>Google Calendar Integration</h2>
-        <button onClick={() => router.push('/api/auth/google-calendar-oauth')}>
-          Connect Google Calendar
-        </button>
-
-        {googleCalendars && googleCalendars.length > 0 && (
-          <div style={{ marginTop: '10px' }}>
-            <h3>Select Calendars to Display</h3>
-            {googleCalendars.map((calendar) => (
-              <div key={calendar.id}>
-                <input
-                  type="checkbox"
-                  id={calendar.id}
-                  checked={selectedGoogleCalendars.includes(calendar.id)}
-                  onChange={() => handleGoogleCalendarSelect(calendar.id)}
-                />
-                <label htmlFor={calendar.id}>{calendar.summary}</label>
+          {courses && courses.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Sync Canvas Course</h3>
+              <div className="flex gap-2 items-center mt-2">
+                <select onChange={(e) => setSelectedCourse(e.target.value)} value={selectedCourse} className="select select-bordered w-full max-w-xs">
+                  <option value="">Select a course</option>
+                  {courses.map((course) => (
+                    <option key={course.id} value={course.id}>
+                      {course.name}
+                    </option>
+                  ))}
+                </select>
+                <button onClick={handleSyncCourse} disabled={syncMutation.isLoading || !selectedCourse} className="btn">
+                  {syncMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Sync Selected'}
+                </button>
               </div>
-            ))}
-            <button onClick={handleSaveGoogleCalendarSelection} disabled={saveGoogleCalendarsMutation.isLoading}>
-              {saveGoogleCalendarsMutation.isLoading ? 'Saving...' : 'Save Calendar Selections'}
-            </button>
-            {isLoadingGoogleCalendars && <div>Loading calendars...</div>}
-            {isErrorGoogleCalendars && <div>Error loading Google Calendars.</div>}
-          </div>
-        )}
+              <div className="mt-2">
+                <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isLoading} className="btn btn-secondary">
+                  {syncAllMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Sync All Courses'}
+                </button>
+              </div>
+            </div>
+          )}
+          {isLoadingCourses && <span className="loading loading-spinner"></span>}
+          {isErrorCourses && <div className="alert alert-error mt-2">Error loading courses. Make sure your API key is valid.</div>}
+        </div>
       </div>
 
-      <div style={{ marginTop: '20px' }}>
-        <h2>Preferred Study Times</h2>
-        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
-          <div key={day}>
-            <input
-              type="checkbox"
-              id={day}
-              checked={preferredStudyDays.includes(day)}
-              onChange={() => handlePreferredStudyDayToggle(day)}
-            />
-            <label htmlFor={day}>{day}</label>
+      <div className="card bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Google Calendar Integration</h2>
+          <button onClick={() => router.push('/api/auth/google-calendar-oauth')} className="btn btn-primary">
+            Connect Google Calendar
+          </button>
+
+          {googleCalendars && googleCalendars.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Select Calendars to Display</h3>
+              <div className="form-control">
+                {googleCalendars.map((calendar) => (
+                  <label key={calendar.id} className="label cursor-pointer">
+                    <span className="label-text">{calendar.summary}</span>
+                    <input
+                      type="checkbox"
+                      id={calendar.id}
+                      checked={selectedGoogleCalendars.includes(calendar.id)}
+                      onChange={() => handleGoogleCalendarSelect(calendar.id)}
+                      className="checkbox"
+                    />
+                  </label>
+                ))}
+              </div>
+              <button onClick={handleSaveGoogleCalendarSelection} disabled={saveGoogleCalendarsMutation.isLoading} className="btn btn-primary mt-2">
+                {saveGoogleCalendarsMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save Selections'}
+              </button>
+            </div>
+          )}
+          {isLoadingGoogleCalendars && <span className="loading loading-spinner"></span>}
+          {isErrorGoogleCalendars && <div className="alert alert-error mt-2">Error loading Google Calendars.</div>}
+        </div>
+      </div>
+
+      <div className="card bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Preferred Study Times</h2>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Select Days</span>
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+                <div key={day} className="form-control">
+                  <label className="label cursor-pointer">
+                    <span className="label-text mr-2">{day}</span>
+                    <input
+                      type="checkbox"
+                      id={day}
+                      checked={preferredStudyDays.includes(day)}
+                      onChange={() => handlePreferredStudyDayToggle(day)}
+                      className="checkbox"
+                    />
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-        <div>
-          Start Time: <input type="time" value={preferredStudyStartTime} onChange={(e) => setPreferredStudyStartTime(e.target.value)} />
+          <div className="form-control">
+            <label className="label" htmlFor="start-time">
+              <span className="label-text">Start Time</span>
+            </label>
+            <input type="time" id="start-time" value={preferredStudyStartTime} onChange={(e) => setPreferredStudyStartTime(e.target.value)} className="input input-bordered" />
+          </div>
+          <div className="form-control">
+            <label className="label" htmlFor="end-time">
+              <span className="label-text">End Time</span>
+            </label>
+            <input type="time" id="end-time" value={preferredStudyEndTime} onChange={(e) => setPreferredStudyEndTime(e.target.value)} className="input input-bordered" />
+          </div>
+          <button onClick={handleSavePreferredStudyTimes} disabled={savePreferredStudyTimesMutation.isLoading} className="btn btn-primary mt-2">
+            {savePreferredStudyTimesMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save Preferred Times'}
+          </button>
+          {isErrorPreferredStudyTimes && <div className="alert alert-error mt-2">Error saving preferred study times.</div>}
         </div>
-        <div>
-          End Time: <input type="time" value={preferredStudyEndTime} onChange={(e) => setPreferredStudyEndTime(e.target.value)} />
-        </div>
-        <button onClick={handleSavePreferredStudyTimes} disabled={savePreferredStudyTimesMutation.isLoading}>
-          {savePreferredStudyTimesMutation.isLoading ? 'Saving...' : 'Save Preferred Study Times'}
-        </button>
-        {isErrorPreferredStudyTimes && <div>Error saving preferred study times.</div>}
       </div>
     </div>
   );

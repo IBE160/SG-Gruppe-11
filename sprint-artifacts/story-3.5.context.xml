@@ -1,0 +1,77 @@
+<context>
+  <story>
+    **Story 3.5: Integrate "Find Free Time" in UI**
+
+    As a logged-in user,
+    I want to easily access and utilize the "Find Free Time" feature within the application,
+    So that I can quickly schedule study blocks based on the system's suggestions.
+
+    **Acceptance Criteria:**
+    1. A "Find Free Time" button is available on the tasks page (e.g., next to each task).
+    2. Clicking the button opens a modal or section displaying suggested free time slots.
+    3. The suggested slots are fetched from the `/api/schedule/free-time` endpoint for the selected task.
+    4. The UI allows the user to select a suggested time slot and create a new task/event based on it.
+  </story>
+
+  <tech-spec>
+    **Story 3.5: Integrate "Find Free Time" in UI**
+
+    *   **Frontend:**
+        *   Add a "Find Free Time" button/feature to relevant UI sections (e.g., `/pages/tasks.tsx`).
+        *   When clicked, this will trigger a call to the `/api/schedule/free-time` endpoint with the `taskId` and `timeframeDays`.
+        *   The results (suggested time slots) will be displayed in a modal or a dedicated section.
+        *   The UI will allow the user to select a suggested time slot.
+        *   Upon selection, a new task will be created based on the suggestion (e.g., calling the `POST /api/tasks` endpoint).
+    *   **Backend:**
+        *   No new backend changes required, as `/api/schedule/free-time.ts` will provide the data, and existing `POST /api/tasks` will create the new task.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      description String?
+      dueDate     DateTime?
+      courseName  String?
+      canvasHtmlUrl String?
+      isCompleted Boolean  @default(false)
+      priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+      estimatedTime Int? // Used for the algorithm
+      timeSpent   Int      @default(0) // Stored in minutes
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+
+    model CalendarEvent {
+      id            String   @id @default(cuid())
+      userId        String
+      user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      googleEventId String   @unique
+      calendarId    String
+      title         String
+      description   String?
+      startTime     DateTime
+      endTime       DateTime
+      isAllDay      Boolean  @default(false)
+      createdAt     DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/schedule/free-time.ts`
+    *   Tasks Page: `pages/tasks.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   React Modals: (no specific library chosen, will use simple conditional rendering)
+    *   React Query: https://tanstack.com/query/v4/docs/react/overview
+  </documentation>
+</context>

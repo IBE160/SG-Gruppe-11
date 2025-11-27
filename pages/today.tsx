@@ -101,15 +101,19 @@ export default function TodayPage() {
   };
 
   return (
-    <div>
-      <h1>Today's Dashboard</h1>
-      <ul>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Today's Dashboard</h1>
+      <ul className="space-y-2">
         {combinedItems.map((item) => (
-          <li key={item.id} style={{ textDecoration: item.isCompleted ? 'line-through' : 'none' }}>
-            <strong>[{item.type}]</strong>{' '}
-            {item.priority && <span style={{ color: getPriorityColor(item.priority) }}>[{item.priority}]</span>}{' '}
-            {item.title}
-            {item.date && ` - ${new Date(item.date).toLocaleTimeString()}`}
+          <li key={item.id} className="card bg-base-100 shadow">
+            <div className="card-body p-4">
+              <div className={item.isCompleted ? 'line-through' : ''}>
+                <span className="badge badge-outline mr-2">{item.type}</span>
+                {item.priority && <span className="badge badge-outline" style={{ borderColor: getPriorityColor(item.priority), color: getPriorityColor(item.priority) }}>{item.priority}</span>}{' '}
+                {item.title}
+                {item.date && <span className="text-sm text-gray-500 ml-2">- {new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>}
+              </div>
+            </div>
           </li>
         ))}
       </ul>

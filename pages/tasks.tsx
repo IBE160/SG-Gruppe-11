@@ -32,6 +32,11 @@ const stopTimer = async (taskId, elapsedTime) => {
   return data;
 };
 
+const findFreeTime = async (taskId, timeframeDays) => {
+  const { data } = await axios.get(`/api/schedule/free-time?taskId=${taskId}&timeframeDays=${timeframeDays}`);
+  return data;
+};
+
 const priorityOptions = ['LOW', 'MEDIUM', 'HIGH'];
 
 export default function TasksPage() {
@@ -51,6 +56,9 @@ export default function TasksPage() {
   const [timerStartTime, setTimerStartTime] = useState(null);
   const [currentElapsedTime, setCurrentElapsedTime] = useState(0);
   const intervalRef = useRef(null);
+
+  const [showFreeTimeModal, setShowFreeTimeModal] = useState(false);
+  const [selectedTaskForFreeTime, setSelectedTaskForFreeTime] = useState(null);
 
   useEffect(() => {
     if (runningTimerId && timerStartTime !== null) {
@@ -114,6 +122,18 @@ export default function TasksPage() {
     },
   });
 
+  const findFreeTimeMutation = useMutation({
+    mutationFn: ({ taskId, timeframeDays }) => findFreeTime(taskId, timeframeDays),
+    onSuccess: (data) => {
+      // Handle displaying suggested free times in a modal
+      console.log('Suggested Free Times:', data);
+    },
+    onError: (error) => {
+      // @ts-ignore
+      alert(`Failed to find free time: ${error.response?.data?.message || error.message}`);
+    },
+  });
+
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -152,6 +172,20 @@ export default function TasksPage() {
     stopTimerMutation.mutate({ taskId, elapsedTime: currentElapsedTime });
   };
 
+  const handleFindFreeTime = (task) => {
+    setSelectedTaskForFreeTime(task);
+    setShowFreeTimeModal(true);
+  };
+
+  const handleScheduleFreeTime = (suggestedSlot) => {
+    // Create a new task based on the suggestion
+    createTaskMutation.mutate({
+      title: `Study for: ${selectedTaskForFreeTime.title}`,
+      dueDate: new Date(suggestedSlot.start),
+      priority: 'MEDIUM', // Or inherit from original task
+    });
+    setShowFreeTimeModal(false);
+  };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -170,83 +204,139 @@ export default function TasksPage() {
   if (isError) return <div>Error fetching tasks</div>;
 
   return (
-    <div>
-      <h1>Tasks</h1>
-      <div>
-        <input
-          type="text"
-          value={newTaskTitle}
-          onChange={(e) => setNewTaskTitle(e.target.value)}
-          placeholder="New task title"
-        />
-        <select value={newTaskPriority} onChange={(e) => setNewTaskPriority(e.target.value)}>
-          {priorityOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-        <button onClick={handleCreateTask} disabled={createTaskMutation.isLoading}>
-          {createTaskMutation.isLoading ? 'Adding...' : 'Add Task'}
-        </button>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Tasks</h1>
+      <div className="mb-4 p-4 card bg-base-100 shadow-xl">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+            placeholder="New task title"
+            className="input input-bordered w-full"
+          />
+          <select value={newTaskPriority} onChange={(e) => setNewTaskPriority(e.target.value)} className="select select-bordered">
+            {priorityOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          <button onClick={handleCreateTask} disabled={createTaskMutation.isLoading} className="btn btn-primary">
+            {createTaskMutation.isLoading ? 'Adding...' : 'Add Task'}
+          </button>
+        </div>
       </div>
-      <ul>
+      <ul className="space-y-2">
         {tasks.map((task) => (
-          <li key={task.id}>
-            {editingTaskId === task.id ? (
-              <>
-                <input
-                  type="text"
-                  value={editingTitle}
-                  onChange={(e) => setEditingTitle(e.target.value)}
-                />
-                <input
-                  type="date"
-                  value={editingDueDate}
-                  onChange={(e) => setEditingDueDate(e.target.value)}
-                />
-                <select value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)}>
-                  {priorityOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                <button onClick={() => handleSaveEdit(task)} disabled={updateTaskMutation.isLoading}>
-                  Save
-                </button>
-                <button onClick={() => setEditingTaskId(null)}>Cancel</button>
-              </>
-            ) : (
-              <>
-                <input
-                  type="checkbox"
-                  checked={task.isCompleted}
-                  onChange={(e) =>
-                    updateTaskMutation.mutate({ ...task, isCompleted: e.target.checked })
-                  }
-                />
-                <span style={{ color: getPriorityColor(task.priority) }}>
-                  [{task.priority}]
-                </span>{' '}
-                {task.title}
-                {task.dueDate && ` - Due: ${new Date(task.dueDate).toLocaleDateString()}`}
-                (Time Spent: {task.timeSpent} mins)
-                {runningTimerId === task.id ? (
-                  <>
-                    <span>Running: {currentElapsedTime} mins</span>
-                    <button onClick={() => handleStopTimer(task.id)} disabled={stopTimerMutation.isLoading}>
-                      Stop Timer
-                    </button>
-                  </>
-                ) : (
-                  <button onClick={() => handleStartTimer(task.id)} disabled={startTimerMutation.isLoading || runningTimerId !== null}>
-                    Start Timer
+          <li key={task.id} className="card bg-base-100 shadow">
+            <div className="card-body p-4">
+              {editingTaskId === task.id ? (
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={editingTitle}
+                    onChange={(e) => setEditingTitle(e.target.value)}
+                    className="input input-bordered input-sm"
+                  />
+                  <input
+                    type="date"
+                    value={editingDueDate}
+                    onChange={(e) => setEditingDueDate(e.target.value)}
+                    className="input input-bordered input-sm"
+                  />
+                  <select value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)} className="select select-bordered select-sm">
+                    {priorityOptions.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  <button onClick={() => handleSaveEdit(task)} disabled={updateTaskMutation.isLoading} className="btn btn-success btn-sm">
+                    Save
                   </button>
-                )}
-                <button onClick={() => handleEditClick(task)}>Edit</button>
-                <button onClick={() => deleteTaskMutation.mutate(task.id)}>Delete</button>
-              </>
-            )}
+                  <button onClick={() => setEditingTaskId(null)} className="btn btn-ghost btn-sm">Cancel</button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-4">
+                  <input
+                    type="checkbox"
+                    checked={task.isCompleted}
+                    onChange={(e) =>
+                      updateTaskMutation.mutate({ ...task, isCompleted: e.target.checked })
+                    }
+                    className="checkbox checkbox-primary"
+                  />
+                  <div className="flex-grow">
+                    <span className="badge badge-outline" style={{ borderColor: getPriorityColor(task.priority), color: getPriorityColor(task.priority) }}>
+                      {task.priority}
+                    </span>{' '}
+                    <span className={task.isCompleted ? 'line-through' : ''}>{task.title}</span>
+                    {task.dueDate && <div className="text-xs text-gray-500">Due: {new Date(task.dueDate).toLocaleDateString()}</div>}
+                    <div className="text-xs text-gray-500">Time Spent: {task.timeSpent} mins</div>
+                  </div>
+                  <div className="flex gap-2">
+                    {runningTimerId === task.id ? (
+                      <div className="flex items-center gap-2">
+                        <span className="badge badge-secondary">Running: {currentElapsedTime} mins</span>
+                        <button onClick={() => handleStopTimer(task.id)} disabled={stopTimerMutation.isLoading} className="btn btn-warning btn-sm">
+                          Stop Timer
+                        </button>
+                      </div>
+                    ) : (
+                      <button onClick={() => handleStartTimer(task.id)} disabled={startTimerMutation.isLoading || runningTimerId !== null} className="btn btn-info btn-sm">
+                        Start Timer
+                      </button>
+                    )}
+                    <button onClick={() => handleEditClick(task)} className="btn btn-ghost btn-sm">Edit</button>
+                    <button onClick={() => deleteTaskMutation.mutate(task.id)} className="btn btn-ghost btn-sm">Delete</button>
+                    {task.estimatedTime && ( // Only show if task has estimated time
+                      <button onClick={() => handleFindFreeTime(task)} className="btn btn-accent btn-sm">Find Free Time</button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </li>
         ))}
       </ul>
+
+      {showFreeTimeModal && selectedTaskForFreeTime && (
+        <FreeTimeModal
+          task={selectedTaskForFreeTime}
+          onClose={() => setShowFreeTimeModal(false)}
+          onSchedule={handleScheduleFreeTime}
+        />
+      )}
+    </div>
+  );
+}
+
+function FreeTimeModal({ task, onClose, onSchedule }) {
+  const { data: freeTimeSlots, isLoading, isError } = useQuery({
+    queryKey: ['freeTime', task.id],
+    queryFn: () => findFreeTime(task.id, 14), // Look for free time in the next 14 days
+  });
+
+  return (
+    <div className="modal modal-open">
+      <div className="modal-box">
+        <h3 className="font-bold text-lg">Suggested Free Times for "{task.title}" ({task.estimatedTime} mins)</h3>
+        {isLoading && <span className="loading loading-spinner"></span>}
+        {isError && <div className="alert alert-error">Error finding free time.</div>}
+        {freeTimeSlots && freeTimeSlots.length > 0 ? (
+          <ul className="menu">
+            {freeTimeSlots.map((slot, index) => (
+              <li key={index}>
+                <a onClick={() => onSchedule(slot)}>
+                  {new Date(slot.start).toLocaleString()} - {new Date(slot.end).toLocaleTimeString()}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          !isLoading && <p>No free time slots found.</p>
+        )}
+        <div className="modal-action">
+          <button className="btn" onClick={onClose}>Close</button>
+        </div>
+      </div>
     </div>
   );
 }
