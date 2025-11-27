@@ -1,0 +1,60 @@
+<context>
+  <story>
+    **Story 2.2: Google Calendar Connection**
+
+    As a logged-in user,
+    I want to connect my Google Calendar account,
+    So that the application can display my personal and work events.
+
+    **Acceptance Criteria:**
+    1. The settings page has an option to "Connect Google Calendar".
+    2. Clicking this initiates the Google OAuth flow for calendar access (read-only).
+    3. Upon successful authorization, the application securely stores the necessary tokens.
+    4. The user receives feedback that the connection was successful.
+  </story>
+
+  <tech-spec>
+    **Story 2.2: Google Calendar Connection**
+
+    *   **Frontend:**
+        *   Update the `/pages/settings.tsx` page to include a button labeled "Connect Google Calendar".
+        *   This button will initiate an OAuth flow to request permissions for Google Calendar access.
+    *   **Backend:**
+        *   A new API route, likely `/pages/api/auth/google-calendar-oauth.ts`, will handle the Google Calendar OAuth callback.
+        *   It will store the `access_token` and `refresh_token` received from Google Calendar API in the `User` model.
+        *   These tokens should be encrypted before storage, similar to the Canvas API key.
+    *   **Database:**
+        *   The `User` model will be updated to include `googleCalendarAccessToken` (String, encrypted) and `googleCalendarRefreshToken` (String, encrypted) fields.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      emailVerified DateTime?
+      image         String?
+      accounts      Account[]
+      sessions      Session[]
+      tasks         Task[]
+      calendarEvents CalendarEvent[]
+      canvasApiKey  String?
+      googleCalendarAccessToken  String?
+      googleCalendarRefreshToken String?
+      preferredStudyTimes Json?
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/auth/google-calendar-oauth.ts`
+    *   Settings Page: `pages/settings.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   Google Calendar API OAuth: https://developers.google.com/calendar/api/guides/auth
+    *   Google API Node.js Client: https://github.com/googleapis/google-api-nodejs-client
+  </documentation>
+</context>
