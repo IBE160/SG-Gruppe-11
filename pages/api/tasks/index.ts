@@ -15,8 +15,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (req.method) {
     case 'GET':
+      const { startDate, endDate } = req.query;
+      const whereClause: any = { userId };
+
+      if (startDate && endDate) {
+        whereClause.dueDate = {
+          gte: new Date(String(startDate)),
+          lte: new Date(String(endDate)),
+        };
+      }
+
       const tasks = await prisma.task.findMany({
-        where: { userId },
+        where: whereClause,
         orderBy: {
           dueDate: 'asc',
         },
@@ -24,11 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(200).json(tasks);
       break;
     case 'POST':
-      const { title, dueDate } = req.body;
+      const { title, dueDate, priority } = req.body;
       const newTask = await prisma.task.create({
         data: {
           title,
           dueDate,
+          priority: priority || 'MEDIUM', // Default to MEDIUM if not provided
           userId,
           type: 'PERSONAL',
         },
