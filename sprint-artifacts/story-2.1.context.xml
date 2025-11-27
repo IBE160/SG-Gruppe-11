@@ -1,0 +1,80 @@
+<context>
+  <story>
+    **Story 2.1: Full Canvas Sync**
+
+    As a logged-in user with a Canvas connection,
+    I want the application to automatically sync all my courses and assignments,
+    So that my agenda is always up-to-date with my academic workload without manual intervention.
+
+    **Acceptance Criteria:**
+    1. The application automatically fetches all active courses from the user's Canvas account.
+    2. It then fetches all upcoming assignments from those courses.
+    3. This synchronization happens periodically (e.g., every few hours) and can also be triggered manually.
+    4. New, updated, and deleted assignments in Canvas are reflected in the application after a sync.
+  </story>
+
+  <tech-spec>
+    **Story 2.1: Full Canvas Sync**
+
+    *   **Frontend:**
+        *   Update the `/pages/settings.tsx` page to include an option to sync all courses at once, potentially as a button labeled "Sync All Canvas Courses".
+    *   **Backend:**
+        *   A new API route `pages/api/canvas/sync-all.ts` will be created.
+        *   This route will:
+            1.  Retrieve the decrypted Canvas API key for the user.
+            2.  Fetch all active courses for the user from the Canvas API.
+            3.  For each course, fetch its assignments.
+            4.  Create or update `Task` records in the database for each assignment, preventing duplicates.
+            5.  This route will need to be robust to handle potential rate limits from the Canvas API (though for a single user, this might not be a major concern).
+    *   **Database:**
+        *   The `User` model (`canvasApiKey` field) and `Task` model will be utilized.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      emailVerified DateTime?
+      image         String?
+      accounts      Account[]
+      sessions      Session[]
+      tasks         Task[]
+      calendarEvents CalendarEvent[]
+      canvasApiKey  String?
+      preferredStudyTimes Json?
+    }
+
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      description String?
+      dueDate     DateTime?
+      courseName  String?
+      canvasHtmlUrl String?
+      isCompleted Boolean  @default(false)
+      priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+      estimatedTime Int?
+      timeSpent   Int      @default(0)
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/canvas/sync-all.ts`
+    *   Settings Page: `pages/settings.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   Canvas API Documentation (Courses): https://canvas.instructure.com/doc/api/courses.html
+    *   Canvas API Documentation (Assignments): https://canvas.instructure.com/doc/api/assignments.html
+  </documentation>
+</context>
