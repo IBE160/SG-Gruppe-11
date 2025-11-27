@@ -78,11 +78,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
     const allEvents: any[] = [];
+    const { timeMin, timeMax } = req.query; // Get timeMin and timeMax from query
 
     for (const calendarId of selectedCalendarIds) {
       const response = await calendar.events.list({
         calendarId: calendarId,
-        timeMin: (new Date()).toISOString(),
+        timeMin: (timeMin as string) || (new Date()).toISOString(), // Use query param or default to now
+        timeMax: timeMax as string, // Use query param
         maxResults: 100,
         singleEvents: true,
         orderBy: 'startTime',
