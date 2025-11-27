@@ -1,0 +1,66 @@
+<context>
+  <story>
+    **Story 3.2: Time Tracking**
+
+    As a logged-in user,
+    I want to track the time I spend on each task,
+    So that I can understand my work patterns and improve my future time estimates.
+
+    **Acceptance Criteria:**
+    1. Each task has a "Start Timer" button.
+    2. When the timer is running, it is clearly visible.
+    3. The user can stop the timer, and the elapsed time is saved to the task.
+    4. The total time spent is displayed on the task details.
+  </story>
+
+  <tech-spec>
+    **Story 3.2: Time Tracking for Tasks**
+
+    *   **Frontend:**
+        *   Update the task display in `/pages/tasks.tsx` and potentially other views to include "Start Timer" and "Stop Timer" buttons or a simple timer display.
+        *   The UI will display the `timeSpent` for a task.
+        *   Client-side timer logic to track elapsed time.
+    *   **Backend:**
+        *   New API endpoints will be needed:
+            *   `POST /api/tasks/:id/start-timer`: To record the start time of a task.
+            *   `POST /api/tasks/:id/stop-timer`: To calculate elapsed time and update `timeSpent`.
+        *   These endpoints will update the `timeSpent` field in the `Task` model.
+    *   **Database:**
+        *   The `Task` model in `prisma/schema.prisma` already has a `timeSpent` field.
+        *   May need a temporary field `timerStartedAt` in the `Task` model or a separate in-memory store on the backend to track when the timer started. For simplicity, we can initially just add the elapsed time from frontend. A more robust solution might involve persisting the start time.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      description String?
+      dueDate     DateTime?
+      courseName  String?
+      canvasHtmlUrl String?
+      isCompleted Boolean  @default(false)
+      priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+      estimatedTime Int?
+      timeSpent   Int      @default(0) // Stored in minutes
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Routes: `pages/api/tasks/[id]/start-timer.ts`, `pages/api/tasks/[id]/stop-timer.ts`
+    *   Tasks Page: `pages/tasks.tsx`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   React `useState` and `useEffect`: https://react.dev/reference/react
+    *   JavaScript `setInterval` and `clearInterval`: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
+  </documentation>
+</context>
