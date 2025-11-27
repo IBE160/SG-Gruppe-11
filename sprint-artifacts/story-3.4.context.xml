@@ -1,0 +1,100 @@
+<context>
+  <story>
+    **Story 3.4: "Find Free Time" Algorithm**
+
+    As a busy user,
+    I want the application to analyze my schedule and suggest available time slots for a specific task,
+    So that I can efficiently find and dedicate time for studying without manually scanning my calendar.
+
+    **Acceptance Criteria:**
+    1. A "Find Free Time" button is available for each task.
+    2. When clicked, the system analyzes the user's calendar events and existing tasks.
+    3. It identifies and presents a list of "white space" slots that are large enough for the task (based on an estimated duration).
+    4. The suggestions are ranked based on the user's preferred study times.
+    5. The user can select a slot to schedule the task.
+  </story>
+
+  <tech-spec>
+    **Story 3.4: "Find Free Time" Algorithm (MVP)**
+
+    *   **Backend:**
+        *   A new API route `pages/api/schedule/free-time.ts` will be created.
+        *   This API will:
+            1.  Receive a `taskId` (to get its estimated duration) and a `timeframe` (e.g., in days/weeks).
+            2.  Fetch the user's `preferredStudyTimes` from the `User` model.
+            3.  Fetch all active tasks for the user within the `timeframe`.
+            4.  Fetch all Google Calendar events for the user (from selected calendars) within the `timeframe`.
+            5.  Implement the core "Timeline" algorithm logic (as described in `architecture.md`) to identify available time slots that:
+                *   Are within `preferredStudyTimes`.
+                *   Do not conflict with existing tasks or calendar events.
+                *   Are large enough for the task's estimated duration.
+            6.  Return a list of suggested free time slots (start time, end time).
+    *   **Database:**
+        *   Utilizes `User` (for `preferredStudyTimes`, Google Calendar tokens) and `Task` and `CalendarEvent` models.
+  </tech-spec>
+
+  <prisma-schema>
+    ```prisma
+    model User {
+      id            String    @id @default(cuid())
+      name          String?
+      email         String?   @unique
+      emailVerified DateTime?
+      image         String?
+      accounts      Account[]
+      sessions      Session[]
+      tasks         Task[]
+      calendarEvents CalendarEvent[]
+      canvasApiKey  String?
+      googleCalendarAccessToken  String?
+      googleCalendarRefreshToken String?
+      selectedCalendarIds        Json?
+      preferredStudyTimes Json?
+    }
+
+    model Task {
+      id          String   @id @default(cuid())
+      userId      String
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      type        String   // CANVAS_ASSIGNMENT or PERSONAL
+      canvasAssignmentId String?
+      title       String
+      description String?
+      dueDate     DateTime?
+      courseName  String?
+      canvasHtmlUrl String?
+      isCompleted Boolean  @default(false)
+      priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+      estimatedTime Int? // Used for the algorithm
+      timeSpent   Int      @default(0) // Stored in minutes
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+
+    model CalendarEvent {
+      id            String   @id @default(cuid())
+      userId        String
+      user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      googleEventId String   @unique
+      calendarId    String
+      title         String
+      description   String?
+      startTime     DateTime
+      endTime       DateTime
+      isAllDay      Boolean  @default(false)
+      createdAt     DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+    }
+    ```
+  </prisma-schema>
+
+  <file-paths>
+    *   API Route: `pages/api/schedule/free-time.ts`
+    *   Prisma Schema: `prisma/schema.prisma`
+  </file-paths>
+
+  <documentation>
+    *   Google Calendar API: Events list: https://developers.google.com/calendar/api/v3/reference/events/list
+    *   JavaScript Date object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+  </documentation>
+</context>
