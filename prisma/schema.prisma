@@ -21,6 +21,9 @@ model User {
   tasks         Task[]
   calendarEvents CalendarEvent[]
   canvasApiKey  String?
+  googleCalendarAccessToken  String?
+  googleCalendarRefreshToken String?
+  selectedCalendarIds        Json?
   preferredStudyTimes Json?
 }
 
