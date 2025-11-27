@@ -24,11 +24,36 @@ const syncAllCanvasCourses = async () => {
   return data;
 };
 
+const fetchGoogleCalendars = async () => {
+  const { data } = await axios.get('/api/calendar/list');
+  return data;
+};
+
+const saveSelectedGoogleCalendars = async (calendarIds: string[]) => {
+  const { data } = await axios.post('/api/calendar/select', { selectedCalendarIds: calendarIds });
+  return data;
+};
+
+const savePreferredStudyTimes = async (preferences: { days: string[]; startTime: string; endTime: string; }) => {
+  const { data } = await axios.put('/api/user/preferences', { preferredStudyTimes: preferences });
+  return data;
+};
+
+const fetchUserPreferences = async () => {
+  const { data } = await axios.get('/api/user/preferences'); // Assuming an API to fetch user preferences
+  return data;
+};
+
+
 export default function SettingsPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [apiKey, setApiKey] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedGoogleCalendars, setSelectedGoogleCalendars] = useState<string[]>([]);
+  const [preferredStudyDays, setPreferredStudyDays] = useState<string[]>([]);
+  const [preferredStudyStartTime, setPreferredStudyStartTime] = useState('09:00');
+  const [preferredStudyEndTime, setPreferredStudyEndTime] = useState('17:00');
 
   useEffect(() => {
     if (router.query.status === 'google-calendar-success') {
@@ -41,6 +66,24 @@ export default function SettingsPage() {
   }, [router.query.status, router]);
 
   const queryClient = useQueryClient();
+
+  // Fetch user preferences on load
+  const { data: userPreferences, isLoading: isLoadingPreferences, isError: isErrorPreferences } = useQuery({
+    queryKey: ['userPreferences'],
+    queryFn: fetchUserPreferences,
+    enabled: status === 'authenticated',
+    onSuccess: (data) => {
+      if (data?.preferredStudyTimes) {
+        setPreferredStudyDays(data.preferredStudyTimes.days || []);
+        setPreferredStudyStartTime(data.preferredStudyTimes.startTime || '09:00');
+        setPreferredStudyEndTime(data.preferredStudyTimes.endTime || '17:00');
+      }
+      if (data?.selectedCalendarIds) {
+        setSelectedGoogleCalendars(data.selectedCalendarIds);
+      }
+    },
+  });
+
 
   const apiKeyMutation = useMutation({
     mutationFn: saveCanvasApiKey,
@@ -72,7 +115,57 @@ export default function SettingsPage() {
     },
   });
 
-  if (status === 'loading') {
+  const syncAllMutation = useMutation({
+    mutationFn: syncAllCanvasCourses,
+    onSuccess: () => {
+      alert('All Canvas courses synced successfully!');
+      queryClient.invalidateQueries({ queryKey: ['tasks'] }); // Invalidate tasks to show new assignments
+    },
+    onError: (error) => {
+      // @ts-ignore
+      alert(`Failed to sync all Canvas courses: ${error.response?.data?.message || error.message}`);
+    },
+  });
+
+  const { data: googleCalendars, isLoading: isLoadingGoogleCalendars, isError: isErrorGoogleCalendars } = useQuery({
+    queryKey: ['googleCalendars'],
+    queryFn: fetchGoogleCalendars,
+    enabled: status === 'authenticated',
+    onSuccess: (data) => {
+      if (!userPreferences?.selectedCalendarIds) { // Only set if not already loaded from userPreferences
+        const userSelectedCalendars = session?.user?.selectedCalendarIds || []; // Assuming session.user contains selectedCalendarIds
+        setSelectedGoogleCalendars(userSelectedCalendars);
+      }
+    },
+  });
+
+  const saveGoogleCalendarsMutation = useMutation({
+    mutationFn: saveSelectedGoogleCalendars,
+    onSuccess: () => {
+      alert('Google Calendar selections saved!');
+      queryClient.invalidateQueries({ queryKey: ['userPreferences'] }); // Invalidate user preferences to refetch them
+    },
+    onError: (error) => {
+      // @ts-ignore
+      alert(`Failed to save Google Calendar selections: ${error.response?.data?.message || error.message}`);
+    },
+  });
+
+  const savePreferredStudyTimesMutation = useMutation({
+    mutationFn: savePreferredStudyTimes,
+    onSuccess: () => {
+      alert('Preferred study times saved!');
+      queryClient.invalidateQueries({ queryKey: ['userPreferences'] }); // Invalidate user preferences to refetch them
+    },
+    onError: (error) => {
+      // @ts-ignore
+      alert(`Failed to save preferred study times: ${error.response?.data?.message || error.message}`);
+    },
+  });
+
+  const isErrorPreferredStudyTimes = savePreferredStudyTimesMutation.isError;
+
+  if (status === 'loading' || isLoadingPreferences) { // Add isLoadingPreferences to check
     return <div>Loading...</div>;
   }
 
@@ -94,27 +187,32 @@ export default function SettingsPage() {
     }
   };
 
-  const syncAllCanvasCourses = async () => {
-    const { data } = await axios.post('/api/canvas/sync-all');
-    return data;
-  };
-
-  const syncAllMutation = useMutation({
-    mutationFn: syncAllCanvasCourses,
-    onSuccess: () => {
-      alert('All Canvas courses synced successfully!');
-      queryClient.invalidateQueries({ queryKey: ['tasks'] }); // Invalidate tasks to show new assignments
-    },
-    onError: (error) => {
-      // @ts-ignore
-      alert(`Failed to sync all Canvas courses: ${error.response?.data?.message || error.message}`);
-    },
-  });
-
-  // ... (rest of the component)
-
   const handleSyncAllCourses = () => {
     syncAllMutation.mutate();
+  };
+
+  const handleGoogleCalendarSelect = (calendarId: string) => {
+    setSelectedGoogleCalendars((prev) =>
+      prev.includes(calendarId) ? prev.filter((id) => id !== calendarId) : [...prev, calendarId]
+    );
+  };
+
+  const handleSaveGoogleCalendarSelection = () => {
+    saveGoogleCalendarsMutation.mutate(selectedGoogleCalendars);
+  };
+
+  const handlePreferredStudyDayToggle = (day: string) => {
+    setPreferredStudyDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
+
+  const handleSavePreferredStudyTimes = () => {
+    savePreferredStudyTimesMutation.mutate({
+      days: preferredStudyDays,
+      startTime: preferredStudyStartTime,
+      endTime: preferredStudyEndTime,
+    });
   };
 
   return (
@@ -154,15 +252,19 @@ export default function SettingsPage() {
           {isLoadingCourses && <div>Loading courses...</div>}
           {isErrorCourses && <div>Error loading courses. Make sure your API key is valid.</div>}
 
-          <div style={{ marginTop: '10px'}>
+          <div style={{ marginTop: '10px' }}>
             <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isLoading}>
               {syncAllMutation.isLoading ? 'Syncing All...' : 'Sync All Canvas Courses'}
             </button>
           </div>
         </div>
       )}
-
-
+      {courses && courses.length === 0 && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>No Canvas courses found.</h3>
+          <p>Please ensure your Canvas API key is valid and you have active enrollments.</p>
+        </div>
+      )}
 
       <div style={{ marginTop: '20px' }}>
         <h2>Google Calendar Integration</h2>
