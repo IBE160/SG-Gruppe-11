@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react'; // Import useEffect and useRef
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
@@ -23,6 +23,15 @@ const deleteTask = async (taskId) => {
   await axios.delete(`/api/tasks/${taskId}`);
 };
 
+const startTimer = async (taskId) => {
+  await axios.post(`/api/tasks/${taskId}/start-timer`);
+};
+
+const stopTimer = async (taskId, elapsedTime) => {
+  const { data } = await axios.post(`/api/tasks/${taskId}/stop-timer`, { elapsedTime });
+  return data;
+};
+
 const priorityOptions = ['LOW', 'MEDIUM', 'HIGH'];
 
 export default function TasksPage() {
@@ -37,6 +46,24 @@ export default function TasksPage() {
   const [editingTitle, setEditingTitle] = useState('');
   const [editingDueDate, setEditingDueDate] = useState('');
   const [editingPriority, setEditingPriority] = useState('MEDIUM');
+
+  const [runningTimerId, setRunningTimerId] = useState(null);
+  const [timerStartTime, setTimerStartTime] = useState(null);
+  const [currentElapsedTime, setCurrentElapsedTime] = useState(0);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    if (runningTimerId && timerStartTime !== null) {
+      intervalRef.current = setInterval(() => {
+        setCurrentElapsedTime(Math.floor((Date.now() - timerStartTime) / 1000 / 60)); // in minutes
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+      setCurrentElapsedTime(0);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [runningTimerId, timerStartTime]);
+
 
   const createTaskMutation = useMutation({
     mutationFn: createTask,
@@ -61,6 +88,32 @@ export default function TasksPage() {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
   });
+
+  const startTimerMutation = useMutation({
+    mutationFn: startTimer,
+    onSuccess: (data, taskId) => {
+      setRunningTimerId(taskId);
+      setTimerStartTime(Date.now());
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+    },
+    onError: () => {
+      alert('Failed to start timer');
+    },
+  });
+
+  const stopTimerMutation = useMutation({
+    mutationFn: ({ taskId, elapsedTime }) => stopTimer(taskId, elapsedTime),
+    onSuccess: () => {
+      setRunningTimerId(null);
+      setTimerStartTime(null);
+      setCurrentElapsedTime(0);
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+    },
+    onError: () => {
+      alert('Failed to stop timer');
+    },
+  });
+
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -90,6 +143,15 @@ export default function TasksPage() {
       priority: editingPriority,
     });
   };
+
+  const handleStartTimer = (taskId) => {
+    startTimerMutation.mutate(taskId);
+  };
+
+  const handleStopTimer = (taskId) => {
+    stopTimerMutation.mutate({ taskId, elapsedTime: currentElapsedTime });
+  };
+
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -165,6 +227,19 @@ export default function TasksPage() {
                 </span>{' '}
                 {task.title}
                 {task.dueDate && ` - Due: ${new Date(task.dueDate).toLocaleDateString()}`}
+                (Time Spent: {task.timeSpent} mins)
+                {runningTimerId === task.id ? (
+                  <>
+                    <span>Running: {currentElapsedTime} mins</span>
+                    <button onClick={() => handleStopTimer(task.id)} disabled={stopTimerMutation.isLoading}>
+                      Stop Timer
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={() => handleStartTimer(task.id)} disabled={startTimerMutation.isLoading || runningTimerId !== null}>
+                    Start Timer
+                  </button>
+                )}
                 <button onClick={() => handleEditClick(task)}>Edit</button>
                 <button onClick={() => deleteTaskMutation.mutate(task.id)}>Delete</button>
               </>
