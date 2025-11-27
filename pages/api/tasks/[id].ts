@@ -24,13 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (req.method) {
     case 'PUT':
-      const { title, dueDate, isCompleted } = req.body;
+      const { title, dueDate, isCompleted, priority } = req.body;
       const updatedTask = await prisma.task.update({
         where: { id: String(id) },
         data: {
           title,
           dueDate,
           isCompleted,
+          priority,
         },
       });
       res.status(200).json(updatedTask);
