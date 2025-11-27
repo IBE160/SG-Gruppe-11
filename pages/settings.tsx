@@ -154,7 +154,7 @@ export default function SettingsPage() {
           {isLoadingCourses && <div>Loading courses...</div>}
           {isErrorCourses && <div>Error loading courses. Make sure your API key is valid.</div>}
 
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '10px'}>
             <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isLoading}>
               {syncAllMutation.isLoading ? 'Syncing All...' : 'Sync All Canvas Courses'}
             </button>
@@ -191,6 +191,31 @@ export default function SettingsPage() {
             {isErrorGoogleCalendars && <div>Error loading Google Calendars.</div>}
           </div>
         )}
+      </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h2>Preferred Study Times</h2>
+        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+          <div key={day}>
+            <input
+              type="checkbox"
+              id={day}
+              checked={preferredStudyDays.includes(day)}
+              onChange={() => handlePreferredStudyDayToggle(day)}
+            />
+            <label htmlFor={day}>{day}</label>
+          </div>
+        ))}
+        <div>
+          Start Time: <input type="time" value={preferredStudyStartTime} onChange={(e) => setPreferredStudyStartTime(e.target.value)} />
+        </div>
+        <div>
+          End Time: <input type="time" value={preferredStudyEndTime} onChange={(e) => setPreferredStudyEndTime(e.target.value)} />
+        </div>
+        <button onClick={handleSavePreferredStudyTimes} disabled={savePreferredStudyTimesMutation.isLoading}>
+          {savePreferredStudyTimesMutation.isLoading ? 'Saving...' : 'Save Preferred Study Times'}
+        </button>
+        {isErrorPreferredStudyTimes && <div>Error saving preferred study times.</div>}
       </div>
     </div>
   );
