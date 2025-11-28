@@ -9,30 +9,30 @@ const fetchTasks = async () => {
   return data;
 };
 
-const createTask = async (newTask) => {
+const createTask = async (newTask: { title: string; priority: string; dueDate?: Date }) => {
   const { data } = await axios.post('/api/tasks', newTask);
   return data;
 };
 
-const updateTask = async (updatedTask) => {
+const updateTask = async (updatedTask: any) => {
   const { data } = await axios.put(`/api/tasks/${updatedTask.id}`, updatedTask);
   return data;
 };
 
-const deleteTask = async (taskId) => {
+const deleteTask = async (taskId: string) => {
   await axios.delete(`/api/tasks/${taskId}`);
 };
 
-const startTimer = async (taskId) => {
+const startTimer = async (taskId: string) => {
   await axios.post(`/api/tasks/${taskId}/start-timer`);
 };
 
-const stopTimer = async (taskId, elapsedTime) => {
+const stopTimer = async (taskId: string, elapsedTime: number) => {
   const { data } = await axios.post(`/api/tasks/${taskId}/stop-timer`, { elapsedTime });
   return data;
 };
 
-const findFreeTime = async (taskId, timeframeDays) => {
+const findFreeTime = async (taskId: string, timeframeDays: number) => {
   const { data } = await axios.get(`/api/schedule/free-time?taskId=${taskId}&timeframeDays=${timeframeDays}`);
   return data;
 };
@@ -73,7 +73,7 @@ export default function TasksPage() {
   }, [runningTimerId, timerStartTime]);
 
 
-  const createTaskMutation = useMutation({
+  const createTaskMutation = useMutation<any, Error, { title: string; priority: string; dueDate?: Date }>({
     mutationFn: createTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
@@ -82,7 +82,7 @@ export default function TasksPage() {
     },
   });
 
-  const updateTaskMutation = useMutation({
+  const updateTaskMutation = useMutation<any, Error, any>({
     mutationFn: updateTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
@@ -90,14 +90,14 @@ export default function TasksPage() {
     },
   });
 
-  const deleteTaskMutation = useMutation({
+  const deleteTaskMutation = useMutation<any, Error, string>({
     mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
   });
 
-  const startTimerMutation = useMutation({
+  const startTimerMutation = useMutation<any, Error, string>({
     mutationFn: startTimer,
     onSuccess: (data, taskId) => {
       setRunningTimerId(taskId);
@@ -109,7 +109,7 @@ export default function TasksPage() {
     },
   });
 
-  const stopTimerMutation = useMutation({
+  const stopTimerMutation = useMutation<any, Error, { taskId: string, elapsedTime: number }>({
     mutationFn: ({ taskId, elapsedTime }) => stopTimer(taskId, elapsedTime),
     onSuccess: () => {
       setRunningTimerId(null);
@@ -122,7 +122,7 @@ export default function TasksPage() {
     },
   });
 
-  const findFreeTimeMutation = useMutation({
+  const findFreeTimeMutation = useMutation<any, Error, { taskId: string, timeframeDays: number }>({
     mutationFn: ({ taskId, timeframeDays }) => findFreeTime(taskId, timeframeDays),
     onSuccess: (data) => {
       // Handle displaying suggested free times in a modal
@@ -148,14 +148,14 @@ export default function TasksPage() {
     createTaskMutation.mutate({ title: newTaskTitle, priority: newTaskPriority });
   };
 
-  const handleEditClick = (task) => {
+  const handleEditClick = (task: any) => {
     setEditingTaskId(task.id);
     setEditingTitle(task.title);
     setEditingDueDate(task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : '');
     setEditingPriority(task.priority || 'MEDIUM');
   };
 
-  const handleSaveEdit = (task) => {
+  const handleSaveEdit = (task: any) => {
     updateTaskMutation.mutate({
       ...task,
       title: editingTitle,
@@ -164,20 +164,20 @@ export default function TasksPage() {
     });
   };
 
-  const handleStartTimer = (taskId) => {
+  const handleStartTimer = (taskId: string) => {
     startTimerMutation.mutate(taskId);
   };
 
-  const handleStopTimer = (taskId) => {
+  const handleStopTimer = (taskId: string) => {
     stopTimerMutation.mutate({ taskId, elapsedTime: currentElapsedTime });
   };
 
-  const handleFindFreeTime = (task) => {
+  const handleFindFreeTime = (task: any) => {
     setSelectedTaskForFreeTime(task);
     setShowFreeTimeModal(true);
   };
 
-  const handleScheduleFreeTime = (suggestedSlot) => {
+  const handleScheduleFreeTime = (suggestedSlot: any) => {
     // Create a new task based on the suggestion
     createTaskMutation.mutate({
       title: `Study for: ${selectedTaskForFreeTime.title}`,
@@ -187,7 +187,7 @@ export default function TasksPage() {
     setShowFreeTimeModal(false);
   };
 
-  const getPriorityColor = (priority) => {
+  const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'HIGH':
         return 'red';
@@ -220,13 +220,13 @@ export default function TasksPage() {
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
-          <button onClick={handleCreateTask} disabled={createTaskMutation.isLoading} className="btn btn-primary">
-            {createTaskMutation.isLoading ? 'Adding...' : 'Add Task'}
+          <button onClick={handleCreateTask} disabled={createTaskMutation.isPending} className="btn btn-primary">
+            {createTaskMutation.isPending ? 'Adding...' : 'Add Task'}
           </button>
         </div>
       </div>
       <ul className="space-y-2">
-        {tasks.map((task) => (
+        {tasks.map((task: any) => (
           <li key={task.id} className="card bg-base-100 shadow">
             <div className="card-body p-4">
               {editingTaskId === task.id ? (
@@ -248,7 +248,7 @@ export default function TasksPage() {
                       <option key={option} value={option}>{option}</option>
                     ))}
                   </select>
-                  <button onClick={() => handleSaveEdit(task)} disabled={updateTaskMutation.isLoading} className="btn btn-success btn-sm">
+                  <button onClick={() => handleSaveEdit(task)} disabled={updateTaskMutation.isPending} className="btn btn-success btn-sm">
                     Save
                   </button>
                   <button onClick={() => setEditingTaskId(null)} className="btn btn-ghost btn-sm">Cancel</button>
@@ -275,12 +275,12 @@ export default function TasksPage() {
                     {runningTimerId === task.id ? (
                       <div className="flex items-center gap-2">
                         <span className="badge badge-secondary">Running: {currentElapsedTime} mins</span>
-                        <button onClick={() => handleStopTimer(task.id)} disabled={stopTimerMutation.isLoading} className="btn btn-warning btn-sm">
+                        <button onClick={() => handleStopTimer(task.id)} disabled={stopTimerMutation.isPending} className="btn btn-warning btn-sm">
                           Stop Timer
                         </button>
                       </div>
                     ) : (
-                      <button onClick={() => handleStartTimer(task.id)} disabled={startTimerMutation.isLoading || runningTimerId !== null} className="btn btn-info btn-sm">
+                      <button onClick={() => handleStartTimer(task.id)} disabled={startTimerMutation.isPending || runningTimerId !== null} className="btn btn-info btn-sm">
                         Start Timer
                       </button>
                     )}
@@ -308,7 +308,7 @@ export default function TasksPage() {
   );
 }
 
-function FreeTimeModal({ task, onClose, onSchedule }) {
+function FreeTimeModal({ task, onClose, onSchedule }: { task: any, onClose: () => void, onSchedule: (slot: any) => void }) {
   const { data: freeTimeSlots, isLoading, isError } = useQuery({
     queryKey: ['freeTime', task.id],
     queryFn: () => findFreeTime(task.id, 14), // Look for free time in the next 14 days
