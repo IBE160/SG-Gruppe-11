@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { getSession } from 'next-auth/react';
 import { google } from 'googleapis';
-import { decrypt } from '../../../lib/crypto';
+import { decrypt, encrypt } from '../../../lib/crypto';
 
 const prisma = new PrismaClient();
 
