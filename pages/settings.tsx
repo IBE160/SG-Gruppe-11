@@ -72,17 +72,20 @@ export default function SettingsPage() {
     queryKey: ['userPreferences'],
     queryFn: fetchUserPreferences,
     enabled: status === 'authenticated',
-    onSuccess: (data) => {
-      if (data?.preferredStudyTimes) {
-        setPreferredStudyDays(data.preferredStudyTimes.days || []);
-        setPreferredStudyStartTime(data.preferredStudyTimes.startTime || '09:00');
-        setPreferredStudyEndTime(data.preferredStudyTimes.endTime || '17:00');
-      }
-      if (data?.selectedCalendarIds) {
-        setSelectedGoogleCalendars(data.selectedCalendarIds);
-      }
-    },
   });
+
+  useEffect(() => {
+    if (userPreferences) {
+      if (userPreferences?.preferredStudyTimes) {
+        setPreferredStudyDays(userPreferences.preferredStudyTimes.days || []);
+        setPreferredStudyStartTime(userPreferences.preferredStudyTimes.startTime || '09:00');
+        setPreferredStudyEndTime(userPreferences.preferredStudyTimes.endTime || '17:00');
+      }
+      if (userPreferences?.selectedCalendarIds) {
+        setSelectedGoogleCalendars(userPreferences.selectedCalendarIds);
+      }
+    }
+  }, [userPreferences]);
 
 
   const apiKeyMutation = useMutation({
@@ -131,13 +134,14 @@ export default function SettingsPage() {
     queryKey: ['googleCalendars'],
     queryFn: fetchGoogleCalendars,
     enabled: status === 'authenticated',
-    onSuccess: (data) => {
-      if (!userPreferences?.selectedCalendarIds) { // Only set if not already loaded from userPreferences
-        const userSelectedCalendars = session?.user?.selectedCalendarIds || []; // Assuming session.user contains selectedCalendarIds
-        setSelectedGoogleCalendars(userSelectedCalendars);
-      }
-    },
   });
+
+  useEffect(() => {
+    if (googleCalendars && !userPreferences?.selectedCalendarIds) { // Only set if not already loaded from userPreferences
+      const userSelectedCalendars = session?.user?.selectedCalendarIds || []; // Assuming session.user contains selectedCalendarIds
+      setSelectedGoogleCalendars(userSelectedCalendars);
+    }
+  }, [googleCalendars, userPreferences, session]);
 
   const saveGoogleCalendarsMutation = useMutation({
     mutationFn: saveSelectedGoogleCalendars,
@@ -235,8 +239,8 @@ export default function SettingsPage() {
                 className="input input-bordered w-full"
               />
             </div>
-            <button type="submit" disabled={apiKeyMutation.isLoading} className="btn btn-primary">
-              {apiKeyMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save API Key'}
+            <button type="submit" disabled={apiKeyMutation.isPending} className="btn btn-primary">
+              {apiKeyMutation.isPending ? <span className="loading loading-spinner"></span> : 'Save API Key'}
             </button>
           </form>
 
@@ -252,13 +256,13 @@ export default function SettingsPage() {
                     </option>
                   ))}
                 </select>
-                <button onClick={handleSyncCourse} disabled={syncMutation.isLoading || !selectedCourse} className="btn">
-                  {syncMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Sync Selected'}
+                <button onClick={handleSyncCourse} disabled={syncMutation.isPending || !selectedCourse} className="btn">
+                  {syncMutation.isPending ? <span className="loading loading-spinner"></span> : 'Sync Selected'}
                 </button>
               </div>
               <div className="mt-2">
-                <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isLoading} className="btn btn-secondary">
-                  {syncAllMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Sync All Courses'}
+                <button onClick={handleSyncAllCourses} disabled={syncAllMutation.isPending} className="btn btn-secondary">
+                  {syncAllMutation.isPending ? <span className="loading loading-spinner"></span> : 'Sync All Courses'}
                 </button>
               </div>
             </div>
@@ -292,8 +296,8 @@ export default function SettingsPage() {
                   </label>
                 ))}
               </div>
-              <button onClick={handleSaveGoogleCalendarSelection} disabled={saveGoogleCalendarsMutation.isLoading} className="btn btn-primary mt-2">
-                {saveGoogleCalendarsMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save Selections'}
+              <button onClick={handleSaveGoogleCalendarSelection} disabled={saveGoogleCalendarsMutation.isPending} className="btn btn-primary mt-2">
+                {saveGoogleCalendarsMutation.isPending ? <span className="loading loading-spinner"></span> : 'Save Selections'}
               </button>
             </div>
           )}
@@ -338,8 +342,8 @@ export default function SettingsPage() {
             </label>
             <input type="time" id="end-time" value={preferredStudyEndTime} onChange={(e) => setPreferredStudyEndTime(e.target.value)} className="input input-bordered" />
           </div>
-          <button onClick={handleSavePreferredStudyTimes} disabled={savePreferredStudyTimesMutation.isLoading} className="btn btn-primary mt-2">
-            {savePreferredStudyTimesMutation.isLoading ? <span className="loading loading-spinner"></span> : 'Save Preferred Times'}
+          <button onClick={handleSavePreferredStudyTimes} disabled={savePreferredStudyTimesMutation.isPending} className="btn btn-primary mt-2">
+            {savePreferredStudyTimesMutation.isPending ? <span className="loading loading-spinner"></span> : 'Save Preferred Times'}
           </button>
           {isErrorPreferredStudyTimes && <div className="alert alert-error mt-2">Error saving preferred study times.</div>}
         </div>
