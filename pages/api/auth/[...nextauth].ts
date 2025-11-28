@@ -16,7 +16,18 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, user }) {
+      const dbUser = await prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        select: {
+          selectedCalendarIds: true,
+        },
+      });
       session.user.id = user.id;
+      if (dbUser) {
+        session.user.selectedCalendarIds = (dbUser.selectedCalendarIds as string[]) || [];
+      }
       return session;
     },
   },
