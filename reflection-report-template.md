@@ -347,7 +347,7 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 ## 8. Vedlegg (valgfritt)
 
 - Skjermbilder av applikasjonen
-- Lenke til GitHub repository
+- https://github.com/IBE160/SG-Gruppe-11
 - Annen relevant dokumentasjon
 
 ---
