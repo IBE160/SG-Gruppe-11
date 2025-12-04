@@ -2,14 +2,14 @@
 
 ## 1. Gruppeinformasjon
 
-**Gruppenavn:** [Navn på gruppen]
+**Gruppenavn:** Things+
 
 **Gruppemedlemmer:**
 - [Navn 1] - 115
 - [Navn 2] - 131
 - [Navn 3] - 138
 
-**Dato:** [DD.MM.ÅÅÅÅ]
+**Dato:** 04.12.2025
 
 ---
 
