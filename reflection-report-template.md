@@ -31,23 +31,45 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 - Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
 
 ### 2.3 Teknologi og verktøy
-[Liste over de viktigste teknologiene og verktøyene dere brukte]
-- Frontend: [f.eks. NextJS, HTML/CSS]
-- Backend: [f.eks. Python/FastAPI]
-- Database: [f.eks. Supabase, MongoDB, PostgreSQL]
-- KI-verktøy: [f.eks. Claude Code, Gemini CLI, GPT-5 Codex]
-- Andre verktøy: [f.eks. VS Code, BMAD etc]
+- Frontend: Next.js, React, TypeScript, Tailwind CSS, HTML/CSS
+- Backend: Next.js API Routes
+- Database: Prisma (ORM), PostgreSQL
+- KI-verktøy: Gemini CLI, Google Gemini (Gemini 2.0 Flash), OpenRouter
+- Andre verktøy: VS Code, BMAD, Git
 
 ### 2.4 Utviklingsfaser
-[Beskriv de ulike fasene i utviklingen]
+Prosjektet ble delt inn i to hovedfaser: en planleggings- og designfase, etterfulgt av en utviklings- og implementeringsfase.
 
-**Fase 1: Planlegging**
-- [Hva gjorde dere i denne fasen?]
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+**Fase 1: Planlegging og Design**
+- **Hva gjorde dere i denne fasen?**
+  I denne fasen la vi grunnlaget for hele prosjektet. Arbeidet startet med idémyldring (`brainstorming.md`) og utforming av et prosjektforslag (`proposal.md`). Deretter definerte vi produktkravene i et Product Requirements Document (`docs/PRD.md`) og brøt ned arbeidet i større enheter (`docs/epics.md`) og konkrete brukerhistorier (`docs/stories/`). Vi planla også de første sprintene (`docs/sprint-1-plan.md`), designet systemarkitekturen (`docs/architecture.md`), og spesifiserte brukeropplevelsen (`docs/ux-design-specification.md`). Hele prosessen ble styrt ved hjelp av BMAD-rammeverket.
 
-**Fase 2: Utvikling**
-- [Hva gjorde dere i denne fasen?]
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+- **Hvordan brukte dere KI her?**
+  KI var en sentral partner i planleggingsfasen. Vi brukte KI til å generere og strukturere ideer, utforme dokumentmaler og som en sparringspartner for å spisse kravene. Et typisk eksempel var å bruke KI til å bryte ned en Epic til håndterbare User Stories.
+
+  **Eksempel på prompt:**
+  ```
+  "Basert på følgende Epic for vår 'Things+' applikasjon, generer 5-7 detaljerte User Stories som dekker kjernefunksjonaliteten. Inkluder akseptansekriterier for hver story.
+
+  **Epic:** Som en travel student, vil jeg kunne synkronisere oppgavene mine fra Canvas til 'Things+' appen, slik at jeg har alle frister og gjøremål samlet på ett sted."
+  ```
+
+**Fase 2: Utvikling og Implementering**
+- **Hva gjorde dere i denne fasen?**
+  Dette var den tekniske gjennomføringsfasen. Vi bygget en fullstack-applikasjon med Next.js, der vi utviklet frontend-komponenter i React/TypeScript (`pages/`), satte opp API-endepunkter for backend-logikk (`pages/api/`), og integrerte en PostgreSQL-database ved hjelp av Prisma (`prisma/schema.prisma`). Vi la også opp en CI/CD-pipeline med GitHub Actions (`.github/workflows/main.yml`) for å automatisere testing og deployment. Arbeidet ble organisert i sprinter, og resultatene ble dokumentert i `sprint-artifacts/`.
+
+- **Hvordan brukte dere KI her?**
+  Under utviklingen fungerte Gemini CLI som en "pair programmer". Vi brukte KI til å generere kodeskjeletter for React-komponenter, skrive logikk for API-ruter, feilsøke kode, implementere funksjonalitet som kryptering (`lib/crypto.ts`), og skrive enhetstester (`__tests__/simple.test.js`).
+
+  **Eksempel på prompt:**
+  ```
+  "Jeg trenger en React-komponent for innlogging i Next.js med TypeScript og Tailwind CSS. Lag en 'login.tsx'-fil som inneholder:
+  1. Et skjema med e-post- og passordfelt.
+  2. State-håndtering for input-feltene.
+  3. En 'handleLogin'-funksjon som kaller et API-endepunkt '/api/auth/login'.
+  4. Enkel feilhåndtering som viser en melding ved mislykket pålogging.
+  5. Styling med Tailwind CSS for et rent og moderne utseende."
+  ```
 
 ---
 
