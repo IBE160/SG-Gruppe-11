@@ -76,17 +76,17 @@ Prosjektet ble delt inn i to hovedfaser: en planleggings- og designfase, etterfu
 ## 3. Utfordringer og løsninger
 
 ### 3.1 Tekniske utfordringer
-[Beskriv 2-3 konkrete tekniske problemer dere møtte]
+Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives to av de mest sentrale utfordringene og hvordan vi løste dem, ofte med bistand fra KI.
 
-**Utfordring 1: [Tittel]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
-- KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
+**Utfordring 1: Sikker API-integrasjon med Canvas**
+- **Problem:** Den største tekniske bøygen var å koble applikasjonen til Canvas sitt API på en sikker og robust måte. Vi var usikre på den korrekte implementeringen av OAuth 2.0-autentiseringsflyten, hvordan vi skulle lagre API-tokens på en sikker måte etter at brukeren hadde logget inn, og hvordan vi skulle håndtere paginerte svar fra API-et for å sikre at vi hentet alle oppgavene til brukeren.
+- **Løsning:** Løsningen ble å bygge et eget API-endepunkt i Next.js (`/pages/api/canvas/`) som fungerte som en mellomvare (backend-for-frontend). Dette endepunktet håndterte all kommunikasjon med Canvas-API-et. Brukerens `access_token` ble kryptert ved hjelp av `crypto.ts` og lagret i en `httpOnly`-cookie, noe som forhindret tilgang via JavaScript i nettleseren. Vi implementerte også en løkke som fulgte `Link`-headeren i API-svarene for å hente alle sider med data.
+- **KI sin rolle:** KI var avgjørende for å løse dette. Vi brukte Gemini CLI til å få en detaljert, steg-for-steg guide for å implementere OAuth 2.0 i Next.js. KI ga oss kodeskjeletter for API-ruten, foreslo `httpOnly`-cookies som en sikker lagringsmetode, og genererte en funksjon for å håndtere paginering basert på en beskrivelse av Canvas sitt API.
 
-**Utfordring 2: [Tittel]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
-- KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
+**Utfordring 2: Global State Management for asynkrone data**
+- **Problem:** Applikasjonen henter data fra flere kilder (Canvas, brukerens kalender) asynkront. I starten sendte vi data nedover komponenttreet via props ("prop drilling"), noe som raskt ble uoversiktlig og førte til synkroniseringsfeil. For eksempel kunne kalenderen og oppgavelisten vise ulik status fordi de ikke delte samme datakilde.
+- **Løsning:** Vi innså at vi trengte en global tilstandshåndtering (state management). Etter å ha vurdert ulike biblioteker, valgte vi å bruke Reacts innebygde `Context API` sammen med `useReducer`-hooken. Vi opprettet en `AppContext` som holdt en global tilstand for oppgaver, kalenderhendelser, og brukerinformasjon. Dette ga oss en "single source of truth" som alle komponenter kunne lese fra og oppdatere via dispatch-funksjoner.
+- **KI sin rolle:** Vi konsulterte KI for å få en oversikt over fordeler og ulemper med ulike state management-løsninger (Redux, Zustand, Context API). Da vi valgte Context API, ba vi KI om et komplett eksempel på hvordan man setter opp en `Provider` med en `reducer` for å håndtere asynkrone handlinger som `FETCH_START`, `FETCH_SUCCESS` og `FETCH_ERROR`. Dette ga oss en solid mal vi kunne bygge videre på.
 
 ### 3.2 Samarbeidsutfordringer
 [Utfordringer knyttet til teamarbeid og kommunikasjon]
