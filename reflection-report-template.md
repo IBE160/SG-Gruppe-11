@@ -26,9 +26,9 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 
 ### 2.2 Arbeidsmetodikk
 [Beskriv hvordan dere organiserte arbeidet]
-- Hvordan fordelte dere oppgaver?
+- Istede for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer.
 - Hvilke verktøy brukte dere for samarbeid og hvordan det fungerte? (f.eks. Git, og Teams)
-- Hvordan brukte dere KI-verktøy i prosessen?
+- Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
 
 ### 2.3 Teknologi og verktøy
 [Liste over de viktigste teknologiene og verktøyene dere brukte]
