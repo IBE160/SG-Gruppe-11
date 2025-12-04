@@ -16,7 +16,13 @@
 ## 2. Utviklingsprosessen
 
 ### 2.1 Oversikt over prosjektet
-[Kort beskrivelse av hva dere har utviklet. Hva var hovedmålet med applikasjonen?]
+Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applikasjonen er å hjelpe studenter, spesielt de som kombinerer studier med fulltidsjobb, med å strømlinjeforme og samle alle oppgaver på ett sted.
+
+**Bakgrunn:** Studenter ved bachelorprogrammet i logistikk ved Høgskolen i Molde, som ofte kombinerer studier med fulltidsjobb, sliter med å integrere daglige oppgaver med skolekrav. Mange har utfordringer med å holde oversikt over frister og oppgaver på tvers av ulike plattformer.
+
+**Formål:** Appen henter data fra primært Canvas for å strømlinjeforme frister og andre oppgaver med brukerens foretrukne kalender. Den vil foreslå en tidslinje og tildele tidsluker i kalenderen basert på data fra Canvas og brukerens egne kalenderinnspill. I stedet for å måtte sjekke flere apper/nettsteder, vil Things+ strømlinjeforme og samle alle oppgaver på ett sted.
+
+**Målgruppe:** Studenter med fulltidsjobb i tillegg til studiene, men også alle som bruker Canvas og en integrert kalender på telefonen eller laptopen for planleggingsformål.
 
 ### 2.2 Arbeidsmetodikk
 [Beskriv hvordan dere organiserte arbeidet]
