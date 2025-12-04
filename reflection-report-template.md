@@ -334,16 +334,16 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 
 ### 7.4 Personlig refleksjon (individuelt)
 
-**[Navn på gruppemedlem 1]:**
+**115:**
 [Personlig refleksjon over egen læring og utvikling]
 
-**[Navn på gruppemedlem 2]:**
+**131:**
 [Personlig refleksjon over egen læring og utvikling]
 
-**[Navn på gruppemedlem 3]:**
+**138:**
 [Personlig refleksjon over egen læring og utvikling]
 
-**[Navn på gruppemedlem 4]:**
+**[Navn 4]:**
 [Personlig refleksjon over egen læring og utvikling]
 
 ---
