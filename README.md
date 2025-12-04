@@ -1,3 +1,4 @@
+![Azure Key Vault](https://img.shields.io/badge/Super-Cool-Badge)
 # SG-Gruppe-11
 
 This repository is for the IBE160 Programmering med KI course.
