@@ -89,8 +89,17 @@ Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives
 - **KI sin rolle:** Vi konsulterte KI for å få en oversikt over fordeler og ulemper med ulike state management-løsninger (Redux, Zustand, Context API). Da vi valgte Context API, ba vi KI om et komplett eksempel på hvordan man setter opp en `Provider` med en `reducer` for å håndtere asynkrone handlinger som `FETCH_START`, `FETCH_SUCCESS` og `FETCH_ERROR`. Dette ga oss en solid mal vi kunne bygge videre på.
 
 ### 3.2 Samarbeidsutfordringer
-[Utfordringer knyttet til teamarbeid og kommunikasjon]
-- [Beskriv utfordringer og hvordan dere løste dem]
+Selv om vi valgte en tett samarbeidsmodell som fungerte godt, hadde også denne arbeidsformen sine utfordringer knyttet til synkronisering og effektivitet.
+
+- **Utfordring 1: Håndtering av felles kodebase i sanntid.**
+  Siden vi jobbet mye sammen på den samme koden, oppstod det hyppige `merge`-konflikter i Git. Det var tidkrevende å sikre at alle hadde identiske versjoner av prosjektet lokalt før vi startet en felles kodeøkt, og det hendte at endringer ble overskrevet.
+
+- **Løsning:** Vi innførte en mer strukturert Git-arbeidsflyt. Vi bestemte oss for å bruke en "Driver/Navigator"-modell under fellesøktene, der kun én person ("Driver") skrev kode og delte skjermen sin. All koding ble gjort på en dedikert `feature`-branch for den aktuelle økten. Etter økten ble branchen pushet, og vi gjennomgikk endringene i en Pull Request sammen. Dette reduserte antall merge-konflikter drastisk og ga oss en felles arena for kodegjennomgang.
+
+- **Utfordring 2: Ustrukturerte og lange diskusjoner.**
+  Våre hyppige Teams-møter var essensielle for felles forståelse, men de kunne noen ganger bli uproduktive. Diskusjoner om tekniske valg eller design kunne dra ut i tid uten at vi landet på en konkret beslutning, noe som stjal verdifull utviklingstid.
+
+- **Løsning:** Vi implementerte en fastere møtestruktur. Hver økt startet med en klar agenda og et definert mål. For tekniske diskusjoner benyttet vi oss av "timeboxing". Hvis en diskusjon varte lenger enn 15 minutter uten enighet, pauset vi den. Én person fikk ansvaret for å undersøke alternativene og presentere en anbefaling i neste møte. Dette tvang oss til å bli mer beslutningsdyktige og fokuserte.
 
 ### 3.3 KI-spesifikke utfordringer
 [Problemer spesifikt knyttet til bruk av KI]
