@@ -164,14 +164,24 @@ Bruken av KI var i stor grad en positiv opplevelse, men den kom ikke uten egne, 
 ## 5. Etiske implikasjoner
 
 ### 5.1 Ansvar og eierskap
-- Hvem er ansvarlig for koden når KI har bidratt?
-- Hvordan sikrer man kvalitet når KI genererer kode?
-- Diskuter spørsmål om opphavsrett og intellektuell eiendom
+- **Hvem er ansvarlig for koden når KI har bidratt?**
+  Vår konklusjon er at ansvaret for koden utelukkende ligger hos utvikleren. Vi ser på KI-assistenten som et avansert verktøy, ikke som en kollega. På samme måte som man er ansvarlig for å velge riktig bibliotek eller rammeverk, er man ansvarlig for koden man velger å akseptere fra en KI. Hvis koden introduserer en feil, en sikkerhetssårbarhet eller ytelsesproblemer, er det vi som utviklere som må stå til ansvar for dette. Denne tankegangen tvang oss til å sette oss inn i all kode som ble generert, i stedet for å blindt stole på den.
+
+- **Hvordan sikrer man kvalitet når KI genererer kode?**
+  Kvalitetssikringen må være like streng, om ikke strengere, for KI-generert kode som for menneskeskrevet kode. Vår metode var en tretrinns-prosess: 1) **Kritisk gjennomgang:** All kode ble lest og forstått av minst ett teammedlem før den ble vurdert. 2) **Verifisering mot kilder:** Vi dobbeltsjekket logikk og syntaks mot offisiell dokumentasjon for å unngå utdaterte mønstre. 3) **Manuell testing:** All funksjonalitet ble testet manuelt for å bekrefte at den løste det faktiske problemet uten å introdusere bivirkninger.
+
+- **Diskuter spørsmål om opphavsrett og intellektuell eiendom**
+  Dette er et komplekst og uavklart juridisk felt. KI-modeller trenes på massive datasett, inkludert offentlig tilgjengelig kode med ulike lisenser. Det er derfor en risiko for at KI-generert kode kan inneholde elementer fra lisensiert kode (f.eks. GPL), noe som kan skape lisenskonflikter i et kommersielt produkt. For vårt akademiske prosjekt var dette en mindre risiko, men vi var bevisste på problemstillingen. Vår holdning er at man i en profesjonell setting må være ekstremt nøye med å vurdere vilkårene til KI-tjenesten og ha interne retningslinjer for bruk av KI-generert kode for å unngå juridiske fallgruver. Inntil videre anser vi den endelige, modifiserte koden som vårt eget intellektuelle produkt, men vi er åpne om at verktøy har blitt brukt i prosessen.
 
 ### 5.2 Transparens
-- Bør det være transparent at KI er brukt?
-- Hvordan dokumenterer man KI sin bidrag?
-- Hva er konsekvensene av å ikke være åpen om KI-bruk?
+- **Bør det være transparent at KI er brukt?**
+  Ja, vi mener åpenhet om KI-bruk er essensielt, både i akademia og i næringslivet. I en læringskontekst er det nødvendig for å kunne vurdere studentens reelle kompetanse og læringsutbytte. I en profesjonell setting handler det om intellektuell ærlighet overfor arbeidsgivere og kolleger. Å være åpen om hvilke verktøy man bruker, gir teamet en bedre mulighet til å vurdere potensielle risikoer knyttet til vedlikehold, sikkerhet og kvalitet i koden som produseres.
+
+- **Hvordan dokumenterer man KI sin bidrag?**
+  For dette prosjektet er denne rapporten den primære formen for dokumentasjon. Vi har her beskrevet hvor og hvordan KI ble brukt. I et større prosjekt kunne man implementert mer granulære metoder. For eksempel kunne man brukt en egen etikett i commit-meldinger (f.eks. `[AI-assisted]`) for å markere kode som er vesentlig påvirket av KI. En annen tilnærming er å lagre sentrale prompter i prosjektets dokumentasjon, slik vi har gjort med eksemplene i denne rapporten. Dette gir verdifull kontekst for fremtidige utviklere som skal vedlikeholde koden.
+
+- **Hva er konsekvensene av å ikke være åpen om KI-bruk?**
+  Konsekvensene kan være både faglige og sosiale. Faglig sett kan det føre til at man pådrar seg "skjult teknisk gjeld" – kode som ingen på teamet fullt ut forstår, og som derfor blir vanskelig å vedlikeholde eller feilsøke. Sosialt kan det skape en alvorlig tillitsbrist. Hvis en utvikler fremstiller KI-generert kode som sin egen, kan det bli sett på som uærlig og skade vedkommendes omdømme og teamets samarbeidsklima. I en akademisk setting vil det i praksis være plagiat eller juks. Åpenhet er derfor den eneste forsvarlige veien fremover.
 
 ### 5.3 Påvirkning på læring og kompetanse
 - Hvordan påvirker KI-avhengighet fremtidig kompetanse?
