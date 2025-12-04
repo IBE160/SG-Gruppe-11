@@ -1,5 +1,7 @@
 # Sprint 4 Plan: Smart Scheduling & Productivity Tools
 
+Status: Completed
+
 **Sprint Goal:** Implement the core "smart" features of the application, including task prioritization, time tracking, and the "Find Free Time" algorithm, to enhance user productivity and scheduling.
 
 **Selected Stories:**
