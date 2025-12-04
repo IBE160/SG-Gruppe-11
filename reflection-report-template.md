@@ -221,14 +221,33 @@ Refleksjon over prosjektforløpet med og uten KI-assistanse avdekker fundamental
   Vi fant ut at balansen mellom effektivitet og læring ligger i *hvordan* og *når* man bruker KI. Den dårlige strategien er å bruke KI som første utvei for å unngå å tenke selv. Den gode strategien er å bruke KI som en "akselerator" når man står fast. Vår tilnærming ble å først prøve selv. Hvis vi ikke fant en løsning innen rimelig tid, brukte vi KI for å få et forslag. Det kritiske steget var imidlertid å bruke tid *etter på* på å analysere forslaget, forstå hvorfor det virket, og lese dokumentasjonen. KI-en ble da et verktøy for å overkomme frustrerende hindringer, slik at vi raskere kunne komme til kjernen av læringen.
 
 ### 5.4 Arbeidsmarkedet
-- Hvordan kan utbredt KI-bruk påvirke fremtidige jobber i IT?
-- Hvilke roller vil bli viktigere/mindre viktige?
-- Deres refleksjoner om fremtidig karriere i en KI-drevet verden
+- **Hvordan kan utbredt KI-bruk påvirke fremtidige jobber i IT?**
+  Vi tror ikke KI vil fjerne behovet for utviklere, men snarere endre selve utviklerrollen. Repetitive og standardiserte oppgaver (f.eks. skriving av "boilerplate"-kode, enkle API-endepunkter, grunnleggende enhetstester) vil i økende grad bli automatisert. Dette hever listen for hva som forventes av en utvikler. Jobben vil handle mindre om å produsere store mengder kode, og mer om å designe, arkitektere og verifisere systemer. Produktiviteten per utvikler vil øke, men det vil også stille høyere krav til systemforståelse og problemløsningsevne.
+
+- **Hvilke roller vil bli viktigere/mindre viktige?**
+  - **Viktigere roller:**
+    - **Systemarkitekter og seniorutviklere:** Evnen til å se det store bildet, designe skalerbare systemer og ta kritiske teknologivalg blir viktigere enn noensinne. KI er god på avgrensede oppgaver, men (foreløpig) dårlig på helhetlig arkitektur.
+    - **Spesialister:** Dybdekompetanse innen felt som cybersikkerhet, ytelsesoptimalisering og databasetuning vil bli enda mer verdifull.
+    - **"KI-oversettere" / Produktledere:** Roller som kan oversette komplekse forretningsbehov til presise, tekniske spesifikasjoner som en KI kan bistå med å implementere.
+  - **Mindre viktige roller:**
+    - **Inngangsposisjoner fokusert på repetitiv koding:** Stillinger som primært består av å implementere enkle, veldefinerte komponenter eller skript, risikerer å bli kraftig redusert.
+
+- **Deres refleksjoner om fremtidig karriere i en KI-drevet verden**
+  For vår egen del ser vi på KI som en uunngåelig og integrert del av vår fremtidige karriere. Å motsette seg utviklingen er nytteløst. Vår strategi må være å omfavne verktøyene og bli eksperter på å utnytte dem. Dette betyr at vi må flytte vårt eget fokus fra å "bare" lære å kode, til å lære å bygge systemer og løse problemer på et høyere nivå. Vår verdi i arbeidsmarkedet vil ikke være vår evne til å skrive kode raskt, men vår evne til å tenke kritisk, kommunisere klart og designe gode løsninger – med KI som en kraftig assistent. Kontinuerlig læring er ikke lenger bare en fordel, men en overlevelsesmekanisme.
 
 ### 5.5 Datasikkerhet og personvern
-- Hvilke data delte dere med KI-verktøy?
-- Potensielle risikoer ved å dele kode og data med KI
-- Hvordan skal man tenke på sikkerhet når man bruker KI?
+- **Hvilke data delte dere med KI-verktøy?**
+  Vi var bevisste på denne problemstillingen fra start. Dataene vi delte kan deles i to kategorier: 1) Generelle spørsmål om programmering, algoritmer og arkitektur, og 2) Spesifikke, anonymiserte kodesnutter. Når vi delte kode, sørget vi alltid for å fjerne all sensitiv informasjon. API-nøkler, passord, database-tiloblinger og personlig identifiserbar informasjon ble systematisk fjernet eller erstattet med plassholdere som `"[SECRET_KEY]"` før koden ble sendt til KI-tjenesten. Ingen reelle brukerdata ble noensinne delt.
+
+- **Potensielle risikoer ved å dele kode og data med KI**
+  Den største risikoen er utilsiktet lekkasje av sensitiv informasjon. En ubetenksom "copy-paste" av en konfigurasjonsfil eller en kodesnutt kan eksponere API-nøkler, passord eller annen forretningskritisk informasjon. Denne dataen kan i teorien bli lagret av KI-leverandøren og misbrukes. En annen betydelig risiko er tap av intellektuell eiendom (IP). Proprietær forretningslogikk som deles, kan potensielt bli en del av modellens fremtidige treningsdata og dermed bli tilgjengelig for andre, inkludert konkurrenter.
+
+- **Hvordan skal man tenke på sikkerhet når man bruker KI?**
+  Vår hovedregel er: **Behandle ethvert input til en offentlig KI-tjeneste som om det ble postet på et åpent internettforum.** Dette innebærer:
+  1.  **Datasanering:** Alltid fjerne sensitiv informasjon før man sender en prompt.
+  2.  **Klare retningslinjer:** I en bedrift må det være tydelige regler for hva slags informasjon som kan deles, og hvordan den skal anonymiseres.
+  3.  **Vurder private alternativer:** For svært sensitiv kode og data, bør bedrifter vurdere å bruke KI-modeller som kan kjøres lokalt eller i en privat sky (on-premise/VPC), slik at dataene aldri forlater bedriftens kontroll.
+  4.  **Bruk Enterprise-versjoner:** Mange KI-tjenester tilbyr bedriftsabonnement som garanterer at dataene dine ikke brukes til trening av modellene. Dette bør være et minimumskrav for profesjonell bruk.
 
 ---
 
