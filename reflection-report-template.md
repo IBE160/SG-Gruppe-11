@@ -5,9 +5,9 @@
 **Gruppenavn:** [Navn på gruppen]
 
 **Gruppemedlemmer:**
-- [Navn 1] - [Student-ID/E-post]
-- [Navn 2] - [Student-ID/E-post]
-- [Navn 3] - [Student-ID/E-post]
+- [Navn 1] - 115
+- [Navn 2] - 131
+- [Navn 3] - 138
 
 **Dato:** [DD.MM.ÅÅÅÅ]
 
