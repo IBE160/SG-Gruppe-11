@@ -279,10 +279,13 @@ Gjennom prosjektet har vi gjort oss flere viktige erfaringer:
 3.  **Kontinuerlig læring og etisk refleksjon er essensielt.** Prosjektet demonstrerte at teknologilandskapet endres raskt, og at evnen til raskt å ta i bruk nye verktøy er avgjørende. Samtidig ble det tydelig at innovasjon kommer med etiske ansvar. Vi måtte proaktivt reflektere over spørsmål om ansvar, transparens og datasikkerhet, og utvikle egne retningslinjer for ansvarlig KI-bruk.
 
 ### 7.2 Hva ville dere gjort annerledes?
-[Reflekter over hva dere ville endret hvis dere skulle startet på nytt]
-- [Tekniske valg]
-- [Bruk av KI]
-- [Samarbeid og organisering]
+Med erfaringene fra dette prosjektet er det flere ting vi ville angrepet annerledes om vi skulle startet på nytt.
+
+- **Tekniske valg:** Vi er fornøyde med hovedteknologiene (Next.js, Prisma), men vi ville etablert en global state management-løsning (som Context API) mye tidligere i prosessen. I starten førte "prop drilling" til unødvendig kompleksitet som krevde refaktorering. En sentralisert datakilde fra dag én ville gjort koden renere og mer vedlikeholdbar. Vi ville også vært flinkere til å skrive tester parallelt med utviklingen, ikke som en ettertanke.
+
+- **Bruk av KI:** Vår tilnærming til KI modnet betraktelig gjennom prosjektet. Hadde vi startet på nytt, ville vi umiddelbart tatt i bruk de avanserte prompting-teknikkene vi lærte oss. I stedet for generiske spørsmål, ville vi fra starten av matet KI-en med spesifikk kontekst (kodesnutter, filstruktur, databasemodeller) for å få skreddersydde løsninger. Vi ville også vært strengere på å umiddelbart verifisere KI-generert kode mot offisiell dokumentasjon.
+
+- **Samarbeid og organisering:** Selv om vi ønsket en flat og tett samarbeidsstruktur, lærte vi at dette også krever rammer. Vi ville innført en tydelig "Driver/Navigator"-modell og en strengere Git-workflow (feature-branches per kodeøkt) fra prosjektets start. Dette ville minimert antall merge-konflikter og gjort samarbeidet mer effektivt. "Timeboxing" av diskusjoner i møter er også noe vi ville implementert tidligere for å sikre fremdrift.
 
 ### 7.3 Anbefalinger
 [Deres anbefalinger til andre studenter som skal bruke KI i utvikling]
