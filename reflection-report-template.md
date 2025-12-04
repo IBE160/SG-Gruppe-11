@@ -8,6 +8,7 @@
 - [Navn 1] - 115
 - [Navn 2] - 131
 - [Navn 3] - 138
+- [Navn 4] - [Student-ID/E-post]
 
 **Dato:** 04.12.2025
 
@@ -340,6 +341,9 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 [Personlig refleksjon over egen læring og utvikling]
 
 **[Navn på gruppemedlem 3]:**
+[Personlig refleksjon over egen læring og utvikling]
+
+**[Navn på gruppemedlem 4]:**
 [Personlig refleksjon over egen læring og utvikling]
 
 ---
