@@ -273,10 +273,10 @@ Refleksjon over prosjektforløpet med og uten KI-assistanse avdekker fundamental
 ## 7. Konklusjon og læring
 
 ### 7.1 Viktigste lærdommer
-[Liste de 3-5 viktigste tingene dere lærte gjennom prosjektet]
-1. [Lærdom 1]
-2. [Lærdom 2]
-3. [Lærdom 3]
+Gjennom prosjektet har vi gjort oss flere viktige erfaringer:
+1.  **KI er en kraftig, men krevende assistent.** Vi lærte at KI, som Gemini CLI, kan akselerere utviklingsprosessen dramatisk ved å generere kode, feilsøke og forklare komplekse konsepter. Samtidig er KI ikke feilfri; den kan "hallusinere" eller foreslå utdatert kode. Dette understreket viktigheten av kritisk tenkning og menneskelig validering for all KI-generert kode.
+2.  **Verdien av presis kontekst og kommunikasjon.** Både i samarbeid med KI og internt i teamet, oppdaget vi at kvaliteten på resultatet var direkte proporsjonal med kvaliteten på input. Å gi KI-en tilstrekkelig og presis kontekst i promptene var avgjørende for å få nyttige svar, på samme måte som klare spesifikasjoner og god dialog var viktig for effektivt teamarbeid.
+3.  **Kontinuerlig læring og etisk refleksjon er essensielt.** Prosjektet demonstrerte at teknologilandskapet endres raskt, og at evnen til raskt å ta i bruk nye verktøy er avgjørende. Samtidig ble det tydelig at innovasjon kommer med etiske ansvar. Vi måtte proaktivt reflektere over spørsmål om ansvar, transparens og datasikkerhet, og utvikle egne retningslinjer for ansvarlig KI-bruk.
 
 ### 7.2 Hva ville dere gjort annerledes?
 [Reflekter over hva dere ville endret hvis dere skulle startet på nytt]
