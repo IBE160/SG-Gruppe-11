@@ -25,46 +25,68 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 **Målgruppe:** Studenter med fulltidsjobb i tillegg til studiene, men også alle som bruker Canvas og en integrert kalender på telefonen eller laptopen for planleggingsformål.
 
 ### 2.2 Arbeidsmetodikk
-[Beskriv hvordan dere organiserte arbeidet]
-- Hvordan fordelte dere oppgaver?
-- Hvilke verktøy brukte dere for samarbeid og hvordan det fungerte? (f.eks. Git, og Teams)
-- Hvordan brukte dere KI-verktøy i prosessen?
+
+- Istede for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer.
+
+- Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
 
 ### 2.3 Teknologi og verktøy
-[Liste over de viktigste teknologiene og verktøyene dere brukte]
-- Frontend: [f.eks. NextJS, HTML/CSS]
-- Backend: [f.eks. Python/FastAPI]
-- Database: [f.eks. Supabase, MongoDB, PostgreSQL]
-- KI-verktøy: [f.eks. Claude Code, Gemini CLI, GPT-5 Codex]
-- Andre verktøy: [f.eks. VS Code, BMAD etc]
+- Frontend: Next.js, React, TypeScript, Tailwind CSS, HTML/CSS
+- Backend: Next.js API Routes
+- Database: Prisma (ORM), PostgreSQL
+- KI-verktøy: Gemini CLI, Google Gemini (Gemini 2.0 Flash), OpenRouter
+- Andre verktøy: VS Code, BMAD, Git
 
 ### 2.4 Utviklingsfaser
-[Beskriv de ulike fasene i utviklingen]
+Prosjektet ble delt inn i to hovedfaser: en planleggings- og designfase, etterfulgt av en utviklings- og implementeringsfase.
 
-**Fase 1: Planlegging**
-- [Hva gjorde dere i denne fasen?]
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+**Fase 1: Planlegging og Design**
+- **Hva gjorde dere i denne fasen?**
+  I denne fasen la vi grunnlaget for hele prosjektet. Arbeidet startet med idémyldring (`brainstorming.md`) og utforming av et prosjektforslag (`proposal.md`). Deretter definerte vi produktkravene i et Product Requirements Document (`docs/PRD.md`) og brøt ned arbeidet i større enheter (`docs/epics.md`) og konkrete brukerhistorier (`docs/stories/`). Vi planla også de første sprintene (`docs/sprint-1-plan.md`), designet systemarkitekturen (`docs/architecture.md`), og spesifiserte brukeropplevelsen (`docs/ux-design-specification.md`). Hele prosessen ble styrt ved hjelp av BMAD-rammeverket.
 
-**Fase 2: Utvikling**
-- [Hva gjorde dere i denne fasen?]
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+- **Hvordan brukte dere KI her?**
+  KI var en sentral partner i planleggingsfasen. Vi brukte KI til å generere og strukturere ideer, utforme dokumentmaler og som en sparringspartner for å spisse kravene. Et typisk eksempel var å bruke KI til å bryte ned en Epic til håndterbare User Stories.
+
+  **Eksempel på prompt:**
+  ```
+  "Basert på følgende Epic for vår 'Things+' applikasjon, generer 5-7 detaljerte User Stories som dekker kjernefunksjonaliteten. Inkluder akseptansekriterier for hver story.
+
+  **Epic:** Som en travel student, vil jeg kunne synkronisere oppgavene mine fra Canvas til 'Things+' appen, slik at jeg har alle frister og gjøremål samlet på ett sted."
+  ```
+
+**Fase 2: Utvikling og Implementering**
+- **Hva gjorde dere i denne fasen?**
+  Dette var den tekniske gjennomføringsfasen. Vi bygget en fullstack-applikasjon med Next.js, der vi utviklet frontend-komponenter i React/TypeScript (`pages/`), satte opp API-endepunkter for backend-logikk (`pages/api/`), og integrerte en PostgreSQL-database ved hjelp av Prisma (`prisma/schema.prisma`). Vi la også opp en CI/CD-pipeline med GitHub Actions (`.github/workflows/main.yml`) for å automatisere testing og deployment. Arbeidet ble organisert i sprinter, og resultatene ble dokumentert i `sprint-artifacts/`.
+
+- **Hvordan brukte dere KI her?**
+  Under utviklingen fungerte Gemini CLI som en "pair programmer". Vi brukte KI til å generere kodeskjeletter for React-komponenter, skrive logikk for API-ruter, feilsøke kode, implementere funksjonalitet som kryptering (`lib/crypto.ts`), og skrive enhetstester (`__tests__/simple.test.js`).
+
+  **Eksempel på prompt:**
+  ```
+  "Jeg trenger en React-komponent for innlogging i Next.js med TypeScript og Tailwind CSS. Lag en 'login.tsx'-fil som inneholder:
+  1. Et skjema med e-post- og passordfelt.
+  2. State-håndtering for input-feltene.
+  3. En 'handleLogin'-funksjon som kaller et API-endepunkt '/api/auth/login'.
+  4. Enkel feilhåndtering som viser en melding ved mislykket pålogging.
+  5. Styling med Tailwind CSS for et rent og moderne utseende."
+  ```
 
 ---
 
 ## 3. Utfordringer og løsninger
 
 ### 3.1 Tekniske utfordringer
-[Beskriv 2-3 konkrete tekniske problemer dere møtte]
+Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives to av de mest sentrale utfordringene og hvordan vi løste dem, ofte med bistand fra KI.
 
-**Utfordring 1: [Tittel]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
-- KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
+**Utfordring 1: Sikker API-integrasjon med Canvas**
+- **Problem:** Den største tekniske bøygen var å koble applikasjonen til Canvas sitt API på en sikker og robust måte. Vi var usikre på den korrekte implementeringen av OAuth 2.0-autentiseringsflyten, hvordan vi skulle lagre API-tokens på en sikker måte etter at brukeren hadde logget inn, og hvordan vi skulle håndtere paginerte svar fra API-et for å sikre at vi hentet alle oppgavene til brukeren.
+- **Løsning:** Løsningen ble å bygge et eget API-endepunkt i Next.js (`/pages/api/canvas/`) som fungerte som en mellomvare (backend-for-frontend). Dette endepunktet håndterte all kommunikasjon med Canvas-API-et. Brukerens `access_token` ble kryptert ved hjelp av `crypto.ts` og lagret i en `httpOnly`-cookie, noe som forhindret tilgang via JavaScript i nettleseren. Vi implementerte også en løkke som fulgte `Link`-headeren i API-svarene for å hente alle sider med data.
+- **KI sin rolle:** KI var avgjørende for å løse dette. Vi brukte Gemini CLI til å få en detaljert, steg-for-steg guide for å implementere OAuth 2.0 i Next.js. KI ga oss kodeskjeletter for API-ruten, foreslo `httpOnly`-cookies som en sikker lagringsmetode, og genererte en funksjon for å håndtere paginering basert på en beskrivelse av Canvas sitt API.
 
-**Utfordring 2: [Tittel]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
-- KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
+**Utfordring 2: Global State Management for asynkrone data**
+- **Problem:** Applikasjonen henter data fra flere kilder (Canvas, brukerens kalender) asynkront. I starten sendte vi data nedover komponenttreet via props ("prop drilling"), noe som raskt ble uoversiktlig og førte til synkroniseringsfeil. For eksempel kunne kalenderen og oppgavelisten vise ulik status fordi de ikke delte samme datakilde.
+- **Løsning:** Vi innså at vi trengte en global tilstandshåndtering (state management). Etter å ha vurdert ulike biblioteker, valgte vi å bruke Reacts innebygde `Context API` sammen med `useReducer`-hooken. Vi opprettet en `AppContext` som holdt en global tilstand for oppgaver, kalenderhendelser, og brukerinformasjon. Dette ga oss en "single source of truth" som alle komponenter kunne lese fra og oppdatere via dispatch-funksjoner.
+- **KI sin rolle:** Vi konsulterte KI for å få en oversikt over fordeler og ulemper med ulike state management-løsninger (Redux, Zustand, Context API). Da vi valgte Context API, ba vi KI om et komplett eksempel på hvordan man setter opp en `Provider` med en `reducer` for å håndtere asynkrone handlinger som `FETCH_START`, `FETCH_SUCCESS` og `FETCH_ERROR`. Dette ga oss en solid mal vi kunne bygge videre på.
 
 ### 3.2 Samarbeidsutfordringer
 [Utfordringer knyttet til teamarbeid og kommunikasjon]
