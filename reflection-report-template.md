@@ -356,6 +356,6 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 
 ---
 
-**Ordantall:** [Ca. antall ord]
+**Ordantall:** Ca. 6133 ord
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)
