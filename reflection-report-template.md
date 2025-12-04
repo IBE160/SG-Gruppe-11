@@ -315,10 +315,21 @@ Med erfaringene fra dette prosjektet er det flere ting vi ville angrepet annerle
 - **Samarbeid og organisering:** Selv om vi ønsket en flat og tett samarbeidsstruktur, lærte vi at dette også krever rammer. Vi ville innført en tydelig "Driver/Navigator"-modell og en strengere Git-workflow (feature-branches per kodeøkt) fra prosjektets start. Dette ville minimert antall merge-konflikter og gjort samarbeidet mer effektivt. "Timeboxing" av diskusjoner i møter er også noe vi ville implementert tidligere for å sikre fremdrift.
 
 ### 7.3 Anbefalinger
-[Deres anbefalinger til andre studenter som skal bruke KI i utvikling]
-- [Råd om effektiv bruk av KI]
-- [Fallgruver å unngå]
-- [Beste praksis dere oppdaget]
+Basert på våre erfaringer har vi følgende anbefalinger til andre studenter som skal bruke KI i utviklingsprosjekter:
+
+- **Råd om effektiv bruk av KI:**
+  - **Vær en krevende, men presis, samtalepartner.** Ikke still vage spørsmål. Gi KI-en all relevant kontekst: feilmeldingen, koden der feilen oppstår, og hva du allerede har prøvd.
+  - **Bruk KI som en læringsakselerator.** Når du får et svar, ikke bare kopier det. Spør KI-en *hvorfor* løsningen fungerer, hva alternativene er, og hva som er fordelene og ulempene. Bruk den som en utrettelig personlig veileder.
+
+- **Fallgruver å unngå:**
+  - **Blind tillit.** Den største faren er å anta at KI-generert kode er korrekt, optimal eller sikker. Verifiser alltid mot offisiell dokumentasjon og test grundig.
+  - **Kontekstløs prompting.** Ikke forvent at KI-en kan lese tankene dine. Uten kontekst vil du få generiske svar som er lite nyttige.
+  - **Dele sensitiv informasjon.** Aldri lim inn API-nøkler, passord eller personopplysninger i en offentlig KI-tjeneste. Gjør det til en vane å sanitisere all input.
+
+- **Beste praksis dere oppdaget:**
+  1.  **"Context is King":** Invester tid i å lage en god prompt. Jo mer relevant kontekst du gir, jo bedre blir resultatet.
+  2.  **Bruk KI iterativt:** Start bredt og snevre inn. Still oppfølgingsspørsmål. Be KI-en refaktorere eller forklare sin egen kode. Bruk den som en sparringspartner.
+  3.  **Mennesket i sentrum:** Bruk KI som et verktøy for å forsterke din egen intelligens, ikke for å erstatte den. Det endelige ansvaret for koden og løsningen ligger alltid hos deg. Forstå, ikke bare kopier.
 
 ### 7.4 Personlig refleksjon (individuelt)
 
