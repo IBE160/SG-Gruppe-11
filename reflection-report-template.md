@@ -254,19 +254,46 @@ Refleksjon over prosjektforløpet med og uten KI-assistanse avdekker fundamental
 ## 6. Teknologiske implikasjoner
 
 ### 6.1 Kodekvalitet og vedlikehold
-- Hvordan påvirker KI-generert kode langsiktig vedlikehold?
-- Er KI-kode like forståelig som menneskeskrevet kode?
-- Utfordringer med å debugge KI-generert kode
+Integrasjonen av KI-generert kode i prosjektet vårt har betydelige implikasjoner for både kodekvalitet og langsiktig vedlikehold.
+
+- **Hvordan påvirker KI-generert kode langsiktig vedlikehold?**
+  KI-generert kode kan potensielt redusere vedlikeholdsbyrden hvis den er velstrukturert og følger beste praksis. I vårt tilfelle hjalp KI oss med å generere modulære komponenter og API-endepunkter som var enkle å utvide og oppdatere. Samtidig krever det en grundig gjennomgang for å sikre at koden er optimalisert for prosjektets spesifikke behov og ikke introduserer unødvendig kompleksitet. Uten slik gjennomgang kan KI-generert kode føre til "technical debt" dersom den er generisk eller ikke tilpasset prosjektets arkitektur.
+
+- **Er KI-kode like forståelig som menneskeskrevet kode?**
+  Forståeligheten av KI-generert kode varierer. Noen ganger produserte KI elegant og lettlest kode som fulgte etablert praksis. Andre ganger, spesielt ved mer komplekse forespørsler, kunne koden virke mer "generisk" eller mindre idiomatisk, noe som gjorde den vanskeligere å dechiffrere uten kontekst. Vi oppdaget at når vi ba KI om å forklare den genererte koden, forbedret dette vår egen forståelse og dermed også evnen til å vedlikeholde den.
+
+- **Utfordringer med å debugge KI-generert kode**
+  En av hovedutfordringene med KI-generert kode er debugging. Selv om KI kan være god til å identifisere feil, kan den også produsere subtile feil som er vanskeligere å spore. Hvis KI-koden inneholder logiske brister eller forutsetninger som ikke stemmer overens med prosjektets virkelige tilstand, kan det kreve mer tid å forstå og korrigere enn om koden var skrevet fra bunnen av med full kontekst. Dette understreker viktigheten av grundig testing og et kritisk blikk på all KI-generert kode.
 
 ### 6.2 Standarder og beste praksis
-- Følger KI alltid beste praksis og industristandarder?
-- Eksempler på hvor KI foreslo utdaterte eller dårlige løsninger
-- Viktigheten av å validere KI sine forslag
+En sentral del av vår læringsprosess var å vurdere i hvilken grad KI-verktøyene overholdt etablerte standarder og beste praksis i programvareutvikling.
+
+- **Følger KI alltid beste praksis og industristandarder?**
+  Nei, ikke alltid. KI-modeller er trent på enorme mengder kode fra internett, som inkluderer både gode og dårlige eksempler. Vi fant at KI generelt var god på å følge moderne standarder for populære teknologier som React og TypeScript, men den kunne feile på mer nyanserte områder. For eksempel kunne den foreslå løsninger som ikke fullt ut fulgte prinsippene for tilgjengelighet (accessibility, a11y) eller som tok snarveier som kompromitterte sikkerheten.
+
+- **Eksempler på hvor KI foreslo utdaterte eller dårlige løsninger:**
+  - **Utdaterte biblioteker:** Som nevnt tidligere, foreslo KI i ett tilfelle å bruke et utdatert JavaScript-bibliotek. Dette indikerer at modellens kunnskap kan ha et "cutoff-punkt" og ikke alltid er oppdatert med de nyeste trendene i et raskt utviklende økosystem.
+  - **Ignorering av sikkerhetspraksis:** I et tidlig utkast til en API-rute for håndtering av brukerdata, la ikke KI automatisk til tilstrekkelig validering og "sanitizing" av input-data, noe som kunne ha åpnet for sikkerhetshull som f.eks. XSS-angrep.
+  - **Ineffektive databasekall:** Da vi jobbet med Prisma, foreslo KI en løsning som ville ha ført til et "N+1"-problem, der ett databasekall resulterte i N påfølgende kall i en løkke. Dette er en klassisk ytelsesfelle som en erfaren utvikler ville unngått.
+
+- **Viktigheten av å validere KI sine forslag:**
+  Disse erfaringene understreket en av våre viktigste konklusjoner: En utvikler kan ikke blindt stole på KI. Kunnskap om beste praksis, sikkerhet og ytelse er avgjørende for å kunne vurdere, korrigere og forbedre forslagene fra KI. Utviklerens rolle blir i økende grad å være en "kvalitetssikrer" og "arkitekt" som veileder KI-verktøyet, snarere enn en ren kodeprodusent. Uten denne valideringen risikerer man å introdusere sårbarheter, ytelsesproblemer og teknisk gjeld i prosjektet.
 
 ### 6.3 Fremtidig utvikling
-- Hvordan tror dere KI vil påvirke programvareutvikling fremover?
-- Hvilke ferdigheter blir viktigere for utviklere?
-- Deres anbefalinger for hvordan man bør bruke KI i utviklingsprosesser
+Vår erfaring med KI i dette prosjektet gir et innblikk i en fremtid der utviklingsprosessen vil være markant annerledes.
+
+- **Hvordan tror dere KI vil påvirke programvareutvikling fremover?**
+  Vi tror KI vil fortsette å demokratisere programvareutvikling ved å senke terskelen for å starte. KI vil sannsynligvis ta over mer av de repetitive og standardiserte kodings oppgavene, frigjøre utviklere til å fokusere på mer komplekse problemer, arkitektur, design og innovasjon. "Low-code/no-code"-plattformer vil bli forsterket av KI, og "AI-first"-utviklingsmetoder, der man starter med å prompt KI fremfor å skrive kode fra bunnen av, vil bli mer utbredt. Det vil også bli en økt etterspørsel etter "AI-prompt engineering" som egen kompetanse.
+
+- **Hvilke ferdigheter blir viktigere for utviklere?**
+  Ferdigheter som kritisk tenkning, problemløsning, arkitekturdesign og evnen til å stille de "riktige" spørsmålene til KI (prompt engineering) vil bli enda viktigere. Forståelse for systemdesign, sikkerhet, ytelse, og evnen til å "debugge" ikke bare kode, men også KI-genererte løsninger, vil være sentralt. Mellommenneskelige ferdigheter, som kommunikasjon og samarbeid, vil også være essensielt, da utviklere i større grad vil fungere som fasilitatorer mellom forretningsbehov og KI-genererte løsninger. En dyp forståelse for domenet man utvikler for vil også være avgjørende for å kunne validere og forbedre KI-ens output.
+
+- **Deres anbefalinger for hvordan man bør bruke KI i utviklingsprosesser:**
+  1.  **Vær en kritisk partner:** Behandle KI som en samarbeidspartner, ikke en autoritet. Alltid valider KI-generert kode og forslag mot beste praksis, sikkerhetsstandarder og prosjektets spesifikke krav.
+  2.  **Fokuser på læring:** Bruk KI som et læringsverktøy. Be den forklare konsepter, alternative løsninger og begrunnelser for sine valg. Dette bygger dypere forståelse over tid.
+  3.  **Iterer og raffiner:** Start med enkle prompts og forfin dem gradvis. KI fungerer best i en iterativ prosess der man gir den stadig mer spesifikke instruksjoner basert på tidligere respons.
+  4.  **Bruk KI til å frigjøre tid:** La KI håndtere repetitive oppgaver og "boilerplate"-kode. Bruk den frigjorte tiden til å fokusere på kreativ problemløsning, arkitektur og å tilegne deg nye, komplekse ferdigheter.
+  5.  **Forstå konteksten:** Jo mer kontekst du gir KI om prosjektet, teknologiene som brukes, og målsetningene, jo bedre og mer relevante forslag vil den kunne gi. Dette inkluderer å mate den med relevant kodebase og dokumentasjon.
 
 ---
 
