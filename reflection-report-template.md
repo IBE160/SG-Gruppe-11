@@ -211,9 +211,14 @@ Refleksjon over prosjektforløpet med og uten KI-assistanse avdekker fundamental
   Konsekvensene kan være både faglige og sosiale. Faglig sett kan det føre til at man pådrar seg "skjult teknisk gjeld" – kode som ingen på teamet fullt ut forstår, og som derfor blir vanskelig å vedlikeholde eller feilsøke. Sosialt kan det skape en alvorlig tillitsbrist. Hvis en utvikler fremstiller KI-generert kode som sin egen, kan det bli sett på som uærlig og skade vedkommendes omdømme og teamets samarbeidsklima. I en akademisk setting vil det i praksis være plagiat eller juks. Åpenhet er derfor den eneste forsvarlige veien fremover.
 
 ### 5.3 Påvirkning på læring og kompetanse
-- Hvordan påvirker KI-avhengighet fremtidig kompetanse?
-- Hvilke ferdigheter risikerer man å ikke utvikle?
-- Balanse mellom effektivitet og læring
+- **Hvordan påvirker KI-avhengighet fremtidig kompetanse?**
+  En ukritisk avhengighet av KI kan føre til at fremtidig kompetanse blir mer overflatisk. Man risikerer å bli en "systemintegrator" av KI-genererte kodeblokker, uten en dyp forståelse for prinsippene som ligger bak. Evnen til å løse helt nye problemer fra bunnen av kan bli svekket. Samtidig er vi overbevist om at evnen til å føre en effektiv "dialog" med en KI – å stille presise spørsmål, gi god kontekst og kritisk vurdere svar – er i ferd med å bli en ny, essensiell kjernekompetanse for utviklere.
+
+- **Hvilke ferdigheter risikerer man å ikke utvikle?**
+  Den mest utsatte ferdigheten er systematisk feilsøking. Når man kan lime inn en feilmelding og få et løsningsforslag, går man glipp av den iterative prosessen med å sette seg inn i koden, analysere tilstand og logikk, og isolere et problem. Andre utsatte ferdigheter er den grunnleggende algoritmiske tenkningen og "muskelminnet" man bygger ved å skrive standardkode ("boilerplate") manuelt. Repetisjonen man får ved å skrive for-løkker eller sette opp enkle API-kall selv, er viktig for å bygge en intuitiv forståelse.
+
+- **Balanse mellom effektivitet og læring**
+  Vi fant ut at balansen mellom effektivitet og læring ligger i *hvordan* og *når* man bruker KI. Den dårlige strategien er å bruke KI som første utvei for å unngå å tenke selv. Den gode strategien er å bruke KI som en "akselerator" når man står fast. Vår tilnærming ble å først prøve selv. Hvis vi ikke fant en løsning innen rimelig tid, brukte vi KI for å få et forslag. Det kritiske steget var imidlertid å bruke tid *etter på* på å analysere forslaget, forstå hvorfor det virket, og lese dokumentasjonen. KI-en ble da et verktøy for å overkomme frustrerende hindringer, slik at vi raskere kunne komme til kjernen av læringen.
 
 ### 5.4 Arbeidsmarkedet
 - Hvordan kan utbredt KI-bruk påvirke fremtidige jobber i IT?
