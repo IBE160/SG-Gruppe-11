@@ -102,9 +102,17 @@ Selv om vi valgte en tett samarbeidsmodell som fungerte godt, hadde også denne 
 - **Løsning:** Vi implementerte en fastere møtestruktur. Hver økt startet med en klar agenda og et definert mål. For tekniske diskusjoner benyttet vi oss av "timeboxing". Hvis en diskusjon varte lenger enn 15 minutter uten enighet, pauset vi den. Én person fikk ansvaret for å undersøke alternativene og presentere en anbefaling i neste møte. Dette tvang oss til å bli mer beslutningsdyktige og fokuserte.
 
 ### 3.3 KI-spesifikke utfordringer
-[Problemer spesifikt knyttet til bruk av KI]
-- [f.eks. Feil kode fra KI, misforståelser, inkonsistent kvalitet]
-- [Hvordan håndterte dere disse?]
+Bruken av KI var i stor grad en positiv opplevelse, men den kom ikke uten egne, unike utfordringer. Vi måtte lære oss å jobbe *med* KI-en, ikke bare be den om å gjøre ting.
+
+- **Utfordring 1: "Hallusinasjoner" og utdatert kode.**
+  Et gjennomgående problem var at KI-en kunne generere kode som så overbevisende ut, men som var feil eller utdatert. For eksempel foreslo den i ett tilfelle å bruke en funksjon fra en eldre versjon av Next.js, noe som førte til feilmeldinger som var vanskelige å diagnostisere. Vi kastet bort tid på feilsøking av kode som aldri kunne ha fungert, et klassisk eksempel på en KI-"hallusinasjon".
+
+- **Håndtering:** Vi utviklet en sunn skepsis til KI-generert kode. Vi innførte en regel om at all kode fra KI-en skulle behandles som et utkast, ikke en ferdig løsning. Før koden ble tatt i bruk, måtte den kryss-sjekkes mot den offisielle dokumentasjonen for det aktuelle biblioteket (f.eks. Next.js, Prisma). Dette krevde mer disiplin, men sparte oss for mye feilsøking i det lange løp.
+
+- **Utfordring 2: Mangel på prosjektspesifikk kontekst.**
+  KI-en har ingen iboende kunnskap om vår prosjektstruktur, arkitektur eller kodestil. Når vi ba om hjelp til å utvide en funksjon, var forslagene ofte generiske og passet ikke inn med vår etablerte `AppContext` eller navnekonvensjoner. Den kunne for eksempel foreslå en helt ny state management-løsning i en komponent, i stedet for å bruke den globale contexten vi allerede hadde.
+
+- **Håndtering:** Løsningen ble å bli mye flinkere til å gi KI-en kontekst i promptene våre. I stedet for å spørre "Hvordan sletter jeg en oppgave?", lærte vi oss å spørre: "Gitt følgende `AppContext`-provider og `taskReducer`, skriv en `DELETE_TASK` case for reduceren som fjerner en oppgave basert på ID fra `state.tasks`-arrayet". Ved å inkludere relevante kodebiter i prompten, fikk vi forslag som var skreddersydd for vårt prosjekt og mye mer nyttige.
 
 ---
 
