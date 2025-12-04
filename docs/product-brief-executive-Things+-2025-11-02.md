@@ -1,6 +1,6 @@
 # Product Brief: Things+ (Executive Summary)
 
-**Date:** 2025-11-02
+**Date:** 2025-12-04
 **Author:** BIP
 **Status:** Draft for PM Review
 
