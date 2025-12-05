@@ -353,7 +353,7 @@ Jeg har også utviklet meg i måten jeg bruker KI på. Jeg har lært å bruke KI
 ## 8. Vedlegg (valgfritt)
 
 - Skjermbilder av applikasjonen:
-  ![Things+ logo_frontpage](screenshot/Things+ logo_frontpage.png)
+  C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\screenshot\Things+ logo_frontpage.png
 - Lenke til GitHub repository: [Sett inn lenke her, f.eks. https://github.com/dittbrukernavn/dittrepo]
 - Annen relevant dokumentasjon (f.eks. video av demonstrasjon, prototype, etc.)
 
