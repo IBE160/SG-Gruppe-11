@@ -169,21 +169,21 @@ Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss 
 ### 4.3 Sammenligning: Med og uten KI
 
 - **Hva ville vært annerledes?** 
-  Uten KI ville utviklingsprosessen vært betydelig lengre og mer utfordrende. Komplekse integrasjoner, som OAuth 2.0 mot Canvas API, ville krevd omfattende manuelt research og "trial-and-error"-programmering. Tiden brukt på feilsøking ville vært mangedoblet, og generering av grunnleggende kode og test-skeletter ville stjålet verdifull tid fra kjernefunksjonalitet.
+  Uten KI ville utviklingsprosessen vært betydelig lengre og mer utfordrende. Komplekse integrasjoner, som OAuth 2.0 mot Canvas API, ville krevd omfattende manuelt research og "trial-and-error"-programmering. Tiden brukt på feilsøking ville vært mangedoblet.
 
 - **Hvilke deler av prosjektet ville vært vanskeligere/lettere?**
-  - **Vanskeligere:** Alt som involverte ny teknologi eller komplekse algoritmer, som sikker autentisering, state management-mønstre, og optimering av datakall. Dokumentasjon og testing ville også vært mer tidkrevende og potensielt mindre grundig.
-  - **Lettere:** Kanskje ville den initielle idéfasen og kreative designprosessen, spesielt for UI/UX, hatt mer rom for ren menneskelig kreativitet uten at KI presenterte "standardløsninger" for tidlig. Imidlertid ville implementasjonen av selv disse kreative ideene vært vanskeligere uten KI.
+  - **Vanskeligere:** Alt av ny teknologi og komplekse algoritmer, som sikker autentisering, state management-mønstre, og optimering av datakall. Dokumentasjon og testing ville også vært mer tidkrevende og potensielt mindre grundig.
+  - **Lettere:** Kanskje ville den initielle idéfasen og kreative designprosessen, spesielt for UI/UX, hatt mer rom for ren menneskelig kreativitet uten at KI presenterte "standardløsninger" for tidlig. Vi kunne også sluppet å krangle med gemini.
 - **Ville sluttresultatet vært bedre eller dårligere?**
-  Sluttresultatet ville mest sannsynlig vært dårligere, eller prosjektet ville ikke ha nådd samme modenhetsgrad innen tidsfristen. KI-assistanse tillot oss å implementere mer robust funksjonalitet, utforske sikrere løsninger, og opprettholde en høyere kodekvalitet enn det som ville vært mulig uten. Den kontinuerlige læringen fasilitert av KI bidro også til et mer gjennomtenkt og optimalisert produkt. Prosjektet ville nok ha endt opp med færre funksjoner, flere bugs og en mindre polert brukeropplevelse.
+  Sluttresultatet ville mest sannsynlig vært dårligere, eller ikke-eksisterende.
 
 ### 4.4 Samlet vurdering
-[Konklusjon: Hvordan påvirket KI sluttresultatet totalt sett?]
+
 - **Var KI en netto positiv eller negativ faktor?**
-  KI var en utvetydig netto positiv faktor for prosjektet. Fordelene i form av økt produktivitet, akselerert læring og forbedret kodekvalitet veide langt tyngre enn ulempene. Begrensningene, som risikoen for dårlig kode eller avhengighet, ble effektivt håndtert gjennom en kritisk og bevisst arbeidsmetodikk. Uten KI ville prosjektets omfang og kvalitet vært betydelig redusert.
+  KI var en utvetydig positiv faktor for prosjektet. Fordelene i form av økt produktivitet, læring og forbedret kodekvalitet veide langt tyngre enn ulempene.
 
 - **Hva var den viktigste lærdommen om å bruke KI i utviklingsprosessen?**
-  Den viktigste lærdommen er at KI er et verktøy, ikke en erstatning for en utvikler. Den er på sitt mektigste når den brukes som en interaktiv "pair programmer" og mentor, ikke som en "black box" som leverer ferdige løsninger. For å maksimere verdien av KI må man stille de riktige spørsmålene, kritisk vurdere svarene, og aldri slutte å lære om den underliggende teknologien. Evnen til å føre en intelligent "dialog" med KI er en ny og essensiell ferdighet for den moderne utvikleren.
+  Den viktigste lærdommen er at KI er et verktøy, ikke en erstatning for en utvikler. Den er best når den brukes interaktivt, ikke som en "black box" som leverer ferdige løsninger. For å maksimere verdien av KI må man stille de riktige spørsmålene og kritisk vurdere svarene.
 
 ---
 
@@ -191,37 +191,37 @@ Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss 
 
 ### 5.1 Ansvar og eierskap
 - **Hvem er ansvarlig for koden når KI har bidratt?**
-  Vår konklusjon er at ansvaret for koden utelukkende ligger hos utvikleren. Vi ser på KI-assistenten som et avansert verktøy, ikke som en kollega. På samme måte som man er ansvarlig for å velge riktig bibliotek eller rammeverk, er man ansvarlig for koden man velger å akseptere fra en KI. Hvis koden introduserer en feil, en sikkerhetssårbarhet eller ytelsesproblemer, er det vi som utviklere som må stå til ansvar for dette. Denne tankegangen tvang oss til å sette oss inn i all kode som ble generert, i stedet for å blindt stole på den.
+  Vår konklusjon er at ansvaret for koden utelukkende ligger hos utvikleren. Hvis koden er feil, en sikkerhetssårbarhet eller har ytelsesproblemer, er det vi som utviklere som må stå til ansvar for dette. 
 
 - **Hvordan sikrer man kvalitet når KI genererer kode?**
-  Kvalitetssikringen må være like streng, om ikke strengere, for KI-generert kode som for menneskeskrevet kode. Vår metode var en tretrinns-prosess: 1) **Kritisk gjennomgang:** All kode ble lest og forstått av minst ett teammedlem før den ble vurdert. 2) **Verifisering mot kilder:** Vi dobbeltsjekket logikk og syntaks mot offisiell dokumentasjon for å unngå utdaterte mønstre. 3) **Manuell testing:** All funksjonalitet ble testet manuelt for å bekrefte at den løste det faktiske problemet uten å introdusere bivirkninger.
+  Kvalitetssikringen må være like streng som for menneskeskrevet kode. Vi kvalitetssikret det vi fikk presentert, og testet resultatene.
 
 - **Diskuter spørsmål om opphavsrett og intellektuell eiendom**
-  Dette er et komplekst og uavklart juridisk felt. KI-modeller trenes på massive datasett, inkludert offentlig tilgjengelig kode med ulike lisenser. Det er derfor en risiko for at KI-generert kode kan inneholde elementer fra lisensiert kode (f.eks. GPL), noe som kan skape lisenskonflikter i et kommersielt produkt. For vårt akademiske prosjekt var dette en mindre risiko, men vi var bevisste på problemstillingen. Vår holdning er at man i en profesjonell setting må være ekstremt nøye med å vurdere vilkårene til KI-tjenesten og ha interne retningslinjer for bruk av KI-generert kode for å unngå juridiske fallgruver. Inntil videre anser vi den endelige, modifiserte koden som vårt eget intellektuelle produkt, men vi er åpne om at verktøy har blitt brukt i prosessen.
+  Det er en risiko for at KI-generert kode kan inneholde elementer fra lisensiert kode (f.eks. GPL). For vårt prosjekt var dette en mindre risiko. Inntil videre anser vi denne koden som vårt produkt, men vi er åpne om at KI-verktøy har blitt brukt i prosessen.
 
 ### 5.2 Transparens
 - **Bør det være transparent at KI er brukt?**
-  Ja, vi mener åpenhet om KI-bruk er essensielt, både i akademia og i næringslivet. I en læringskontekst er det nødvendig for å kunne vurdere studentens reelle kompetanse og læringsutbytte. I en profesjonell setting handler det om intellektuell ærlighet overfor arbeidsgivere og kolleger. Å være åpen om hvilke verktøy man bruker, gir teamet en bedre mulighet til å vurdere potensielle risikoer knyttet til vedlikehold, sikkerhet og kvalitet i koden som produseres.
+  Ja, vi mener åpenhet om KI-bruk er essensielt både i undervisning og industri. I en læringskontekst er det viktig for rettferdig vurdering av kompetanse. Profesjonelt er det viktig å være åpen med kollegaer og klienter. Åpenhet gir sikkerhet på sikt. 
 
 - **Hvordan dokumenterer man KI sin bidrag?**
-  For dette prosjektet er denne rapporten den primære formen for dokumentasjon. Vi har her beskrevet hvor og hvordan KI ble brukt. I et større prosjekt kunne man implementert mer granulære metoder. For eksempel kunne man brukt en egen etikett i commit-meldinger (f.eks. `[AI-assisted]`) for å markere kode som er vesentlig påvirket av KI. En annen tilnærming er å lagre sentrale prompter i prosjektets dokumentasjon, slik vi har gjort med eksemplene i denne rapporten. Dette gir verdifull kontekst for fremtidige utviklere som skal vedlikeholde koden.
+  Vi bruker denne rapporten for å dokumentere KIs bidrag. I stlrre prosjekter kunne man hatt merker ved kode som var helt eller delvis KI-generert. Man kan også lagre alle prompter et sted. 
 
 - **Hva er konsekvensene av å ikke være åpen om KI-bruk?**
-  Konsekvensene kan være både faglige og sosiale. Faglig sett kan det føre til at man pådrar seg "skjult teknisk gjeld" – kode som ingen på teamet fullt ut forstår, og som derfor blir vanskelig å vedlikeholde eller feilsøke. Sosialt kan det skape en alvorlig tillitsbrist. Hvis en utvikler fremstiller KI-generert kode som sin egen, kan det bli sett på som uærlig og skade vedkommendes omdømme og teamets samarbeidsklima. I en akademisk setting vil det i praksis være plagiat eller juks. Åpenhet er derfor den eneste forsvarlige veien fremover.
+  Man kan ende opp med kode man selv ikke forstår, og som blir vanskelig å vedlikeholde. Å fremstille KI-generert kode som sin egen kan føre til tillitsbrist og skade forfatterens omdømme. I en akademisk setting kan det bli sett som plagiat eller juks.
 
 ### 5.3 Påvirkning på læring og kompetanse
 - **Hvordan påvirker KI-avhengighet fremtidig kompetanse?**
-  En ukritisk avhengighet av KI kan føre til at fremtidig kompetanse blir mer overflatisk. Man risikerer å bli en "systemintegrator" av KI-genererte kodeblokker, uten en dyp forståelse for prinsippene som ligger bak. Evnen til å løse helt nye problemer fra bunnen av kan bli svekket. Samtidig er vi overbevist om at evnen til å føre en effektiv "dialog" med en KI – å stille presise spørsmål, gi god kontekst og kritisk vurdere svar – er i ferd med å bli en ny, essensiell kjernekompetanse for utviklere.
+  I fremtiden kan vi miste evnen til å gjøre ting frae bunnen av, og man kan få en mer overfladig form for programmering. Smtidig er evnen til å kommunisere godt med KI noe som kommer til å bli viktigere og viktigere for programmerere. 
 
 - **Hvilke ferdigheter risikerer man å ikke utvikle?**
-  Den mest utsatte ferdigheten er systematisk feilsøking. Når man kan lime inn en feilmelding og få et løsningsforslag, går man glipp av den iterative prosessen med å sette seg inn i koden, analysere tilstand og logikk, og isolere et problem. Andre utsatte ferdigheter er den grunnleggende algoritmiske tenkningen og "muskelminnet" man bygger ved å skrive standardkode ("boilerplate") manuelt. Repetisjonen man får ved å skrive for-løkker eller sette opp enkle API-kall selv, er viktig for å bygge en intuitiv forståelse.
+  Feilssøking er kjedelig å sitte med selv, når man kan be KI fikse det på en brøkdel av tiden man ville brukt selv. Drillingen ved basiskoding forsvinner også, og man får det kanskje ikke like mye 'i fingrene' som man ville gjort uten KI.
 
 - **Balanse mellom effektivitet og læring**
-  Vi fant ut at balansen mellom effektivitet og læring ligger i *hvordan* og *når* man bruker KI. Den dårlige strategien er å bruke KI som første utvei for å unngå å tenke selv. Den gode strategien er å bruke KI som en "akselerator" når man står fast. Vår tilnærming ble å først prøve selv. Hvis vi ikke fant en løsning innen rimelig tid, brukte vi KI for å få et forslag. Det kritiske steget var imidlertid å bruke tid *etter på* på å analysere forslaget, forstå hvorfor det virket, og lese dokumentasjonen. KI-en ble da et verktøy for å overkomme frustrerende hindringer, slik at vi raskere kunne komme til kjernen av læringen.
+  Man bør tenke litt selv før man begynner å bruke KI, og så bruke KI når man står fast. I vårt prosjekt har vi først tenkt ut hva vil ha, og så spurt KI, for å ikke ende opp med å produsere noe blindt på KIens premisser. Det er viktig å følge med på hva KIen gjør for å lære av den. 
 
 ### 5.4 Arbeidsmarkedet
 - **Hvordan kan utbredt KI-bruk påvirke fremtidige jobber i IT?**
-  Vi tror ikke KI vil fjerne behovet for utviklere, men snarere endre selve utviklerrollen. Repetitive og standardiserte oppgaver (f.eks. skriving av "boilerplate"-kode, enkle API-endepunkter, grunnleggende enhetstester) vil i økende grad bli automatisert. Dette hever listen for hva som forventes av en utvikler. Jobben vil handle mindre om å produsere store mengder kode, og mer om å designe, arkitektere og verifisere systemer. Produktiviteten per utvikler vil øke, men det vil også stille høyere krav til systemforståelse og problemløsningsevne.
+  Behovet for utviklere vil ikke bli mindre, men endret. Mange oppgaver som eksisterer i dag vil bli automatisert. En utvikler i fremtiden vil være mer produktiv enn i dag. 
 
 - **Hvilke roller vil bli viktigere/mindre viktige?**
   - **Viktigere roller:**
