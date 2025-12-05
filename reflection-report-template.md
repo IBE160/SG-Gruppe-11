@@ -335,7 +335,10 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 ### 7.4 Personlig refleksjon (individuelt)
 
 **115:**
-[Personlig refleksjon over egen læring og utvikling]
+I denne perioden har jeg jobbet med programmering av en webbasert applikasjon ved hjelp av Gemini CLI og Visual Studio Code. Arbeidet har gitt meg et første, men samtidig grundig møte med programmering og utvikling av applikasjoner. Selv om jeg startet med lite forkunnskaper innen koding, har prosessen gitt meg betydelig bedre forståelse og innsikt i hvordan programmering fungerer i praksis.
+En av de største utfordringene har vært nettopp mangelen på tidligere erfaring. Å møte et fagfelt som er helt nytt, krevde tålmodighet og vilje til å lære. For å håndtere dette har jeg jobbet systematisk med å prøve og feile, lese meg opp på relevante konsepter og utforske løsninger gjennom praktisk arbeid. Jeg har vært bevisst på å bruke tiden til å tilegne meg så mye kunnskap som mulig, selv om læringskurven til tider har vært bratt.
+Det jeg er mest fornøyd med, er innsatsen jeg har lagt ned og evnen til å stå i utfordringene. Jeg har jobbet målrettet for å få applikasjonen til å fungere så optimalt som mulig, til tross for begrenset erfaring. Det har vært motiverende å oppleve mestring underveis og se konkrete resultater av arbeidet mitt.
+Fremover kunne det vært spennende å videreutvikle applikasjonen enda mer. Jeg ønsker å bygge videre på ferdighetene jeg har opparbeidet, fortsette å lære, og utforske hvordan applikasjonen kan forbedres og utvides.
 
 **131:**
 Gjennom arbeidet med Things+ har jeg lært mye, selv om jeg startet med begrensede datakunnskaper og ingen tidligere erfaring med programmering. Prosjektet har gitt meg et tydelig bilde av hvordan en app utvikles i praksis – fra idé og planlegging til implementering.
@@ -353,7 +356,8 @@ Jeg har også utviklet meg i måten jeg bruker KI på. Jeg har lært å bruke KI
 ## 8. Vedlegg (valgfritt)
 
 - Skjermbilder av applikasjonen:
-  ![Things+ logo_frontpage](screenshot/Things+ logo_frontpage.png)
+  C:\Users\ksand\OneDrive\Documents\GitHub-Sync\SG-Gruppe-11\screenshot\Things+ logo_frontpage.png
+  ![alt text](<Things+ logo_frontpage.png>)
 - Lenke til GitHub repository: [Sett inn lenke her, f.eks. https://github.com/dittbrukernavn/dittrepo]
 - Annen relevant dokumentasjon (f.eks. video av demonstrasjon, prototype, etc.)
 
