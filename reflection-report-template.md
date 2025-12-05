@@ -338,7 +338,9 @@ Basert på våre erfaringer har vi følgende anbefalinger til andre studenter so
 [Personlig refleksjon over egen læring og utvikling]
 
 **131:**
-[Personlig refleksjon over egen læring og utvikling]
+Gjennom arbeidet med Things+ har jeg lært mye, selv om jeg startet med begrensede datakunnskaper og ingen tidligere erfaring med programmering. Prosjektet har gitt meg et tydelig bilde av hvordan en app utvikles i praksis – fra idé og planlegging til implementering.
+Jeg har spesielt fått bedre forståelse for hvordan vi samarbeider i en felles kodebase, og hvordan verktøy som VS Code og GitHub brukes for å jobbe strukturert og unngå konflikter. I tillegg har jeg sett hvor viktig det er med tydelige krav, oppdeling i mindre oppgaver og en ryddig arbeidsflyt i team.
+Jeg har også utviklet meg i måten jeg bruker KI på. Jeg har lært å bruke KI til å forklare konsepter, foreslå løsninger og hjelpe med feilsøking, men også at svarene må vurderes kritisk og sjekkes mot dokumentasjon og praksis. Samlet sett har prosessen gjort meg tryggere på både arbeidsmetoden og grunnprinsippene bak utvikling, og jeg har fått et mye bedre fundament å bygge videre på.
 
 **138:**
 [Personlig refleksjon over egen læring og utvikling]
