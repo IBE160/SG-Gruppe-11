@@ -8,7 +8,7 @@
 - [Navn 1] - 115
 - [Navn 2] - 131
 - [Navn 3] - 138
-- [Navn 4] - [Student-ID/E-post]
+- [Navn 4] - 28
 
 **Dato:** 04.12.2025
 
