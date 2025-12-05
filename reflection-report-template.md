@@ -348,6 +348,6 @@ Avslutningsvis er jeg glad for at vi har hatt et stort fag å forholde oss til f
 
 ---
 
-**Ordantall:** Ca. 6122 ord
+**Ordantall:** Ca. 5000 ord
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)
