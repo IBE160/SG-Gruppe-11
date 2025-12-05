@@ -345,8 +345,7 @@ Gjennom arbeidet med Things+ har jeg lært mye, selv om jeg startet med begrense
 Jeg har spesielt fått bedre forståelse for hvordan vi samarbeider i en felles kodebase, og hvordan verktøy som VS Code og GitHub brukes for å jobbe strukturert og unngå konflikter. I tillegg har jeg sett hvor viktig det er med tydelige krav, oppdeling i mindre oppgaver og en ryddig arbeidsflyt i team.
 Jeg har også utviklet meg i måten jeg bruker KI på. Jeg har lært å bruke KI til å forklare konsepter, foreslå løsninger og hjelpe med feilsøking, men også at svarene må vurderes kritisk og sjekkes mot dokumentasjon og praksis. Samlet sett har prosessen gjort meg tryggere på både arbeidsmetoden og grunnprinsippene bak utvikling, og jeg har fått et mye bedre fundament å bygge videre på.
 
-**138:**
-[Personlig refleksjon over egen læring og utvikling]
+**138**: Jeg må innrømme at jeg ennå ikke er helt komfortabel med å programmere meg KI. Hovedsakelig tror jeg dette skyldes et dårlig programmeringsteknisk grunnlag. Gjennom prosjektet har jeg blitt mer komfortabel med å bruke verktøyene GitHub, VS Code, Gemini og Terminal. Problemet tror jeg består i at jeg ikke har kompetansen til å forstå alt som gjøres eller etterprøve det. Samtidig har jeg gjennom faget forstått betraktelig mer enn jeg gjorde før, og jeg ville nok blitt komfortabel om jeg hadde et halvt år til å bruke til å sette meg inn i dette. Det største læringsmomentet dette halvåret har vært å forstå hvor kraftig KI er som verktøy i programmering, og hvor effektivt man kan arbeide om man forstår programmering godt fra før. Selv kunne jeg nok aldri arbeidet med dette, men jeg er glad for erfaringen.
 
 **[Navn 4]:**
 [Personlig refleksjon over egen læring og utvikling]
