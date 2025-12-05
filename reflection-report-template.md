@@ -10,7 +10,7 @@
 - [Navn 3] - 138
 - [Navn 4] - 28
 
-**Dato:** 04.12.2025
+**Dato:** 05.12.2025
 
 ---
 
@@ -27,7 +27,7 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 
 ### 2.2 Arbeidsmetodikk
 
-- Istede for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer.
+- Istedet for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer.
 
 - Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
 
@@ -93,22 +93,22 @@ Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives
 Selv om vi valgte en tett samarbeidsmodell som fungerte godt, hadde også denne arbeidsformen sine utfordringer knyttet til synkronisering og effektivitet.
 
 - **Utfordring 1: Håndtering av felles kodebase i sanntid.**
-  Siden vi jobbet mye sammen på den samme koden, oppstod det hyppige `merge`-konflikter i Git. Det var tidkrevende å sikre at alle hadde identiske versjoner av prosjektet lokalt før vi startet en felles kodeøkt, og det hendte at endringer ble overskrevet.
+  Siden vi jobbet mye sammen på den samme koden, oppstod det hyppige `merge`-konflikter i Git. Det var tidkrevende å sikre at alle hadde identiske versjoner av prosjektet lokalt før vi startet en felles kodeøkt.
 
-- **Løsning:** Vi innførte en mer strukturert Git-arbeidsflyt. Vi bestemte oss for å bruke en "Driver/Navigator"-modell under fellesøktene, der kun én person ("Driver") skrev kode og delte skjermen sin. All koding ble gjort på en dedikert `feature`-branch for den aktuelle økten. Etter økten ble branchen pushet, og vi gjennomgikk endringene i en Pull Request sammen. Dette reduserte antall merge-konflikter drastisk og ga oss en felles arena for kodegjennomgang.
+- **Løsning:** Vi innførte en mer strukturert Git-arbeidsflyt. Vi bestemte oss for å bruke en "Driver/Navigator"-modell under fellesøktene, der kun én person ("Driver") skrev kode og delte skjermen sin. All koding ble gjort på en dedikert `feature`-branch for den aktuelle økten. Etter økten ble branchen pushet, og vi gjennomgikk endringene i en Pull Request sammen. 
 
 - **Utfordring 2: Ustrukturerte og lange diskusjoner.**
-  Våre hyppige Teams-møter var essensielle for felles forståelse, men de kunne noen ganger bli uproduktive. Diskusjoner om tekniske valg eller design kunne dra ut i tid uten at vi landet på en konkret beslutning, noe som stjal verdifull utviklingstid.
+  Våre hyppige Teams-møter var essensielle for felles forståelse, men de kunne noen ganger bli uproduktive. Diskusjoner om tekniske valg eller design kunne dra ut i tid uten at vi landet på en konkret beslutning.
 
-- **Løsning:** Vi implementerte en fastere møtestruktur. Hver økt startet med en klar agenda og et definert mål. For tekniske diskusjoner benyttet vi oss av "timeboxing". Hvis en diskusjon varte lenger enn 15 minutter uten enighet, pauset vi den. Én person fikk ansvaret for å undersøke alternativene og presentere en anbefaling i neste møte. Dette tvang oss til å bli mer beslutningsdyktige og fokuserte.
+- **Løsning:** Vi implementerte en fastere møtestruktur. Hver økt startet med en klar agenda og et definert mål. 
 
 ### 3.3 KI-spesifikke utfordringer
-Bruken av KI var i stor grad en positiv opplevelse, men den kom ikke uten egne, unike utfordringer. Vi måtte lære oss å jobbe *med* KI-en, ikke bare be den om å gjøre ting.
+Bruken av KI var utfordrende. Vi måtte lære oss å jobbe *med* KI-en, ikke bare be den om å gjøre ting.
 
 - **Utfordring 1: "Hallusinasjoner" og utdatert kode.**
   Et gjennomgående problem var at KI-en kunne generere kode som så overbevisende ut, men som var feil eller utdatert. For eksempel foreslo den i ett tilfelle å bruke en funksjon fra en eldre versjon av Next.js, noe som førte til feilmeldinger som var vanskelige å diagnostisere. Vi kastet bort tid på feilsøking av kode som aldri kunne ha fungert, et klassisk eksempel på en KI-"hallusinasjon".
 
-- **Håndtering:** Vi utviklet en sunn skepsis til KI-generert kode. Vi innførte en regel om at all kode fra KI-en skulle behandles som et utkast, ikke en ferdig løsning. Før koden ble tatt i bruk, måtte den kryss-sjekkes mot den offisielle dokumentasjonen for det aktuelle biblioteket (f.eks. Next.js, Prisma). Dette krevde mer disiplin, men sparte oss for mye feilsøking i det lange løp.
+- **Håndtering:** Vi utviklet en sunn skepsis til KI-generert kode. Vi innførte en regel om at all kode fra KI-en skulle behandles som et utkast, ikke en ferdig løsning. Dette krevde mer disiplin, men sparte oss for mye feilsøking senere.
 
 - **Utfordring 2: Mangel på prosjektspesifikk kontekst.**
   KI-en har ingen iboende kunnskap om vår prosjektstruktur, arkitektur eller kodestil. Når vi ba om hjelp til å utvide en funksjon, var forslagene ofte generiske og passet ikke inn med vår etablerte `AppContext` eller navnekonvensjoner. Den kunne for eksempel foreslå en helt ny state management-løsning i en komponent, i stedet for å bruke den globale contexten vi allerede hadde.
@@ -120,29 +120,29 @@ Bruken av KI var i stor grad en positiv opplevelse, men den kom ikke uten egne, 
 ## 4. Kritisk vurdering av KI sin påvirkning
 
 ### 4.1 Fordeler med KI-assistanse
-KI-assistanse var en integrert og uvurderlig del av vår utviklingsprosess. Verktøy som Gemini CLI fungerte ikke bare som kodebibliotek, men som en aktiv samarbeidspartner som forbedret både hastighet, læring og den endelige kvaliteten på prosjektet.
+Verktøy som Gemini CLI fungerte ikke bare som kodebibliotek, men som en aktiv samarbeidspartner som forbedret både hastighet, læring og den endelige kvaliteten på prosjektet.
 
 **Effektivitet og produktivitet:**
 - **Hvordan påvirket KI arbeidshastigheten?**
-  KI økte arbeidshastigheten vår dramatisk. I stedet for å bruke timer på å søke i dokumentasjon eller forum for å løse komplekse problemer som OAuth 2.0-integrasjon, kunne vi få en strukturert, steg-for-steg guide på minutter. Dette reduserte "down-time" og holdt utviklingsflyten i gang.
+  KI økte arbeidshastigheten vår dramatisk. I stedet for å bruke timer på å søke i dokumentasjon eller forum for å løse komplekse problemer som OAuth 2.0-integrasjon, kunne vi få en strukturert, steg-for-steg guide på minutter. 
 - **Eksempler på oppgaver som gikk raskere:**
   - **Generering av "boilerplate"-kode:** Oppretting av nye React-komponenter, API-ruter i Next.js, eller konfigurasjonsfiler ble akselerert ved at KI genererte komplette kodeskjeletter. Vår `login.tsx`-komponent ble for eksempel skissert ut på et par minutter, inkludert state-håndtering og grunnleggende styling.
-  - **Feilsøking:** Når vi møtte kryptiske feilmeldinger, kunne vi lime inn feilen og den relevante koden i KI-verktøyet og få en umiddelbar forklaring og forslag til løsning. Dette var spesielt nyttig for å løse synkroniseringsfeil knyttet til asynkrone operasjoner.
+  - **Feilsøking:** Når vi møtte kryptiske feilmeldinger, kunne vi lime inn feilen og den relevante koden i KI-verktøyet og få en umiddelbar forklaring og forslag til løsning.
   - **Dokumentasjon:** KI hjalp oss med å formulere klare og konsise beskrivelser for funksjoner, komponenter og i `README`-filer, en oppgave som ofte er tidkrevende.
 
 **Læring og forståelse:**
 - **Hva lærte dere ved å bruke KI?**
-  Vi lærte ikke bare *hvordan* vi skulle implementere en løsning, men også *hvorfor* den fungerte. KI fungerte som en tålmodig mentor som kunne forklare komplekse konsepter på en enkel måte. Da vi implementerte global state management, fikk vi ikke bare koden, men også en forklaring på `useReducer`-hooken og hvorfor den var et godt valg for vårt bruksområde.
+  Vi lærte ikke bare *hvordan* vi skulle implementere en løsning, men også *hvorfor* den fungerte. KI fungerte som en tålmodig mentor som kunne forklare komplekse konsepter på en enkel måte. 
 - **Bidro KI til bedre forståelse av konsepter?**
-  Absolutt. For eksempel var sikkerhetsaspektene ved API-integrasjon (som `httpOnly`-cookies for å forhindre XSS-angrep) et område der KI ga oss dypere innsikt. KI forklarte risikoene og begrunnet hvorfor den foreslåtte løsningen var sikrere, noe som hevet vår generelle kompetanse innen web-sikkerhet.
+  Absolutt. For eksempel var sikkerhetsaspektene ved API-integrasjon - KI forklarte risikoene og begrunnet hvorfor den foreslåtte løsningen var sikrere, noe som hevet vår generelle kompetanse innen web-sikkerhet.
 
 **Kvalitet på koden:**
 - **Hvordan påvirket KI kodekvaliteten?**
-  KI fungerte som en konstant kodegjennomgangspartner. Den hjalp oss med å identifisere "code smells", foreslå refaktoreringer og oppmuntret oss til å følge beste praksis.
+  KI fungerte som en konstant kodegjennomgangspartner. Den hjalp oss med å identifisere "code smells" og oppmuntret oss til å refaktorere.
 - **Eksempler på forbedringer KI foreslo:**
-  - **Refaktorering for gjenbruk:** I starten hadde vi duplisert logikk for datakall i flere komponenter. KI foreslo å refaktorere dette til en gjenbrukbar "custom hook", noe som gjorde koden vår tørrere ("Don't Repeat Yourself") og enklere å vedlikeholde.
-  - **Optimalisering:** KI foreslo å bruke `React.memo` for å forhindre unødvendige re-rendringer av komponenter, noe som forbedret ytelsen i applikasjonen.
-  - **Samsvar med standarder:** Verktøyet hjalp oss med å skrive mer idiomatisk TypeScript-kode ved å påpeke bedre måter å definere typer og interfaces på, noe som gjorde koden mer robust og forutsigbar.
+  - **Refaktorering for gjenbruk:** I starten hadde vi duplisert logikk for datakall i flere komponenter. KI foreslo å refaktorere dette til en gjenbrukbar "custom hook".
+  - **Optimalisering:** KI foreslo å bruke `React.memo` for å forhindre unødvendige re-rendringer av komponenter.
+  - **Samsvar med standarder:** Verktøyet hjalp oss med å skrive bedre TypeScript-kode ved å påpeke bedre måter å definere typer og interfaces på, noe som gjorde koden mer robust og forutsigbar.
 
 ### 4.2 Begrensninger og ulemper
 Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss å bruke verktøyet kritisk og være bevisste på dets begrensninger for å unngå fallgruver som kunne ha redusert kvaliteten på prosjektet.
@@ -150,32 +150,30 @@ Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss 
 **Kvalitet og pålitelighet:**
 - **Eksempler på feil eller dårlige løsninger fra KI:**
   - **Utdaterte avhengigheter:** I ett tilfelle foreslo KI å bruke et bibliotek for datovisning som var utdatert og ikke lenger aktivt vedlikeholdt. En rask sjekk på npm avslørte dette, og vi valgte et mer moderne alternativ.
-  - **Overkompliserte løsninger:** Da vi ba om en funksjon for å sortere oppgaver, genererte KI en kompleks algoritme som var unødvendig for vårt enkle datastruktur. En standard `Array.sort()` med en sammenligningsfunksjon var en mye enklere og mer lesbar løsning.
+  - **Overkompliserte løsninger:** Da vi ba om en funksjon for å sortere oppgaver, genererte KI en for kompleks algoritme. En standard `Array.sort()` med en sammenligningsfunksjon var mer egnet.
 - **Hvordan oppdaget og håndterte dere disse?**
-  Vi oppdaget feilene ved å alltid behandle KI-generert kode som et forslag, ikke en fasit. All kode ble kritisk gjennomgått og testet. Vi sjekket alltid dokumentasjonen for foreslåtte biblioteker og stilte oss selv spørsmålet: "Finnes det en enklere måte å gjøre dette på?". Dette kritiske blikket var avgjørende for å sile ut dårlige forslag.
+  Vi oppdaget feilene ved å alltid behandle KI-generert kode som et forslag, ikke en fasit. All kode ble kritisk gjennomgått og testet. 
 
 **Avhengighet og forståelse:**
 - **Ble dere for avhengige av KI?**
   I starten var det en tendens til å "spørre KI først" før vi tenkte selv. Vi merket at dette kunne føre til en overfladisk forståelse av koden vi implementerte.
 - **Var det tilfeller hvor KI hindret læring?**
-  Ja, spesielt med konfigurasjonsfiler (f.eks. `tailwind.config.js` eller `tsconfig.json`). Det var fristende å bare akseptere den ferdige konfigurasjonen KI ga oss uten å fullt ut forstå hva hver enkelt innstilling gjorde. Vi motvirket dette ved å be KI om å forklare hver linje i konfigurasjonen, noe som tvang oss til å engasjere oss i materien og bygge en dypere forståelse.
+  Ja, spesielt med konfigurasjonsfiler (f.eks. `tailwind.config.js` eller `tsconfig.json`). Det var fristende å bare akseptere den ferdige konfigurasjonen KI ga oss uten å fullt ut forstå hva hver enkelt innstilling gjorde.
 
 **Kreativitet og problemløsning:**
 - **Påvirket KI deres egen kreativitet?**
-  KI er trent på eksisterende mønstre, og løsningene den foreslår er ofte konvensjonelle. Dette kan i noen tilfeller begrense "utenfor boksen"-tenkning. Da vi designet brukergrensesnittet for ukeplanleggeren (`weekly-planner.tsx`), ga KI oss et veldig standard rutenett-layout.
+  KI er trent på eksisterende mønstre, og løsningene den foreslår er ofte konvensjonelle. Da vi designet brukergrensesnittet for ukeplanleggeren (`weekly-planner.tsx`), ga KI oss et veldig standard rutenett-layout.
 - **Eksempler på situasjoner hvor KI begrenset kreativ tenkning:**
-  Vi følte at KI-ens forslag til UI-design var funksjonelt, men manglet innovasjon. For å bryte ut av dette, brukte vi KI som en "idé-generator" i stedet for en "løsnings-generator". Vi ba om fem radikalt forskjellige måter å visualisere en ukeplan på. Dette ga oss et bredere spekter av ideer (f.eks. en sirkulær klokke-visning, en tidslinje-visning) som vi kunne bruke som inspirasjon for å designe vår egen, unike løsning. Ved å endre måten vi stilte spørsmål på, snudde vi begrensningen til en fordel.
+  For å bryte ut av dette, brukte vi KI som en "idé-generator" i stedet for en "løsnings-generator". Vi ba om fem radikalt forskjellige måter å visualisere en ukeplan på. Dette ga oss et bredere spekter av ideer, og snudde begrensningen til en fordel.
 
 ### 4.3 Sammenligning: Med og uten KI
-Refleksjon over prosjektforløpet med og uten KI-assistanse avdekker fundamentale forskjeller i både prosess og sluttprodukt.
 
-- **Hva ville vært annerledes?**
+- **Hva ville vært annerledes?** 
   Uten KI ville utviklingsprosessen vært betydelig lengre og mer utfordrende. Komplekse integrasjoner, som OAuth 2.0 mot Canvas API, ville krevd omfattende manuelt research og "trial-and-error"-programmering. Tiden brukt på feilsøking ville vært mangedoblet, og generering av grunnleggende kode og test-skeletter ville stjålet verdifull tid fra kjernefunksjonalitet.
 
 - **Hvilke deler av prosjektet ville vært vanskeligere/lettere?**
   - **Vanskeligere:** Alt som involverte ny teknologi eller komplekse algoritmer, som sikker autentisering, state management-mønstre, og optimering av datakall. Dokumentasjon og testing ville også vært mer tidkrevende og potensielt mindre grundig.
   - **Lettere:** Kanskje ville den initielle idéfasen og kreative designprosessen, spesielt for UI/UX, hatt mer rom for ren menneskelig kreativitet uten at KI presenterte "standardløsninger" for tidlig. Imidlertid ville implementasjonen av selv disse kreative ideene vært vanskeligere uten KI.
-
 - **Ville sluttresultatet vært bedre eller dårligere?**
   Sluttresultatet ville mest sannsynlig vært dårligere, eller prosjektet ville ikke ha nådd samme modenhetsgrad innen tidsfristen. KI-assistanse tillot oss å implementere mer robust funksjonalitet, utforske sikrere løsninger, og opprettholde en høyere kodekvalitet enn det som ville vært mulig uten. Den kontinuerlige læringen fasilitert av KI bidro også til et mer gjennomtenkt og optimalisert produkt. Prosjektet ville nok ha endt opp med færre funksjoner, flere bugs og en mindre polert brukeropplevelse.
 
