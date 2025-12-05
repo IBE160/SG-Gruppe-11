@@ -26,10 +26,7 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 **Målgruppe:** Studenter med fulltidsjobb i tillegg til studiene, men også alle som bruker Canvas og en integrert kalender på telefonen eller laptopen for planleggingsformål.
 
 ### 2.2 Arbeidsmetodikk
-
-- Istedet for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer.
-
-- Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
+Istedet for å fordele oppgavene så jobbet vi sammen med hyppige teams møter og diskusjoner på hvordan vi ville at denne applikasjonen skulle fungere. Vi føler at denne måten å jobbe på har fungert veldig fint slik at vi alle får en felles forståelse om hvordan programering fungerer. Vi har aktivt brukt KI-verktøy som Gemini CLI integrert i VS Code for å assistere med kodeforståelse, feilsøking, generering av kodeeksempler, og utforming av dokumentasjon. KI har fungert som en interaktiv partner for å akselerere utviklingsprosessen og forbedre kodekvaliteten.
 
 ### 2.3 Teknologi og verktøy
 - Frontend: Next.js, React, TypeScript, Tailwind CSS, HTML/CSS
@@ -39,7 +36,6 @@ Vi har utviklet en to-do task manager app kalt "Things+". Hovedmålet med applik
 - Andre verktøy: VS Code, BMAD, Git
 
 ### 2.4 Utviklingsfaser
-Prosjektet ble delt inn i to hovedfaser: en planleggings- og designfase, etterfulgt av en utviklings- og implementeringsfase.
 
 **Fase 1: Planlegging og Design**
 - **Hva gjorde dere i denne fasen?**
@@ -77,7 +73,6 @@ Prosjektet ble delt inn i to hovedfaser: en planleggings- og designfase, etterfu
 ## 3. Utfordringer og løsninger
 
 ### 3.1 Tekniske utfordringer
-Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives to av de mest sentrale utfordringene og hvordan vi løste dem, ofte med bistand fra KI.
 
 **Utfordring 1: Sikker API-integrasjon med Canvas**
 - **Problem:** Den største tekniske bøygen var å koble applikasjonen til Canvas sitt API på en sikker og robust måte. Vi var usikre på den korrekte implementeringen av OAuth 2.0-autentiseringsflyten, hvordan vi skulle lagre API-tokens på en sikker måte etter at brukeren hadde logget inn, og hvordan vi skulle håndtere paginerte svar fra API-et for å sikre at vi hentet alle oppgavene til brukeren.
@@ -90,7 +85,6 @@ Vi støtte på flere tekniske hindringer i løpet av prosjektet. Under beskrives
 - **KI sin rolle:** Vi konsulterte KI for å få en oversikt over fordeler og ulemper med ulike state management-løsninger (Redux, Zustand, Context API). Da vi valgte Context API, ba vi KI om et komplett eksempel på hvordan man setter opp en `Provider` med en `reducer` for å håndtere asynkrone handlinger som `FETCH_START`, `FETCH_SUCCESS` og `FETCH_ERROR`. Dette ga oss en solid mal vi kunne bygge videre på.
 
 ### 3.2 Samarbeidsutfordringer
-Selv om vi valgte en tett samarbeidsmodell som fungerte godt, hadde også denne arbeidsformen sine utfordringer knyttet til synkronisering og effektivitet.
 
 - **Utfordring 1: Håndtering av felles kodebase i sanntid.**
   Siden vi jobbet mye sammen på den samme koden, oppstod det hyppige `merge`-konflikter i Git. Det var tidkrevende å sikre at alle hadde identiske versjoner av prosjektet lokalt før vi startet en felles kodeøkt.
@@ -120,7 +114,6 @@ Bruken av KI var utfordrende. Vi måtte lære oss å jobbe *med* KI-en, ikke bar
 ## 4. Kritisk vurdering av KI sin påvirkning
 
 ### 4.1 Fordeler med KI-assistanse
-Verktøy som Gemini CLI fungerte ikke bare som kodebibliotek, men som en aktiv samarbeidspartner som forbedret både hastighet, læring og den endelige kvaliteten på prosjektet.
 
 **Effektivitet og produktivitet:**
 - **Hvordan påvirket KI arbeidshastigheten?**
@@ -145,7 +138,6 @@ Verktøy som Gemini CLI fungerte ikke bare som kodebibliotek, men som en aktiv s
   - **Samsvar med standarder:** Verktøyet hjalp oss med å skrive bedre TypeScript-kode ved å påpeke bedre måter å definere typer og interfaces på, noe som gjorde koden mer robust og forutsigbar.
 
 ### 4.2 Begrensninger og ulemper
-Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss å bruke verktøyet kritisk og være bevisste på dets begrensninger for å unngå fallgruver som kunne ha redusert kvaliteten på prosjektet.
 
 **Kvalitet og pålitelighet:**
 - **Eksempler på feil eller dårlige løsninger fra KI:**
@@ -249,82 +241,75 @@ Selv om KI var en enorm ressurs, var det ikke uten ulemper. Vi måtte lære oss 
 ## 6. Teknologiske implikasjoner
 
 ### 6.1 Kodekvalitet og vedlikehold
-Integrasjonen av KI-generert kode i prosjektet vårt har betydelige implikasjoner for både kodekvalitet og langsiktig vedlikehold.
 
 - **Hvordan påvirker KI-generert kode langsiktig vedlikehold?**
-  KI-generert kode kan potensielt redusere vedlikeholdsbyrden hvis den er velstrukturert og følger beste praksis. I vårt tilfelle hjalp KI oss med å generere modulære komponenter og API-endepunkter som var enkle å utvide og oppdatere. Samtidig krever det en grundig gjennomgang for å sikre at koden er optimalisert for prosjektets spesifikke behov og ikke introduserer unødvendig kompleksitet. Uten slik gjennomgang kan KI-generert kode føre til "technical debt" dersom den er generisk eller ikke tilpasset prosjektets arkitektur.
+  Om koden er godt strukturert kan det lette vedlikehold. Unødvendig kompleksitet kan ha motsatt virkning.
 
 - **Er KI-kode like forståelig som menneskeskrevet kode?**
-  Forståeligheten av KI-generert kode varierer. Noen ganger produserte KI elegant og lettlest kode som fulgte etablert praksis. Andre ganger, spesielt ved mer komplekse forespørsler, kunne koden virke mer "generisk" eller mindre idiomatisk, noe som gjorde den vanskeligere å dechiffrere uten kontekst. Vi oppdaget at når vi ba KI om å forklare den genererte koden, forbedret dette vår egen forståelse og dermed også evnen til å vedlikeholde den.
+  Forståeligheten av KI-generert kode varierer. Stort sett hjalp det å spørre KIen om å forklare hva den hadde gjort. Det er lurt å holde KIen i nakkeskinnet, spesielt ved komplekse forsepørsler. 
 
 - **Utfordringer med å debugge KI-generert kode**
-  En av hovedutfordringene med KI-generert kode er debugging. Selv om KI kan være god til å identifisere feil, kan den også produsere subtile feil som er vanskeligere å spore. Hvis KI-koden inneholder logiske brister eller forutsetninger som ikke stemmer overens med prosjektets virkelige tilstand, kan det kreve mer tid å forstå og korrigere enn om koden var skrevet fra bunnen av med full kontekst. Dette understreker viktigheten av grundig testing og et kritisk blikk på all KI-generert kode.
+  Det er såklart vanskeligere å fjerne bugs fra en generert kode enn fra en hjemmelaget kode. Spesielt når det kommer til funksjonalitet, kan KIen slite med å forstå selv hva som er feil. 
 
 ### 6.2 Standarder og beste praksis
-En sentral del av vår læringsprosess var å vurdere i hvilken grad KI-verktøyene overholdt etablerte standarder og beste praksis i programvareutvikling.
 
 - **Følger KI alltid beste praksis og industristandarder?**
-  Nei, ikke alltid. KI-modeller er trent på enorme mengder kode fra internett, som inkluderer både gode og dårlige eksempler. Vi fant at KI generelt var god på å følge moderne standarder for populære teknologier som React og TypeScript, men den kunne feile på mer nyanserte områder. For eksempel kunne den foreslå løsninger som ikke fullt ut fulgte prinsippene for tilgjengelighet (accessibility, a11y) eller som tok snarveier som kompromitterte sikkerheten.
-
+  Nei, ikke alltid. KI-modeller er trent på enorme mengder kode fra internett, som inkluderer både gode og dårlige eksempler. 
 - **Eksempler på hvor KI foreslo utdaterte eller dårlige løsninger:**
-  - **Utdaterte biblioteker:** Som nevnt tidligere, foreslo KI i ett tilfelle å bruke et utdatert JavaScript-bibliotek. Dette indikerer at modellens kunnskap kan ha et "cutoff-punkt" og ikke alltid er oppdatert med de nyeste trendene i et raskt utviklende økosystem.
-  - **Ignorering av sikkerhetspraksis:** I et tidlig utkast til en API-rute for håndtering av brukerdata, la ikke KI automatisk til tilstrekkelig validering og "sanitizing" av input-data, noe som kunne ha åpnet for sikkerhetshull som f.eks. XSS-angrep.
-  - **Ineffektive databasekall:** Da vi jobbet med Prisma, foreslo KI en løsning som ville ha ført til et "N+1"-problem, der ett databasekall resulterte i N påfølgende kall i en løkke. Dette er en klassisk ytelsesfelle som en erfaren utvikler ville unngått.
+  - **Utdaterte biblioteker:** Gemini ville ved ett tilfelle bruke et utdatert JavaScript-bibliotek. KIen er ikke alltid oppdatert.
+  - **Ignorering av sikkerhetspraksis:** I et tidlig utkast til en API-rute for håndtering av brukerdata, la ikke KI automatisk til tilstrekkelig validering og "sanitizing" av input-data, noe som kunne ha åpnet for sikkerhetshull.
 
 - **Viktigheten av å validere KI sine forslag:**
-  Disse erfaringene understreket en av våre viktigste konklusjoner: En utvikler kan ikke blindt stole på KI. Kunnskap om beste praksis, sikkerhet og ytelse er avgjørende for å kunne vurdere, korrigere og forbedre forslagene fra KI. Utviklerens rolle blir i økende grad å være en "kvalitetssikrer" og "arkitekt" som veileder KI-verktøyet, snarere enn en ren kodeprodusent. Uten denne valideringen risikerer man å introdusere sårbarheter, ytelsesproblemer og teknisk gjeld i prosjektet.
+En utvikler kan ikke blindt stole på KI. Utviklerens rolle blir i økende grad å være en kvalitetssikrer som veileder KI-verktøyet. Uten denne valideringen risikerer man å få feil, sikkerhetshull og problemer med vedlikehold.
 
 ### 6.3 Fremtidig utvikling
-Vår erfaring med KI i dette prosjektet gir et innblikk i en fremtid der utviklingsprosessen vil være markant annerledes.
 
 - **Hvordan tror dere KI vil påvirke programvareutvikling fremover?**
-  Vi tror KI vil fortsette å demokratisere programvareutvikling ved å senke terskelen for å starte. KI vil sannsynligvis ta over mer av de repetitive og standardiserte kodings oppgavene, frigjøre utviklere til å fokusere på mer komplekse problemer, arkitektur, design og innovasjon. "Low-code/no-code"-plattformer vil bli forsterket av KI, og "AI-first"-utviklingsmetoder, der man starter med å prompt KI fremfor å skrive kode fra bunnen av, vil bli mer utbredt. Det vil også bli en økt etterspørsel etter "AI-prompt engineering" som egen kompetanse.
+ KI vil fortsette å gjøre det enklere å bli kjent med programmering. KI vil samtidig ta over det som før var inngangsjobbene til nye uttviklere - automatisbare, repetitive oppgaver. Utviklere vil få krav til prompt engineering-kompetanse.
 
 - **Hvilke ferdigheter blir viktigere for utviklere?**
-  Ferdigheter som kritisk tenkning, problemløsning, arkitekturdesign og evnen til å stille de "riktige" spørsmålene til KI (prompt engineering) vil bli enda viktigere. Forståelse for systemdesign, sikkerhet, ytelse, og evnen til å "debugge" ikke bare kode, men også KI-genererte løsninger, vil være sentralt. Mellommenneskelige ferdigheter, som kommunikasjon og samarbeid, vil også være essensielt, da utviklere i større grad vil fungere som fasilitatorer mellom forretningsbehov og KI-genererte løsninger. En dyp forståelse for domenet man utvikler for vil også være avgjørende for å kunne validere og forbedre KI-ens output.
+ Kritisk tenkning, problemløsning, arkitekturdesign og prompt engineering. God forståelse for grunnleggende programmering vil fortsatt være til god hjelp. Sosiale evner vil kanskje bli viktigere, da utvikleren vil bli et slags mellomledd mellom den som ønsker et produkt og KIen - utvikleren må da være i stand til å forstå godt hva 'sjefen' ønsker seeg. Dette er jo allerede tilfelle, men det vil nok bli mer synlig når mye av tiden til de store repetitive oppgavene lir frigjort. 
 
 - **Deres anbefalinger for hvordan man bør bruke KI i utviklingsprosesser:**
-  1.  **Vær en kritisk partner:** Behandle KI som en samarbeidspartner, ikke en autoritet. Alltid valider KI-generert kode og forslag mot beste praksis, sikkerhetsstandarder og prosjektets spesifikke krav.
-  2.  **Fokuser på læring:** Bruk KI som et læringsverktøy. Be den forklare konsepter, alternative løsninger og begrunnelser for sine valg. Dette bygger dypere forståelse over tid.
-  3.  **Iterer og raffiner:** Start med enkle prompts og forfin dem gradvis. KI fungerer best i en iterativ prosess der man gir den stadig mer spesifikke instruksjoner basert på tidligere respons.
-  4.  **Bruk KI til å frigjøre tid:** La KI håndtere repetitive oppgaver og "boilerplate"-kode. Bruk den frigjorte tiden til å fokusere på kreativ problemløsning, arkitektur og å tilegne deg nye, komplekse ferdigheter.
-  5.  **Forstå konteksten:** Jo mer kontekst du gir KI om prosjektet, teknologiene som brukes, og målsetningene, jo bedre og mer relevante forslag vil den kunne gi. Dette inkluderer å mate den med relevant kodebase og dokumentasjon.
+  1.  **Vær en kritisk partner:** Behandle KI som en samarbeidspartner, ikke en autoritet. 
+  2.  **Fokuser på læring:** Bruk KI som et læringsverktøy. 
+  3.  **Iterer og raffiner:** Start med enkle prompts og forfin dem gradvis. 
+  4.  **Bruk KI til å frigjøre tid:** La KI håndtere repetitive oppgaver og "boilerplate"-kode. 
+  5.  **Forstå konteksten:** Jo mer kontekst du gir KI om prosjektet, teknologiene som brukes, og målsetningene, jo bedre og mer relevante forslag vil den kunne gi. 
 
 ---
 
 ## 7. Konklusjon og læring
 
 ### 7.1 Viktigste lærdommer
-Gjennom prosjektet har vi gjort oss flere viktige erfaringer:
-1.  **KI er en kraftig, men krevende assistent.** Vi lærte at KI, som Gemini CLI, kan akselerere utviklingsprosessen dramatisk ved å generere kode, feilsøke og forklare komplekse konsepter. Samtidig er KI ikke feilfri; den kan "hallusinere" eller foreslå utdatert kode. Dette understreket viktigheten av kritisk tenkning og menneskelig validering for all KI-generert kode.
-2.  **Verdien av presis kontekst og kommunikasjon.** Både i samarbeid med KI og internt i teamet, oppdaget vi at kvaliteten på resultatet var direkte proporsjonal med kvaliteten på input. Å gi KI-en tilstrekkelig og presis kontekst i promptene var avgjørende for å få nyttige svar, på samme måte som klare spesifikasjoner og god dialog var viktig for effektivt teamarbeid.
-3.  **Kontinuerlig læring og etisk refleksjon er essensielt.** Prosjektet demonstrerte at teknologilandskapet endres raskt, og at evnen til raskt å ta i bruk nye verktøy er avgjørende. Samtidig ble det tydelig at innovasjon kommer med etiske ansvar. Vi måtte proaktivt reflektere over spørsmål om ansvar, transparens og datasikkerhet, og utvikle egne retningslinjer for ansvarlig KI-bruk.
+
+1.  **KI er en kraftig, men krevende assistent.** Vi lærte at KI, som Gemini CLI, kan være uvurdelig når det kommer til å generere kode, feilsøke og forklare komplekse konsepter. Samtidig kan den "hallusinere" og være utdatert. Man må være kritisk.
+2.  **Verdien av presis kontekst og kommunikasjon.** Som i virkligheten er kvaliteten på svaret direkte relatert til kvaliteten på spørsmålet. Både mellom oss i gruppa og til KI-en, var det viktig å stille konkrete spørsmål og gi riktig kontekst.
+3.  **Kontinuerlig læring og etisk refleksjon er essensielt.** Vi så hvor fort ting kan endre seg, og spesielt sikkerhet er et hensyn som må vurderes kontinuerlig. 
 
 ### 7.2 Hva ville dere gjort annerledes?
-Med erfaringene fra dette prosjektet er det flere ting vi ville angrepet annerledes om vi skulle startet på nytt.
 
-- **Tekniske valg:** Vi er fornøyde med hovedteknologiene (Next.js, Prisma), men vi ville etablert en global state management-løsning (som Context API) mye tidligere i prosessen. I starten førte "prop drilling" til unødvendig kompleksitet som krevde refaktorering. En sentralisert datakilde fra dag én ville gjort koden renere og mer vedlikeholdbar. Vi ville også vært flinkere til å skrive tester parallelt med utviklingen, ikke som en ettertanke.
+- **Tekniske valg:** Vi er fornøyde med hovedteknologiene, men vi ville etablert en global state management-løsning (som Context API) mye tidligere i prosessen. I starten førte "prop drilling" til unødvendig kompleksitet som krevde refaktorering. En sentralisert datakilde fra dag én ville gjort koden renere og mer vedlikeholdbar. 
 
-- **Bruk av KI:** Vår tilnærming til KI modnet betraktelig gjennom prosjektet. Hadde vi startet på nytt, ville vi umiddelbart tatt i bruk de avanserte prompting-teknikkene vi lærte oss. I stedet for generiske spørsmål, ville vi fra starten av matet KI-en med spesifikk kontekst (kodesnutter, filstruktur, databasemodeller) for å få skreddersydde løsninger. Vi ville også vært strengere på å umiddelbart verifisere KI-generert kode mot offisiell dokumentasjon.
+- **Bruk av KI:** Hadde vi startet på nytt, ville vi umiddelbart vært bedre til å stille riktige spørsmål til KI. I stedet for generiske spørsmål, ville vi fra starten av matet KI-en med spesifikk kontekst for å få skreddersydde løsninger. 
 
-- **Samarbeid og organisering:** Selv om vi ønsket en flat og tett samarbeidsstruktur, lærte vi at dette også krever rammer. Vi ville innført en tydelig "Driver/Navigator"-modell og en strengere Git-workflow (feature-branches per kodeøkt) fra prosjektets start. Dette ville minimert antall merge-konflikter og gjort samarbeidet mer effektivt. "Timeboxing" av diskusjoner i møter er også noe vi ville implementert tidligere for å sikre fremdrift.
+- **Samarbeid og organisering:** Selv om vi ønsket en flat og tett samarbeidsstruktur, lærte vi at dette også krever rammer. Vi ville innført en tydelig "Driver/Navigator"-modell og en strengere Git-workflow (feature-branches per kodeøkt) fra prosjektets start. Dette ville minimert antall merge-konflikter og gjort samarbeidet mer effektivt. 
 
 ### 7.3 Anbefalinger
-Basert på våre erfaringer har vi følgende anbefalinger til andre studenter som skal bruke KI i utviklingsprosjekter:
 
 - **Råd om effektiv bruk av KI:**
   - **Vær en krevende, men presis, samtalepartner.** Ikke still vage spørsmål. Gi KI-en all relevant kontekst: feilmeldingen, koden der feilen oppstår, og hva du allerede har prøvd.
-  - **Bruk KI som en læringsakselerator.** Når du får et svar, ikke bare kopier det. Spør KI-en *hvorfor* løsningen fungerer, hva alternativene er, og hva som er fordelene og ulempene. Bruk den som en utrettelig personlig veileder.
+  - **Bruk KI som en læringsakselerator.** Spør KIen om det du lurer på, vær nysgjerrig!
 
 - **Fallgruver å unngå:**
-  - **Blind tillit.** Den største faren er å anta at KI-generert kode er korrekt, optimal eller sikker. Verifiser alltid mot offisiell dokumentasjon og test grundig.
+  - **Blind tillit.** Den største faren er å anta at KI-generert kode er korrekt, optimal eller sikker. Verifiser mot andre kilder.
   - **Kontekstløs prompting.** Ikke forvent at KI-en kan lese tankene dine. Uten kontekst vil du få generiske svar som er lite nyttige.
-  - **Dele sensitiv informasjon.** Aldri lim inn API-nøkler, passord eller personopplysninger i en offentlig KI-tjeneste. Gjør det til en vane å sanitisere all input.
+  - **Dele sensitiv informasjon.** Aldri lim inn API-nøkler, passord eller personopplysninger i en offentlig KI-tjeneste.
 
 - **Beste praksis dere oppdaget:**
   1.  **"Context is King":** Invester tid i å lage en god prompt. Jo mer relevant kontekst du gir, jo bedre blir resultatet.
-  2.  **Bruk KI iterativt:** Start bredt og snevre inn. Still oppfølgingsspørsmål. Be KI-en refaktorere eller forklare sin egen kode. Bruk den som en sparringspartner.
-  3.  **Mennesket i sentrum:** Bruk KI som et verktøy for å forsterke din egen intelligens, ikke for å erstatte den. Det endelige ansvaret for koden og løsningen ligger alltid hos deg. Forstå, ikke bare kopier.
+  2.  **Bruk KI iterativt:** Start bredt og snevre inn. Still oppfølgingsspørsmål. Be KI-en refaktorere eller forklare sin egen kode. Snakk med den.
+  3.  **Mennesket i sentrum:** Bruk KI som et verktøy for å forsterke din egen intelligens, ikke for å erstatte den. Forstå!
 
 ### 7.4 Personlig refleksjon (individuelt)
 
@@ -339,7 +324,7 @@ Gjennom arbeidet med Things+ har jeg lært mye, selv om jeg startet med begrense
 Jeg har spesielt fått bedre forståelse for hvordan vi samarbeider i en felles kodebase, og hvordan verktøy som VS Code og GitHub brukes for å jobbe strukturert og unngå konflikter. I tillegg har jeg sett hvor viktig det er med tydelige krav, oppdeling i mindre oppgaver og en ryddig arbeidsflyt i team.
 Jeg har også utviklet meg i måten jeg bruker KI på. Jeg har lært å bruke KI til å forklare konsepter, foreslå løsninger og hjelpe med feilsøking, men også at svarene må vurderes kritisk og sjekkes mot dokumentasjon og praksis. Samlet sett har prosessen gjort meg tryggere på både arbeidsmetoden og grunnprinsippene bak utvikling, og jeg har fått et mye bedre fundament å bygge videre på.
 
-**138**: Jeg må innrømme at jeg ennå ikke er helt komfortabel med å programmere meg KI. Hovedsakelig tror jeg dette skyldes et dårlig programmeringsteknisk grunnlag. Gjennom prosjektet har jeg blitt mer komfortabel med å bruke verktøyene GitHub, VS Code, Gemini og Terminal. Problemet tror jeg består i at jeg ikke har kompetansen til å forstå alt som gjøres eller etterprøve det. Samtidig har jeg gjennom faget forstått betraktelig mer enn jeg gjorde før, og jeg ville nok blitt komfortabel om jeg hadde et halvt år til å bruke til å sette meg inn i dette. Det største læringsmomentet dette halvåret har vært å forstå hvor kraftig KI er som verktøy i programmering, og hvor effektivt man kan arbeide om man forstår programmering godt fra før. Selv kunne jeg nok aldri arbeidet med dette, men jeg er glad for erfaringen.
+**138**: Jeg må innrømme at jeg ennå ikke er helt komfortabel med å programmere meg KI. Hovedsakelig tror jeg dette skyldes et dårlig programmeringsteknisk grunnlag. Gjennom prosjektet har jeg blitt mer komfortabel med å bruke verktøyene GitHub, VS Code, Gemini og Terminal. Problemet tror jeg består i at jeg ikke har kompetansen til å forstå alt som gjøres eller etterprøve det. Samtidig har jeg gjennom faget forstått betraktelig mer enn jeg gjorde før, og jeg ville nok blitt komfortabel om jeg hadde et halvt år til å bruke til å sette meg inn i dette. Det største læringsmomentet dette halvåret har vært å forstå hvor kraftig KI er som verktøy i programmering, og hvor effektivt man kan arbeide om man forstår programmering godt fra før. Jeg har lært mye om hvordan KI fungerer, og hva man må tenke på når man snakker med den - såkalt prompt engineering. Det verktøyet kommer jeg nok til å bruke ganske mye. Selv kunne jeg nok aldri arbeidet med programmering, men jeg er glad for erfaringen.
 
 **28:**
 Jeg må innrømme at jeg var ganske negativ til faget i starten. Jeg tenkte at det var unødvendig komplisert og for teknisk. Hvordan skal dette faget hjelpe meg å bli en bedre logistiker?
